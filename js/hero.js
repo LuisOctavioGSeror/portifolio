@@ -61,10 +61,10 @@ const geometry = new THREE.BufferGeometry();
 geometry.setAttribute("position", new THREE.BufferAttribute(positions,3));
 
 const material = new THREE.PointsMaterial({
-color:0x38bdf8,
+color:0xffffff,
 size:1.5,
 transparent:true,
-opacity:0.9
+opacity:0.8
 });
 
 const points = new THREE.Points(geometry,material);
@@ -73,9 +73,9 @@ scene.add(points);
 /* LINES */
 
 const lineMaterial = new THREE.LineBasicMaterial({
-color:0x38bdf8,
+color:0xffffff,
 transparent:true,
-opacity:0.25
+opacity:0.2
 });
 
 const linePositions = [];
