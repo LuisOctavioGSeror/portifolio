@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Architecture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">
+          <span>&lt;/&gt;</span> Luis&nbsp;Seror
+        </a>
+        <button class="nav-toggle" aria-label="Alternar navegação">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="navbar">
+          <ul>
+            <li><a href="problems.html">Problems I solve</a></li>
+            <li><a href="solutions.html">Solutions I build</a></li>
+            <li><a href="projects.html">Case studies</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="section-wrapper">
+        <div class="container">
+          <header class="section-header">
+            <p class="section-kicker">Architecture</p>
+            <h1 class="section-title">How I think about systems.</h1>
+            <p class="section-description">
+              Core principles I use when designing backend and AI.
+            </p>
+          </header>
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="timeline-bullet"></div>
+              <h2 class="timeline-title">Start from the domain, not the stack.</h2>
+              <p class="timeline-text">
+                Understand the domain and flows first; choose tools after.
+              </p>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-bullet"></div>
+              <h2 class="timeline-title">
+                Clear boundaries between services and modules.
+              </h2>
+              <p class="timeline-text">
+                Make it obvious who calls whom and what crosses boundaries.
+              </p>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-bullet"></div>
+              <h2 class="timeline-title">
+                Observability built‑in, not bolted‑on.
+              </h2>
+              <p class="timeline-text">
+                Design logs, metrics and traces up front, not later.
+              </p>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-bullet"></div>
+              <h2 class="timeline-title">
+                AI as a component, not magic.
+              </h2>
+              <p class="timeline-text">
+                Treat LLMs as one component with orchestration, validation and
+                fallbacks.
+              </p>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-bullet"></div>
+              <h2 class="timeline-title">
+                Incremental evolution for live systems.
+              </h2>
+              <p class="timeline-text">
+                Change production systems in small, safe steps, not big bangs.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-content">
+        <div>
+          <h2 class="footer-title">Want to talk architecture?</h2>
+          <p class="footer-text">
+            Tell me briefly about your team, product and current pains.
+          </p>
+          <p class="footer-meta">Then we choose the few patterns that matter.</p>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <div class="form-field">
+            <label class="form-label" for="name">
+              Name
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">
+              Email
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="context">
+              Current technical context
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="context"
+              name="context"
+              required
+              placeholder="Ex: monolith, microservices, mix, main stack…"
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="message">
+              Message
+              <span>Optional</span>
+            </label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              name="message"
+            ></textarea>
+          </div>
+          <div class="form-field full">
+            <div class="form-footer">
+              <button type="submit" class="btn-primary">Create contact draft</button>
+              <div id="form-status" class="form-status"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="footer-bottom">
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Luis Seror. Backend &amp; AI focused portfolio.
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+

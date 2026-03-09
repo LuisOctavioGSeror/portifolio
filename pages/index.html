@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Overview – Backend &amp; AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="../index.html" class="logo">
+          <span>&lt;/&gt;</span> Luis&nbsp;Seror
+        </a>
+        <button class="nav-toggle" aria-label="Alternar navegação">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="navbar">
+          <ul>
+            <li><a href="problems.html">Problems I solve</a></li>
+            <li><a href="solutions.html">Solutions I build</a></li>
+            <li><a href="projects.html">Case studies</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="hero-section">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Backend &amp; AI freelancer
+            </div>
+            <h1 class="hero-title">
+              I design
+              <span class="hero-highlight">backend &amp; AI systems</span>
+              that are simple to operate.
+            </h1>
+            <p class="hero-subtitle">
+              Reliable APIs, data flows and AI that support real products.
+            </p>
+            <div class="hero-meta">
+              <span>
+                <span class="hero-meta-dot"></span>
+                Backend • Data • AI
+              </span>
+            </div>
+            <div class="hero-actions">
+              <a class="btn-primary" href="problems.html">
+                See problems I solve
+              </a>
+              <a class="btn-ghost" href="projects.html">
+                See selected case studies
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-card">
+            <div class="hero-card-header">
+              <span>Quick map</span>
+              <span class="hero-card-tag">How to read this</span>
+            </div>
+            <div class="hero-card-body">
+              This portfolio has five fast sections:
+              <div class="hero-card-list">
+                <div class="hero-card-item">
+                  <span class="hero-card-bullet"></span>
+                  <div>
+                    <strong>Problems I solve</strong><br />
+                    When teams bring me in.
+                  </div>
+                </div>
+                <div class="hero-card-item">
+                  <span class="hero-card-bullet"></span>
+                  <div>
+                    <strong>Solutions I build</strong><br />
+                    The systems I usually design.
+                  </div>
+                </div>
+                <div class="hero-card-item">
+                  <span class="hero-card-bullet"></span>
+                  <div>
+                    <strong>Case studies</strong><br />
+                    Real projects, very short.
+                  </div>
+                </div>
+                <div class="hero-card-item">
+                  <span class="hero-card-bullet"></span>
+                  <div>
+                    <strong>Architecture</strong><br />
+                    How I structure services and data.
+                  </div>
+                </div>
+              </div>
+              <div class="hero-pill" style="margin-top: 1.1rem">
+                <span class="hero-pill-badge">AI</span>
+                <span>Comfortable from code to architecture trade‑offs.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-content">
+        <div>
+          <h2 class="footer-title">Have a backend or AI challenge?</h2>
+          <p class="footer-text">
+            Send two or three lines about your product and main bottleneck.
+          </p>
+          <p class="footer-meta">You review and send the draft yourself.</p>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <div class="form-field">
+            <label class="form-label" for="name">
+              Name
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">
+              Email
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="context">
+              Quick context
+              <span>Optional</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="context"
+              name="context"
+              placeholder="Ex: small team, live product, current bottlenecks…"
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="message">
+              Message
+              <span>Required</span>
+            </label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              name="message"
+              required
+            ></textarea>
+          </div>
+          <div class="form-field full">
+            <div class="form-footer">
+              <button type="submit" class="btn-primary">Create contact draft</button>
+              <div id="form-status" class="form-status"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="footer-bottom">
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Luis Seror. Backend &amp; AI focused portfolio.
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+

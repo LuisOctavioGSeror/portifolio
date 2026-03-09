@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Problems I solve</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">
+          <span>&lt;/&gt;</span> Luis&nbsp;Seror
+        </a>
+        <button class="nav-toggle" aria-label="Alternar navegação">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="navbar">
+          <ul>
+            <li><a href="problems.html">Problems I solve</a></li>
+            <li><a href="solutions.html">Solutions I build</a></li>
+            <li><a href="projects.html">Case studies</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="section-wrapper">
+        <div class="container">
+          <header class="section-header">
+            <p class="section-kicker">Problems I solve</p>
+            <h1 class="section-title">Where I usually help.</h1>
+            <p class="section-description">
+              Typical backend, data and AI issues I’m hired to fix.
+            </p>
+          </header>
+
+          <div class="section-grid">
+            <article class="card">
+              <div class="card-label">
+                <span>Scalability</span>
+              </div>
+              <h2 class="card-title">APIs and services that don’t scale.</h2>
+              <p class="card-text">Slow endpoints, full queues, overloaded DB.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-label">
+                <span>Fragile integrations</span>
+              </div>
+              <h2 class="card-title">Fragile third‑party integrations.</h2>
+              <p class="card-text">Unreliable calls to payments, CRMs or AI APIs.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-label">
+                <span>Scattered data</span>
+              </div>
+              <h2 class="card-title">Scattered and inconsistent data.</h2>
+              <p class="card-text">No single source of truth for key metrics.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-label">
+                <span>Messy architecture</span>
+              </div>
+              <h2 class="card-title">Messy, risky architecture.</h2>
+              <p class="card-text">Changes feel dangerous and unpredictable.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-label">
+                <span>Automation &amp; AI</span>
+              </div>
+              <h2 class="card-title">Manual work that AI could handle.</h2>
+              <p class="card-text">Repetitive tasks but no safe AI flow yet.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-label">
+                <span>Slow delivery</span>
+              </div>
+              <h2 class="card-title">Slow delivery.</h2>
+              <p class="card-text">Strong team, but old decisions block speed.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-content">
+        <div>
+          <h2 class="footer-title">Recognise one of these?</h2>
+          <p class="footer-text">Write two or three lines about your context.</p>
+          <p class="footer-meta">Details help more than a long tech stack list.</p>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <div class="form-field">
+            <label class="form-label" for="name">
+              Name
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">
+              Email
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="context">
+              Quick context
+              <span>Optional</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="context"
+              name="context"
+              placeholder="Ex: unstable API, fragile integrations, scattered data…"
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="message">
+              Message
+              <span>Required</span>
+            </label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              name="message"
+              required
+            ></textarea>
+          </div>
+          <div class="form-field full">
+            <div class="form-footer">
+              <button type="submit" class="btn-primary">Create contact draft</button>
+              <div id="form-status" class="form-status"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="footer-bottom">
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Luis Seror. Backend &amp; AI focused portfolio.
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Case studies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">
+          <span>&lt;/&gt;</span> Luis&nbsp;Seror
+        </a>
+        <button class="nav-toggle" aria-label="Alternar navegação">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="navbar">
+          <ul>
+            <li><a href="problems.html">Problems I solve</a></li>
+            <li><a href="solutions.html">Solutions I build</a></li>
+            <li><a href="projects.html">Case studies</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="section-wrapper">
+        <div class="container">
+          <header class="section-header">
+            <p class="section-kicker">Case studies</p>
+            <h1 class="section-title">A few quick stories.</h1>
+            <p class="section-description">
+              Very short examples of backend and AI work I’ve done.
+            </p>
+          </header>
+
+          <div class="case-grid">
+            <article class="case-card">
+              <header class="case-header">
+                <h2 class="case-name">Third‑party integrations platform</h2>
+                <span class="case-tag">Backend &amp; integrations</span>
+              </header>
+              <p class="case-body">
+                Built an integration layer for CRMs, payments and legacy
+                systems, cutting incidents and speeding up new partners.
+              </p>
+              <div class="case-meta">
+                <span>Resilience and visibility first</span>
+                <span>Clear contracts between domains</span>
+              </div>
+            </article>
+
+            <article class="case-card">
+              <header class="case-header">
+                <h2 class="case-name">Internal AI assistant for support</h2>
+                <span class="case-tag">Applied AI</span>
+              </header>
+              <p class="case-body">
+                Created an internal AI assistant over company APIs, reducing
+                repetitive support work while keeping humans in control.
+              </p>
+              <div class="case-meta">
+                <span>LLMs integrated into backend</span>
+                <span>Human‑in‑the‑loop flow</span>
+              </div>
+            </article>
+
+            <article class="case-card">
+              <header class="case-header">
+                <h2 class="case-name">
+                  Reorganising a monolith into clear modules
+                </h2>
+                <span class="case-tag">Architecture</span>
+              </header>
+              <p class="case-body">
+                Split a production monolith into clearer modules, adding tests
+                and a gradual migration plan to reduce regressions.
+              </p>
+              <div class="case-meta">
+                <span>Clearer domains</span>
+                <span>Risk‑driven migration</span>
+              </div>
+            </article>
+
+            <article class="case-card">
+              <header class="case-header">
+                <h2 class="case-name">Ops tool for internal team</h2>
+                <span class="case-tag">Dev tooling</span>
+              </header>
+              <p class="case-body">
+                Built an ops tool with authentication and audit trails so
+                repetitive routines became safer and faster.
+              </p>
+              <div class="case-meta">
+                <span>Well‑designed internal tools</span>
+                <span>Less friction on critical routines</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+      <div class="container footer-content">
+        <div>
+          <h2 class="footer-title">Want a deeper case?</h2>
+          <p class="footer-text">
+            Ask for more detail about any of these or a similar project.
+          </p>
+          <p class="footer-meta">I can send a deeper write‑up if useful.</p>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <div class="form-field">
+            <label class="form-label" for="name">
+              Name
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">
+              Email
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="context">
+              Project type you’d like to see
+              <span>Required</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="context"
+              name="context"
+              required
+              placeholder="Ex: third‑party integrations, AI platform…"
+            />
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="message">
+              Message
+              <span>Optional</span>
+            </label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              name="message"
+            ></textarea>
+          </div>
+          <div class="form-field full">
+            <div class="form-footer">
+              <button type="submit" class="btn-primary">Create contact draft</button>
+              <div id="form-status" class="form-status"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="footer-bottom">
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Luis Seror. Backend &amp; AI focused portfolio.
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+
