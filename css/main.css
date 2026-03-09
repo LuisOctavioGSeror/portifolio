@@ -374,6 +374,12 @@ img {
   gap: 1.75rem;
 }
 
+.projects-grid {
+  max-width: 520px;
+  margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .card {
   border-radius: 1.25rem;
   padding: 1.4rem 1.5rem;
