@@ -46,14 +46,15 @@
     .btn{
     padding:14px 32px;
     border-radius:30px;
-    background:white;
-    color:black;
+    background:linear-gradient(135deg,#38bdf8,#a855f7);
+    color:#0b1020;
     text-decoration:none;
     font-weight:600;
-    transition:all .3s;
+    border:none;
+    transition:all .25s;
     }
     
     .btn:hover{
     transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(255,255,255,0.2);
+    box-shadow:0 12px 32px rgba(56,189,248,0.45);
     }
