@@ -18,12 +18,23 @@ navLinks.forEach((link) => {
   });
 });
 
-// Contact form handling (same footer reused across pages)
+// Contact form handling (same footer reused across pages) — submit to Formspree
 const contactForm = document.querySelector("#contact-form");
 const statusEl = document.querySelector("#form-status");
+const FORMSPREE_URL = "https://formspree.io/f/meerankb";
+
+function setStatus(text, isError) {
+  if (statusEl) {
+    statusEl.textContent = text;
+    statusEl.classList.remove(isError ? "success" : "error");
+    statusEl.classList.add(isError ? "error" : "success");
+  } else {
+    alert(text);
+  }
+}
 
 if (contactForm) {
-  contactForm.addEventListener("submit", (event) => {
+  contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(contactForm);
@@ -32,25 +43,29 @@ if (contactForm) {
     const message = (formData.get("message") || "").toString().trim();
 
     if (!name || !email || !message) {
-      if (statusEl) {
-        statusEl.textContent = "Please fill in all required fields.";
-        statusEl.classList.remove("success");
-        statusEl.classList.add("error");
-      } else {
-        alert("Please fill in all required fields.");
-      }
+      setStatus("Please fill in all required fields.", true);
       return;
     }
 
-    if (statusEl) {
-      statusEl.textContent = "Draft ready. Copy and send from your email.";
-      statusEl.classList.remove("error");
-      statusEl.classList.add("success");
-    } else {
-      alert("Draft ready. Copy and send from your email.");
-    }
+    setStatus("Sending…", false);
 
-    contactForm.reset();
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        setStatus("Message sent. I'll get back to you soon.", false);
+        contactForm.reset();
+      } else {
+        setStatus(data.error || "Something went wrong. Please try again.", true);
+      }
+    } catch (_) {
+      setStatus("Network error. Please try again.", true);
+    }
   });
 }
 
