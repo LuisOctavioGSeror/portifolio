@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Projects</title>
+    <title>MyTicketFlow – Projects</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav-container">
-        <a href="index.html" class="logo">
+        <a href="../index.html" class="logo">
           <span>&lt;/&gt;</span> Luis&nbsp;Seror
         </a>
         <button class="nav-toggle" aria-label="Toggle navigation">
@@ -21,10 +21,10 @@
         </button>
         <nav class="navbar">
           <ul>
-            <li><a href="solutions.html">Solutions I build</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about_me.html">About me</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="../solutions.html">Solutions I build</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../about_me.html">About me</a></li>
+            <li><a href="../contact.html">Contact</a></li>
           </ul>
         </nav>
       </div>
@@ -34,35 +34,49 @@
       <section class="section-wrapper">
         <div class="container">
           <header class="section-header">
-            <p class="section-kicker">Projects</p>
+            <p class="section-kicker">Project</p>
+            <h1 class="section-title">MyTicketFlow</h1>
+            <p class="section-description">
+              Ticket management system with MCP and LLM integration for automated
+              triage and assisted resolution.
+            </p>
           </header>
 
-          <div class="section-grid projects-grid">
+          <div class="section-grid">
             <article class="card">
               <div class="card-label">
-                <span>MyTicketFlow</span>
+                <span>Overview</span>
               </div>
-              <h2 class="card-title">
-                Ticket management system with MCP + LLM.
-              </h2>
+              <h2 class="card-title">Backend and AI in one stack.</h2>
               <p class="card-text">
-                Backend in FastAPI (Python) with PostgreSQL for persistence,
-                integrated with MCP and language models to automate and assist
-                ticket triage and resolution. Frontend built in React.
+                MyTicketFlow is a full‑stack ticket management system. The
+                backend is built in FastAPI (Python) with PostgreSQL for
+                persistence. It integrates with MCP (Model Context Protocol) and
+                language models to automate and assist ticket triage and
+                resolution. The frontend is built in React.
               </p>
               <p class="card-meta">
                 FastAPI • Python • PostgreSQL • React • MCP • LLM
               </p>
-              <div class="project-actions">
-                <a href="projects/myticketflow.html" class="btn-primary">Learn more</a>
+            </article>
+
+            <article class="card">
+              <div class="card-label">
+                <span>Live demo</span>
+              </div>
+              <p class="card-text">
+                You can try the application live on Railway.
+              </p>
+              <div class="project-actions" style="margin-top: 1rem;">
                 <a
                   href="https://frontend-production-ef14.up.railway.app"
-                  class="btn-ghost"
+                  class="btn-primary"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   See it live
                 </a>
+                <a href="../contact.html" class="btn-ghost">Get in touch</a>
               </div>
             </article>
           </div>
@@ -75,7 +89,7 @@
         <div>
           <h2 class="footer-title">Want to talk about a project?</h2>
           <p class="footer-text">
-            Use the form to point me to a specific project or idea you’d like to
+            Use the form to point me to a specific project or idea you'd like to
             discuss.
           </p>
           <p class="footer-meta">You can keep details short and high‑level.</p>
@@ -111,7 +125,7 @@
           </div>
           <div class="form-field full">
             <label class="form-label" for="context">
-              Project type you’d like to see
+              Project type you'd like to see
               <span>Required</span>
             </label>
             <input
@@ -151,7 +165,6 @@
       </div>
     </footer>
 
-    <script src="../js/main.js"></script>
+    <script src="../../js/main.js"></script>
   </body>
 </html>
-
