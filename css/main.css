@@ -435,6 +435,52 @@ img {
   color: #9ca3af;
 }
 
+/* Project page: sections with images */
+.project-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.project-section-title {
+  font-size: 1.25rem;
+  color: #f9fafb;
+  margin: 0 0 0.75rem;
+}
+
+.project-section-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #e5e7eb;
+  margin: 0 0 1rem;
+  max-width: 60ch;
+}
+
+.project-section-text:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.project-figure {
+  margin: 0 0 2rem;
+}
+
+.project-figure:last-child {
+  margin-bottom: 0;
+}
+
+.project-image {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: #0a0c10;
+}
+
+.project-figcaption {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-top: 0.5rem;
+}
+
 .pill-row {
   display: flex;
   flex-wrap: wrap;

@@ -50,10 +50,8 @@
               <h2 class="card-title">Backend and AI in one stack.</h2>
               <p class="card-text">
                 MyTicketFlow is a full‑stack ticket management system. The
-                backend is built in FastAPI (Python) with PostgreSQL for
-                persistence. It integrates with MCP (Model Context Protocol) and
-                language models to automate and assist ticket triage and
-                resolution. The frontend is built in React.
+                backend is FastAPI (Python) with PostgreSQL; the frontend is
+                React. MCP and LLMs are used for triage and assisted resolution.
               </p>
               <p class="card-meta">
                 FastAPI • Python • PostgreSQL • React • MCP • LLM
@@ -80,6 +78,58 @@
               </div>
             </article>
           </div>
+
+          <!-- Application screenshots -->
+          <section class="project-section">
+            <h2 class="project-section-title">The application</h2>
+            <p class="project-section-text">
+              The React UI lets users manage tickets, view status and use
+              AI-assisted actions. Below you can add screenshots of the main
+              screens.
+            </p>
+            <figure class="project-figure">
+              <img
+                src="images/app-1.png"
+                alt="MyTicketFlow app screenshot — main view"
+                class="project-image"
+              />
+              <figcaption class="project-figcaption">Main view or dashboard</figcaption>
+            </figure>
+            <figure class="project-figure">
+              <img
+                src="images/app-2.png"
+                alt="MyTicketFlow app screenshot — ticket or detail view"
+                class="project-image"
+              />
+              <figcaption class="project-figcaption">Ticket list or detail</figcaption>
+            </figure>
+          </section>
+
+          <!-- Backend overview + diagram -->
+          <section class="project-section">
+            <h2 class="project-section-title">Backend</h2>
+            <p class="project-section-text">
+              The API is layered: routers handle HTTP, controllers call services,
+              and services contain the business logic. Persistence is in
+              PostgreSQL via models; request and response shapes are validated
+              with Pydantic schemas.
+            </p>
+            <p class="project-section-text">
+              AI lives in <strong>infrastructure</strong>: the <strong>llm</strong>
+              module talks to language models; <strong>mcp</strong> implements
+              Model Context Protocol. Config and shared setup are in
+              <strong>core</strong>; <strong>utils</strong> for helpers. The repo
+              uses Docker and docker-compose for PostgreSQL and local runs.
+            </p>
+            <figure class="project-figure">
+              <img
+                src="images/backend-diagram.png"
+                alt="MyTicketFlow backend architecture diagram"
+                class="project-image"
+              />
+              <figcaption class="project-figcaption">Backend structure (app folder and main entry)</figcaption>
+            </figure>
+          </section>
         </div>
       </section>
     </main>
