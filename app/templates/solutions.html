@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Solutions I build{% endblock %}
+
+{% block content %}
+<section class="section-wrapper">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-kicker">Solutions I build</p>
+      <h1 class="section-title">What I like to ship.</h1>
+      <p class="section-description">
+        The backend and AI work I deliver most often.
+      </p>
+    </header>
+
+    <div class="section-grid">
+      <article class="card">
+        <div class="card-label"><span>APIs &amp; platforms</span></div>
+        <h2 class="card-title">Backends and APIs designed to last.</h2>
+        <p class="card-text">
+          HTTP/REST (sometimes GraphQL/gRPC) with clear contracts and monitoring.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Authentication &amp; authorization</span>
+          <span class="pill">Rate limiting</span>
+          <span class="pill">Feature flags</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>Robust integrations</span></div>
+        <h2 class="card-title">Integration layers with third‑party services.</h2>
+        <p class="card-text">
+          Adapters and services that hide complexity from payments, CRMs, AI and legacy.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Webhooks</span>
+          <span class="pill">Event queue</span>
+          <span class="pill">Resilience</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>Event‑driven systems</span></div>
+        <h2 class="card-title">Systems where events tell the story of the business.</h2>
+        <p class="card-text">
+          Lightweight event flows for auditability, analytics and automation.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Domain events</span>
+          <span class="pill">Event sourcing light</span>
+          <span class="pill">Data pipelines</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>AI‑powered products</span></div>
+        <h2 class="card-title">Flows that safely use language models.</h2>
+        <p class="card-text">
+          LLMs plugged into products with orchestration, validation and monitoring.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Prompt engineering</span>
+          <span class="pill">Guardrails</span>
+          <span class="pill">AI observability</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>Internal tools</span></div>
+        <h2 class="card-title">Dashboards and tools for internal teams.</h2>
+        <p class="card-text">
+          Ops and support tools that remove day‑to‑day friction.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Dashboards</span>
+          <span class="pill">Safe scripts</span>
+          <span class="pill">Team quality of life</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>Guided refactors</span></div>
+        <h2 class="card-title">Incremental refactors in live systems.</h2>
+        <p class="card-text">
+          Migration plans that respect what's already in production.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Strangler pattern</span>
+          <span class="pill">Feature toggles</span>
+          <span class="pill">Regression tests</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}

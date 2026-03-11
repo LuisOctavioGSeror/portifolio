@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}MyTicketFlow – Projects{% endblock %}
+
+{% block content %}
+<section class="section-wrapper">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-kicker">Project</p>
+      <h1 class="section-title">MyTicketFlow</h1>
+      <p class="section-description">
+        Ticket management system with MCP and LLM integration for automated
+        triage and assisted resolution.
+      </p>
+    </header>
+
+    <div class="section-grid">
+      <article class="card">
+        <div class="card-label"><span>Overview</span></div>
+        <h2 class="card-title">Backend and AI in one stack.</h2>
+        <p class="card-text">
+          MyTicketFlow is a full‑stack ticket management system. The
+          backend is FastAPI (Python) with PostgreSQL; the frontend is
+          React. MCP and LLMs are used for triage and assisted resolution.
+        </p>
+        <p class="card-meta">
+          FastAPI • Python • PostgreSQL • React • MCP • LLM
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>Live demo</span></div>
+        <p class="card-text">
+          You can try the application live on Railway.
+        </p>
+        <div class="project-actions" style="margin-top: 1rem;">
+          <a
+            href="https://frontend-production-ef14.up.railway.app"
+            class="btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            See it live
+          </a>
+          <a href="{{ url_for('contact') }}" class="btn-ghost">Get in touch</a>
+        </div>
+      </article>
+    </div>
+
+    <section class="project-section">
+      <h2 class="project-section-title">The application</h2>
+      <p class="project-section-text">
+        The React UI lets users manage tickets, view status and use
+        AI-assisted actions. Below you can add screenshots of the main
+        screens.
+      </p>
+      <figure class="project-figure">
+        <img
+          src="{{ url_for('static', filename='img/projects/myticketflow/app-1.png') }}"
+          alt="MyTicketFlow app screenshot — main view"
+          class="project-image"
+        />
+        <figcaption class="project-figcaption">Main view or dashboard</figcaption>
+      </figure>
+      <figure class="project-figure">
+        <img
+          src="{{ url_for('static', filename='img/projects/myticketflow/app-2.png') }}"
+          alt="MyTicketFlow app screenshot — ticket or detail view"
+          class="project-image"
+        />
+        <figcaption class="project-figcaption">Ticket list or detail</figcaption>
+      </figure>
+    </section>
+
+    <section class="project-section">
+      <h2 class="project-section-title">Backend</h2>
+      <p class="project-section-text">
+        The API is layered: routers handle HTTP, controllers call services,
+        and services contain the business logic. Persistence is in
+        PostgreSQL via models; request and response shapes are validated
+        with Pydantic schemas.
+      </p>
+      <p class="project-section-text">
+        AI lives in <strong>infrastructure</strong>: the <strong>llm</strong>
+        module talks to language models; <strong>mcp</strong> implements
+        Model Context Protocol. Config and shared setup are in
+        <strong>core</strong>; <strong>utils</strong> for helpers. The repo
+        uses Docker and docker-compose for PostgreSQL and local runs.
+      </p>
+      <figure class="project-figure">
+        <img
+          src="{{ url_for('static', filename='img/projects/myticketflow/backend-diagram.png') }}"
+          alt="MyTicketFlow backend architecture diagram"
+          class="project-image"
+        />
+        <figcaption class="project-figcaption">Backend structure (app folder and main entry)</figcaption>
+      </figure>
+    </section>
+  </div>
+</section>
+{% endblock %}

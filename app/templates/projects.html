@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<section class="section-wrapper">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-kicker">Projects</p>
+    </header>
+
+    <div class="section-grid projects-grid">
+      <article class="card">
+        <div class="card-label">
+          <span>MyTicketFlow</span>
+        </div>
+        <h2 class="card-title">
+          Ticket management system with MCP + LLM.
+        </h2>
+        <p class="card-text">
+          Backend in FastAPI (Python) with PostgreSQL for persistence,
+          integrated with MCP and language models to automate and assist
+          ticket triage and resolution. Frontend built in React.
+        </p>
+        <p class="card-meta">
+          FastAPI • Python • PostgreSQL • React • MCP • LLM
+        </p>
+        <div class="project-actions">
+          <a href="{{ url_for('project_myticketflow') }}" class="btn-primary">Learn more</a>
+          <a
+            href="https://frontend-production-ef14.up.railway.app"
+            class="btn-ghost"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            See it live
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}
