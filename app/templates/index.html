@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Overview – Backend &amp; AI{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Backend &amp; AI freelancer
+        </div>
+        <h1 class="hero-title">
+          I design
+          <span class="hero-highlight">backend &amp; AI systems</span>
+          that are simple to operate.
+        </h1>
+        <p class="hero-subtitle">
+          Reliable APIs, data flows and AI that support real products.
+        </p>
+        <div class="hero-meta">
+          <span>
+            <span class="hero-meta-dot"></span>
+            Backend • Data • AI
+          </span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn-primary" href="{{ url_for('projects') }}">
+            See projects
+          </a>
+          <a class="btn-ghost" href="{{ url_for('solutions') }}">
+            See solutions
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-header">
+          <span>Quick map</span>
+          <span class="hero-card-tag">How to read this</span>
+        </div>
+        <div class="hero-card-body">
+          This portfolio is split into four quick sections:
+          <div class="hero-card-list">
+            <div class="hero-card-item">
+              <span class="hero-card-bullet"></span>
+              <div>
+                <strong>Solutions</strong><br />
+                Backend and AI work I can do for you.
+              </div>
+            </div>
+            <div class="hero-card-item">
+              <span class="hero-card-bullet"></span>
+              <div>
+                <strong>Projects</strong><br />
+                MyTicketFlow and other selected work.
+              </div>
+            </div>
+            <div class="hero-card-item">
+              <span class="hero-card-bullet"></span>
+              <div>
+                <strong>About me</strong><br />
+                Who I am and how I work.
+              </div>
+            </div>
+            <div class="hero-card-item">
+              <span class="hero-card-bullet"></span>
+              <div>
+                <strong>Contact</strong><br />
+                Short form to start a conversation.
+              </div>
+            </div>
+          </div>
+          <div class="hero-pill" style="margin-top: 1.1rem">
+            <span class="hero-pill-badge">AI</span>
+            <span>Comfortable from code to architecture trade‑offs.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+</section>
+{% endblock %}
