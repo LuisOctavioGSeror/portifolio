@@ -22,6 +22,10 @@ def register_routes(app):
     def project_myticketflow():
         return render_template("projects/myticketflow.html")
 
+    @app.route("/projects/myideas")
+    def project_myideas():
+        return render_template("projects/myideas.html")
+
     @app.route("/about")
     def about():
         return render_template("about.html")
