@@ -12,8 +12,13 @@
     <meta property="og:title" content="{% block og_title %}Luis Seror – Backend &amp; AI{% endblock %}" />
     <meta property="og:description" content="{% block og_description %}Luis Seror – Backend &amp; AI freelance. APIs, data flows and AI systems.{% endblock %}" />
     <meta property="og:url" content="{{ request.url }}" />
+    <!-- Coloque aqui a URL absoluta da imagem do preview (ex: https://seusite.com/static/img/og-image.jpg). Recomendado: 1200x630 px. -->
+    <meta property="og:image" content="" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="" />
     <meta name="twitter:title" content="{% block twitter_title %}Luis Seror – Backend &amp; AI{% endblock %}" />
     <meta name="twitter:description" content="{% block twitter_description %}Backend &amp; AI freelance. APIs, data flows and AI systems.{% endblock %}" />
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}" />
