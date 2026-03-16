@@ -15,6 +15,16 @@
         <div class="card-label">
           <span>{{ project.name }}</span>
         </div>
+
+        {% if slug == 'myideas' %}
+        <figure class="project-card-thumb">
+          <img
+            src="{{ url_for('static', filename='img/code.jpg') }}"
+            alt="{{ project.name }} thumbnail"
+          />
+        </figure>
+        {% endif %}
+
         <h2 class="card-title">
           {{ project.card_title }}
         </h2>

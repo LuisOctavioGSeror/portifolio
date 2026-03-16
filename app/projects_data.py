@@ -39,17 +39,17 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "translations": {
             "en": {
                 "card_title": "Idea management system with editing and images.",
-                "card_text": "Full‑stack application to capture, organize and evolve ideas. Users can create, edit and manage their ideas, attach images and keep everything in one place—without ticket priority tags.",
+                "card_text": "Full‑stack app to capture, edit and organize ideas with images in one place.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React",
             },
             "pt": {
                 "card_title": "Sistema de ideias com edição e imagens.",
-                "card_text": "Aplicação full‑stack para capturar, organizar e evoluir ideias. Usuários podem criar, editar e gerenciar ideias, anexar imagens e manter tudo em um só lugar — sem tags de prioridade.",
+                "card_text": "Aplicação full‑stack para registrar, editar e organizar ideias com imagens em um só lugar.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React",
             },
             "de": {
                 "card_title": "Ideen-System mit Bearbeitung und Bildern.",
-                "card_text": "Full‑Stack-Anwendung zum Erfassen, Organisieren und Weiterentwickeln von Ideen. Nutzer können Ideen erstellen, bearbeiten und verwalten, Bilder anhängen und alles an einem Ort halten – ohne Prioritäts-Tags.",
+                "card_text": "Full‑Stack-App zum Erfassen, Bearbeiten und Organisieren von Ideen mit Bildern an einem Ort.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React",
             },
         },
