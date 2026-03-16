@@ -45,29 +45,37 @@
             <div class="hero-card-item">
               <span class="hero-card-bullet"></span>
               <div>
-                <strong>{{ _('index.map.solutions.title') }}</strong><br />
-                {{ _('index.map.solutions.text') }}
+                <a href="{{ url_for('solutions') }}">
+                  <strong>{{ _('index.map.solutions.title') }}</strong><br />
+                  {{ _('index.map.solutions.text') }}
+                </a>
               </div>
             </div>
             <div class="hero-card-item">
               <span class="hero-card-bullet"></span>
               <div>
-                <strong>{{ _('index.map.projects.title') }}</strong><br />
-                {{ _('index.map.projects.text') }}
+                <a href="{{ url_for('projects') }}">
+                  <strong>{{ _('index.map.projects.title') }}</strong><br />
+                  {{ _('index.map.projects.text') }}
+                </a>
               </div>
             </div>
             <div class="hero-card-item">
               <span class="hero-card-bullet"></span>
               <div>
-                <strong>{{ _('index.map.about.title') }}</strong><br />
-                {{ _('index.map.about.text') }}
+                <a href="{{ url_for('about') }}">
+                  <strong>{{ _('index.map.about.title') }}</strong><br />
+                  {{ _('index.map.about.text') }}
+                </a>
               </div>
             </div>
             <div class="hero-card-item">
               <span class="hero-card-bullet"></span>
               <div>
-                <strong>{{ _('index.map.contact.title') }}</strong><br />
-                {{ _('index.map.contact.text') }}
+                <a href="{{ url_for('contact') }}">
+                  <strong>{{ _('index.map.contact.title') }}</strong><br />
+                  {{ _('index.map.contact.text') }}
+                </a>
               </div>
             </div>
           </div>

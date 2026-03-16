@@ -15,17 +15,17 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "translations": {
             "en": {
                 "card_title": "Ticket management system with MCP + LLM.",
-                "card_text": "Backend in FastAPI (Python) with PostgreSQL for persistence, integrated with MCP and language models to automate and assist ticket triage and resolution. Frontend built in React.",
+                "card_text": "Full‑stack ticket app with FastAPI, PostgreSQL, React and MCP + LLM for smarter triage.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React • MCP • LLM",
             },
             "pt": {
                 "card_title": "Sistema de tickets com MCP + LLM.",
-                "card_text": "Backend em FastAPI (Python) com PostgreSQL para persistência, integrado com MCP e modelos de linguagem para automatizar e apoiar triagem e resolução de tickets. Frontend em React.",
+                "card_text": "Aplicação de tickets full‑stack com FastAPI, PostgreSQL, React e MCP + LLM para triagem inteligente.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React • MCP • LLM",
             },
             "de": {
                 "card_title": "Ticket-System mit MCP + LLM.",
-                "card_text": "Backend in FastAPI (Python) mit PostgreSQL für Persistenz, integriert mit MCP und Sprachmodellen, um Ticket-Triage und -Lösung zu automatisieren und zu unterstützen. Frontend in React.",
+                "card_text": "Full‑Stack-Ticket-App mit FastAPI, PostgreSQL, React sowie MCP + LLM für intelligente Triage.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React • MCP • LLM",
             },
         },
