@@ -13,6 +13,46 @@
       </p>
     </header>
 
+    <div class="section-grid" style="margin-bottom: 2.5rem;">
+      <article class="card">
+        <div class="card-label"><span>{{ _('project.detail.video_title') }}</span></div>
+        <h2 class="card-title">{{ _('project.detail.readme.mi.title') }}</h2>
+        <div class="project-video-wrapper">
+          <div class="project-video-ratio">
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID_MYIDEAS"
+              title="MyIdeas demo video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-label"><span>{{ _('project.detail.readme_title') }}</span></div>
+        <h2 class="card-title">Repository README</h2>
+        <p class="card-text">
+          {{ _('project.detail.readme.mi.text1') }}
+        </p>
+        <p class="card-text">
+          {{ _('project.detail.readme.mi.text2') }}
+        </p>
+        <div class="project-actions" style="margin-top: 1rem;">
+          <a
+            href="https://github.com/SEU_USUARIO/myideas#readme"
+            class="btn-ghost"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ _('project.detail.readme.mi.cta') }}
+          </a>
+        </div>
+      </article>
+    </div>
+
     <div class="section-grid">
       <article class="card">
         <div class="card-label"><span>{{ _('project.detail.overview') }}</span></div>
