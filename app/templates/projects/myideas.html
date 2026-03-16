@@ -1,39 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}MyIdeas – Projects{% endblock %}
+{% block title %}{{ _('project.myideas.page_title') }}{% endblock %}
 
 {% block content %}
 <section class="section-wrapper">
   <div class="container">
     <header class="section-header">
-      <p class="section-kicker">Project</p>
+      <p class="section-kicker">{{ _('project.detail.section_label') }}</p>
       <h1 class="section-title">MyIdeas</h1>
       <p class="section-description">
-        Idea management system focused on capturing, editing and evolving ideas,
-        with support for images.
+        {{ _('project.myideas.subtitle') }}
       </p>
     </header>
 
     <div class="section-grid">
       <article class="card">
-        <div class="card-label"><span>Overview</span></div>
-        <h2 class="card-title">From tickets to ideas.</h2>
+        <div class="card-label"><span>{{ _('project.detail.overview') }}</span></div>
+        <h2 class="card-title">{{ _('project.myideas.overview.title') }}</h2>
         <p class="card-text">
-          MyIdeas is a variation of MyTicketFlow, but centered around ideas
-          instead of tickets. Users can create and manage ideas, update them
-          over time and attach images that help illustrate concepts or designs.
-          There is no priority tag system—only a clean flow to collect and
-          refine ideas.
+          {{ _('project.myideas.overview.text') }}
         </p>
         <p class="card-meta">
-          FastAPI • Python • PostgreSQL • React
+          {{ _('project.myideas.overview.stack') }}
         </p>
       </article>
 
       <article class="card">
-        <div class="card-label"><span>Live demo</span></div>
+        <div class="card-label"><span>{{ _('project.detail.live_demo') }}</span></div>
         <p class="card-text">
-          You can access the live version of the application here.
+          {{ _('project.myideas.live.text') }}
         </p>
         <div class="project-actions" style="margin-top: 1rem;">
           <a
@@ -42,20 +37,17 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            See it live
+            {{ _('project.detail.see_live') }}
           </a>
-          <a href="{{ url_for('contact') }}" class="btn-ghost">Get in touch</a>
+          <a href="{{ url_for('contact') }}" class="btn-ghost">{{ _('project.detail.get_in_touch') }}</a>
         </div>
       </article>
     </div>
 
     <section class="project-section">
-      <h2 class="project-section-title">The application</h2>
+      <h2 class="project-section-title">{{ _('project.myideas.app.title') }}</h2>
       <p class="project-section-text">
-        The React interface allows users to register ideas, edit them later and
-        associate images to give more context. Instead of ticket fields and
-        priority tags, the focus is on clear descriptions and visual
-        references, making brainstorming and documentation more natural.
+        {{ _('project.myideas.app.text') }}
       </p>
       <figure class="project-figure">
         <img
@@ -63,7 +55,7 @@
           alt="MyIdeas app screenshot — main ideas view"
           class="project-image"
         />
-        <figcaption class="project-figcaption">Main list of ideas</figcaption>
+        <figcaption class="project-figcaption">{{ _('project.myideas.app.fig1') }}</figcaption>
       </figure>
       <figure class="project-figure">
         <img
@@ -71,7 +63,7 @@
           alt="MyIdeas app screenshot — idea detail and editing"
           class="project-image"
         />
-        <figcaption class="project-figcaption">Idea detail and editing</figcaption>
+        <figcaption class="project-figcaption">{{ _('project.myideas.app.fig2') }}</figcaption>
       </figure>
     </section>
   </div>

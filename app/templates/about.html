@@ -1,73 +1,62 @@
 {% extends "base.html" %}
 
-{% block title %}About me{% endblock %}
+{% block title %}{{ _('about.title') }}{% endblock %}
 
 {% block content %}
 <section class="section-wrapper">
   <div class="container">
     <header class="section-header">
-      <p class="section-kicker">About me</p>
-      <h1 class="section-title">Backend &amp; AI engineer.</h1>
+      <p class="section-kicker">{{ _('about.title') }}</p>
+      <h1 class="section-title">{{ _('about.heading') }}</h1>
       <p class="section-description">
-        I help teams turn messy backend, data and AI ideas into systems
-        that are simple to operate and evolve.
+        {{ _('about.lead') }}
       </p>
     </header>
 
     <section class="project-section">
-      <h2 class="project-section-title">Who I am</h2>
+      <h2 class="project-section-title">{{ _('about.who_i_am') }}</h2>
       <p class="project-section-text">
-        My name is Luis Octavio Seror, a computer engineer trained in Brazil.
-        I have worked at Fraunhofer in Germany, the largest applied research
-        institute in Europe, where I was involved with rocket technology.
+        {{ _('about.bio') }}
       </p>
     </section>
 
     <div class="section-grid">
       <article class="card">
         <div class="card-label">
-          <span>What I do</span>
+          <span>{{ _('about.what_i_do.label') }}</span>
         </div>
-        <h2 class="card-title">Backend and architecture.</h2>
+        <h2 class="card-title">{{ _('about.what_i_do.title') }}</h2>
         <p class="card-text">
-          I design and build APIs, services and data flows with a strong
-          focus on reliability, observability and clear boundaries between
-          systems.
+          {{ _('about.what_i_do.text') }}
         </p>
         <p class="card-meta">
-          Think: APIs that are predictable, easy to monitor and safe to
-          change.
+          {{ _('about.what_i_do.meta') }}
         </p>
       </article>
 
       <article class="card">
         <div class="card-label">
-          <span>AI work</span>
+          <span>{{ _('about.ai.label') }}</span>
         </div>
-        <h2 class="card-title">LLMs in real products.</h2>
+        <h2 class="card-title">{{ _('about.ai.title') }}</h2>
         <p class="card-text">
-          I integrate language models into products using orchestration,
-          validation and human‑in‑the‑loop flows instead of one‑off
-          prototypes.
+          {{ _('about.ai.text') }}
         </p>
         <p class="card-meta">
-          Tools like MCP and modern providers plugged into your existing
-          stack.
+          {{ _('about.ai.meta') }}
         </p>
       </article>
 
       <article class="card">
         <div class="card-label">
-          <span>How I work</span>
+          <span>{{ _('about.how_i_work.label') }}</span>
         </div>
-        <h2 class="card-title">Pragmatic and incremental.</h2>
+        <h2 class="card-title">{{ _('about.how_i_work.title') }}</h2>
         <p class="card-text">
-          I prefer small, safe steps, clear communication and solutions
-          that your team can maintain after I leave.
+          {{ _('about.how_i_work.text') }}
         </p>
         <p class="card-meta">
-          Good fit for fast‑moving teams that still care about long‑term
-          health.
+          {{ _('about.how_i_work.meta') }}
         </p>
       </article>
     </div>

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Projects{% endblock %}
+{% block title %}{{ _('projects.title') }}{% endblock %}
 
 {% block content %}
 <section class="section-wrapper">
   <div class="container">
     <header class="section-header">
-      <p class="section-kicker">Projects</p>
+      <p class="section-kicker">{{ _('projects.title') }}</p>
     </header>
 
     <div class="section-grid projects-grid">
@@ -15,25 +15,23 @@
           <span>MyTicketFlow</span>
         </div>
         <h2 class="card-title">
-          Ticket management system with MCP + LLM.
+          {{ _('projects.card.ticketflow.title') }}
         </h2>
         <p class="card-text">
-          Backend in FastAPI (Python) with PostgreSQL for persistence,
-          integrated with MCP and language models to automate and assist
-          ticket triage and resolution. Frontend built in React.
+          {{ _('projects.card.ticketflow.text') }}
         </p>
         <p class="card-meta">
-          FastAPI • Python • PostgreSQL • React • MCP • LLM
+          {{ _('projects.card.ticketflow.stack') }}
         </p>
         <div class="project-actions">
-          <a href="{{ url_for('project_myticketflow') }}" class="btn-primary">Learn more</a>
+          <a href="{{ url_for('project_myticketflow') }}" class="btn-primary">{{ _('projects.card.learn_more') }}</a>
           <a
             href="https://frontend-production-ef14.up.railway.app"
             class="btn-ghost"
             target="_blank"
             rel="noopener noreferrer"
           >
-            See it live
+            {{ _('projects.card.see_live') }}
           </a>
         </div>
       </article>
@@ -43,25 +41,23 @@
           <span>MyIdeas</span>
         </div>
         <h2 class="card-title">
-          Idea management system with editing and images.
+          {{ _('projects.card.ideas.title') }}
         </h2>
         <p class="card-text">
-          Full‑stack application to capture, organize and evolve ideas. Users
-          can create, edit and manage their ideas, attach images and keep
-          everything in one place—without ticket priority tags.
+          {{ _('projects.card.ideas.text') }}
         </p>
         <p class="card-meta">
-          FastAPI • Python • PostgreSQL • React
+          {{ _('projects.card.ideas.stack') }}
         </p>
         <div class="project-actions">
-          <a href="{{ url_for('project_myideas') }}" class="btn-primary">Learn more</a>
+          <a href="{{ url_for('project_myideas') }}" class="btn-primary">{{ _('projects.card.learn_more') }}</a>
           <a
             href="https://myideasfrontend-production.up.railway.app/login"
             class="btn-ghost"
             target="_blank"
             rel="noopener noreferrer"
           >
-            See it live
+            {{ _('projects.card.see_live') }}
           </a>
         </div>
       </article>

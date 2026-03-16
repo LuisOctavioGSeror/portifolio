@@ -1,94 +1,94 @@
 {% extends "base.html" %}
 
-{% block title %}Solutions I build{% endblock %}
+{% block title %}{{ _('solutions.title') }}{% endblock %}
 
 {% block content %}
 <section class="section-wrapper">
   <div class="container">
     <header class="section-header">
-      <p class="section-kicker">Solutions I build</p>
-      <h1 class="section-title">What I like to ship.</h1>
+      <p class="section-kicker">{{ _('solutions.title') }}</p>
+      <h1 class="section-title">{{ _('solutions.heading') }}</h1>
       <p class="section-description">
-        The backend and AI work I deliver most often.
+        {{ _('solutions.subtitle') }}
       </p>
     </header>
 
     <div class="section-grid">
       <article class="card">
-        <div class="card-label"><span>APIs &amp; platforms</span></div>
-        <h2 class="card-title">Backends and APIs designed to last.</h2>
+        <div class="card-label"><span>{{ _('solutions.apis.label') }}</span></div>
+        <h2 class="card-title">{{ _('solutions.apis.title') }}</h2>
         <p class="card-text">
-          HTTP/REST (sometimes GraphQL/gRPC) with clear contracts and monitoring.
+          {{ _('solutions.apis.text') }}
         </p>
         <div class="pill-row">
-          <span class="pill">Authentication &amp; authorization</span>
-          <span class="pill">Rate limiting</span>
-          <span class="pill">Feature flags</span>
+          <span class="pill">{{ _('solutions.apis.pill1') }}</span>
+          <span class="pill">{{ _('solutions.apis.pill2') }}</span>
+          <span class="pill">{{ _('solutions.apis.pill3') }}</span>
         </div>
       </article>
 
       <article class="card">
-        <div class="card-label"><span>Robust integrations</span></div>
-        <h2 class="card-title">Integration layers with third‑party services.</h2>
+        <div class="card-label"><span>{{ _('solutions.integrations.label') }}</span></div>
+        <h2 class="card-title">{{ _('solutions.integrations.title') }}</h2>
         <p class="card-text">
-          Adapters and services that hide complexity from payments, CRMs, AI and legacy.
+          {{ _('solutions.integrations.text') }}
         </p>
         <div class="pill-row">
-          <span class="pill">Webhooks</span>
-          <span class="pill">Event queue</span>
-          <span class="pill">Resilience</span>
+          <span class="pill">{{ _('solutions.integrations.pill1') }}</span>
+          <span class="pill">{{ _('solutions.integrations.pill2') }}</span>
+          <span class="pill">{{ _('solutions.integrations.pill3') }}</span>
         </div>
       </article>
 
       <article class="card">
-        <div class="card-label"><span>Event‑driven systems</span></div>
-        <h2 class="card-title">Systems where events tell the story of the business.</h2>
+        <div class="card-label"><span>{{ _('solutions.events.label') }}</span></div>
+        <h2 class="card-title">{{ _('solutions.events.title') }}</h2>
         <p class="card-text">
-          Lightweight event flows for auditability, analytics and automation.
+          {{ _('solutions.events.text') }}
         </p>
         <div class="pill-row">
-          <span class="pill">Domain events</span>
-          <span class="pill">Event sourcing light</span>
-          <span class="pill">Data pipelines</span>
+          <span class="pill">{{ _('solutions.events.pill1') }}</span>
+          <span class="pill">{{ _('solutions.events.pill2') }}</span>
+          <span class="pill">{{ _('solutions.events.pill3') }}</span>
         </div>
       </article>
 
       <article class="card">
-        <div class="card-label"><span>AI‑powered products</span></div>
-        <h2 class="card-title">Flows that safely use language models.</h2>
+        <div class="card-label"><span>{{ _('solutions.ai.label') }}</span></div>
+        <h2 class="card-title">{{ _('solutions.ai.title') }}</h2>
         <p class="card-text">
-          LLMs plugged into products with orchestration, validation and monitoring.
+          {{ _('solutions.ai.text') }}
         </p>
         <div class="pill-row">
-          <span class="pill">Prompt engineering</span>
-          <span class="pill">Guardrails</span>
-          <span class="pill">AI observability</span>
+          <span class="pill">{{ _('solutions.ai.pill1') }}</span>
+          <span class="pill">{{ _('solutions.ai.pill2') }}</span>
+          <span class="pill">{{ _('solutions.ai.pill3') }}</span>
         </div>
       </article>
 
       <article class="card">
-        <div class="card-label"><span>Internal tools</span></div>
-        <h2 class="card-title">Dashboards and tools for internal teams.</h2>
+        <div class="card-label"><span>{{ _('solutions.tools.label') }}</span></div>
+        <h2 class="card-title">{{ _('solutions.tools.title') }}</h2>
         <p class="card-text">
-          Ops and support tools that remove day‑to‑day friction.
+          {{ _('solutions.tools.text') }}
         </p>
         <div class="pill-row">
-          <span class="pill">Dashboards</span>
-          <span class="pill">Safe scripts</span>
-          <span class="pill">Team quality of life</span>
+          <span class="pill">{{ _('solutions.tools.pill1') }}</span>
+          <span class="pill">{{ _('solutions.tools.pill2') }}</span>
+          <span class="pill">{{ _('solutions.tools.pill3') }}</span>
         </div>
       </article>
 
       <article class="card">
-        <div class="card-label"><span>Guided refactors</span></div>
-        <h2 class="card-title">Incremental refactors in live systems.</h2>
+        <div class="card-label"><span>{{ _('solutions.refactors.label') }}</span></div>
+        <h2 class="card-title">{{ _('solutions.refactors.title') }}</h2>
         <p class="card-text">
-          Migration plans that respect what's already in production.
+          {{ _('solutions.refactors.text') }}
         </p>
         <div class="pill-row">
-          <span class="pill">Strangler pattern</span>
-          <span class="pill">Feature toggles</span>
-          <span class="pill">Regression tests</span>
+          <span class="pill">{{ _('solutions.refactors.pill1') }}</span>
+          <span class="pill">{{ _('solutions.refactors.pill2') }}</span>
+          <span class="pill">{{ _('solutions.refactors.pill3') }}</span>
         </div>
       </article>
     </div>
