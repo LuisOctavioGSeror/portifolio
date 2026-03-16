@@ -10,57 +10,35 @@
     </header>
 
     <div class="section-grid projects-grid">
+      {% for slug, project in projects.items() %}
       <article class="card">
         <div class="card-label">
-          <span>MyTicketFlow</span>
+          <span>{{ project.name }}</span>
         </div>
         <h2 class="card-title">
-          {{ _('projects.card.ticketflow.title') }}
+          {{ project.card_title }}
         </h2>
         <p class="card-text">
-          {{ _('projects.card.ticketflow.text') }}
+          {{ project.card_text }}
         </p>
         <p class="card-meta">
-          {{ _('projects.card.ticketflow.stack') }}
+          {{ project.card_stack }}
         </p>
         <div class="project-actions">
-          <a href="{{ url_for('project_myticketflow') }}" class="btn-primary">{{ _('projects.card.learn_more') }}</a>
+          <a href="{{ url_for('project_detail', slug=slug) }}" class="btn-primary">{{ _('projects.card.learn_more') }}</a>
+          {% if project.live_url %}
           <a
-            href="https://frontend-production-ef14.up.railway.app"
+            href="{{ project.live_url }}"
             class="btn-ghost"
             target="_blank"
             rel="noopener noreferrer"
           >
             {{ _('projects.card.see_live') }}
           </a>
+          {% endif %}
         </div>
       </article>
-
-      <article class="card">
-        <div class="card-label">
-          <span>MyIdeas</span>
-        </div>
-        <h2 class="card-title">
-          {{ _('projects.card.ideas.title') }}
-        </h2>
-        <p class="card-text">
-          {{ _('projects.card.ideas.text') }}
-        </p>
-        <p class="card-meta">
-          {{ _('projects.card.ideas.stack') }}
-        </p>
-        <div class="project-actions">
-          <a href="{{ url_for('project_myideas') }}" class="btn-primary">{{ _('projects.card.learn_more') }}</a>
-          <a
-            href="https://myideasfrontend-production.up.railway.app/login"
-            class="btn-ghost"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ _('projects.card.see_live') }}
-          </a>
-        </div>
-      </article>
+      {% endfor %}
     </div>
   </div>
 </section>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} – {{ _('projects.title') }}{% endblock %}
+
+{% block content %}
+<section class="section-wrapper">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-kicker">{{ _('project.detail.section_label') }}</p>
+      <h1 class="section-title">{{ project.name }}</h1>
+      <p class="section-description">
+        {{ project.card_title }}
+      </p>
+    </header>
+
+    <div class="section-grid" style="margin-bottom: 2.5rem;">
+      {% if project.youtube_id %}
+      <article class="card">
+        <div class="card-label"><span>{{ _('project.detail.video_title') }}</span></div>
+        <h2 class="card-title">{{ project.name }} in action</h2>
+        <div class="project-video-wrapper">
+          <div class="project-video-ratio">
+            <iframe
+              src="https://www.youtube.com/embed/{{ project.youtube_id }}"
+              title="{{ project.name }} demo video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </article>
+      {% endif %}
+
+      {% if project.readme_url %}
+      <article class="card">
+        <div class="card-label"><span>{{ _('project.detail.readme_title') }}</span></div>
+        <h2 class="card-title">Repository README</h2>
+        <p class="card-text">
+          {{ project.card_text }}
+        </p>
+        <p class="card-meta">
+          {{ project.card_stack }}
+        </p>
+        <div class="project-actions" style="margin-top: 1rem;">
+          <a
+            href="{{ project.readme_url }}"
+            class="btn-ghost"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ _('project.detail.readme.mf.cta') }}
+          </a>
+        </div>
+      </article>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

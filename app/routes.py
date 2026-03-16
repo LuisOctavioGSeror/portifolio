@@ -1,4 +1,6 @@
-from flask import render_template
+from flask import render_template, abort
+
+from .projects_data import get_all_projects, get_project
 
 
 def register_routes(app):
@@ -16,15 +18,15 @@ def register_routes(app):
 
     @app.route("/projects")
     def projects():
-        return render_template("projects.html")
+        projects_data = get_all_projects()
+        return render_template("projects.html", projects=projects_data)
 
-    @app.route("/projects/myticketflow")
-    def project_myticketflow():
-        return render_template("projects/myticketflow.html")
-
-    @app.route("/projects/myideas")
-    def project_myideas():
-        return render_template("projects/myideas.html")
+    @app.route("/projects/<slug>")
+    def project_detail(slug: str):
+        project = get_project(slug)
+        if not project:
+            abort(404)
+        return render_template("projects/detail.html", project=project)
 
     @app.route("/about")
     def about():
