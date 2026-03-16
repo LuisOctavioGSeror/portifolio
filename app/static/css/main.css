@@ -510,6 +510,16 @@ img {
   margin-bottom: 1.5rem;
 }
 
+.project-detail {
+  max-width: 860px;
+}
+
+.project-section--narrow {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .project-figure {
   margin: 0 0 2rem;
 }
