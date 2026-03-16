@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_lang or 'en' }}">
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Overview – Backend &amp; AI{% endblock %}</title>
@@ -69,12 +69,17 @@
         </button>
         <nav class="navbar">
           <ul>
-            <li><a href="{{ url_for('solutions') }}">Solutions I build</a></li>
-            <li><a href="{{ url_for('projects') }}">Projects</a></li>
-            <li><a href="{{ url_for('about') }}">About me</a></li>
-            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('solutions') }}">{{ _('nav.solutions') }}</a></li>
+            <li><a href="{{ url_for('projects') }}">{{ _('nav.projects') }}</a></li>
+            <li><a href="{{ url_for('about') }}">{{ _('nav.about') }}</a></li>
+            <li><a href="{{ url_for('contact') }}">{{ _('nav.contact') }}</a></li>
           </ul>
         </nav>
+        <div class="lang-switch" aria-label="Language selector">
+          <a href="{{ request.path }}?lang=en" class="lang-pill{% if current_lang == 'en' %} is-active{% endif %}">{{ _('nav.lang.en') }}</a>
+          <a href="{{ request.path }}?lang=pt" class="lang-pill{% if current_lang == 'pt' %} is-active{% endif %}">{{ _('nav.lang.pt') }}</a>
+          <a href="{{ request.path }}?lang=de" class="lang-pill{% if current_lang == 'de' %} is-active{% endif %}">{{ _('nav.lang.de') }}</a>
+        </div>
       </div>
     </header>
 
@@ -85,12 +90,11 @@
     <footer class="site-footer" id="contact">
       <div class="container footer-content">
         <div>
-          <h2 class="footer-title">Want to work together?</h2>
+          <h2 class="footer-title">{{ _('footer.title') }}</h2>
           <p class="footer-text">
-            Tell me briefly about your team, product and what you’d like help
-            with.
+            {{ _('footer.text') }}
           </p>
-          <p class="footer-meta">Backend, data and AI work are all welcome.</p>
+          <p class="footer-meta">{{ _('footer.meta') }}</p>
         </div>
         <form
           id="contact-form"
@@ -101,8 +105,8 @@
         >
           <div class="form-field">
             <label class="form-label" for="name">
-              Name
-              <span>Required</span>
+              {{ _('form.name') }}
+              <span>{{ _('form.required') }}</span>
             </label>
             <input
               class="form-input"
@@ -115,8 +119,8 @@
           </div>
           <div class="form-field">
             <label class="form-label" for="email">
-              Email
-              <span>Required</span>
+              {{ _('form.email') }}
+              <span>{{ _('form.required') }}</span>
             </label>
             <input
               class="form-input"
@@ -129,8 +133,8 @@
           </div>
           <div class="form-field full">
             <label class="form-label" for="context">
-              Current technical context
-              <span>Required</span>
+              {{ _('form.context') }}
+              <span>{{ _('form.required') }}</span>
             </label>
             <input
               class="form-input"
@@ -143,8 +147,8 @@
           </div>
           <div class="form-field full">
             <label class="form-label" for="message">
-              Message
-              <span>Optional</span>
+              {{ _('form.message') }}
+              <span>{{ _('form.optional') }}</span>
             </label>
             <textarea
               class="form-textarea"
@@ -154,7 +158,7 @@
           </div>
           <div class="form-field full">
             <div class="form-footer">
-              <button type="submit" class="btn-primary">Send email</button>
+              <button type="submit" class="btn-primary">{{ _('form.submit') }}</button>
               <div id="form-status" class="form-status"></div>
             </div>
           </div>
