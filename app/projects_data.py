@@ -10,6 +10,7 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "live_url": "https://frontend-production-ef14.up.railway.app",
         "youtube_id": "VIDEO_ID_MYTICKETFLOW",
         "readme_url": "https://github.com/SEU_USUARIO/myticketflow#readme",
+        "thumbnail": "img/projects/myticketflow/app-1.png",
         "stack": ["FastAPI", "Python", "PostgreSQL", "React", "MCP", "LLM"],
         "translations": {
             "en": {
@@ -35,6 +36,7 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "live_url": "https://myideasfrontend-production.up.railway.app/login",
         "youtube_id": "VIDEO_ID_MYIDEAS",
         "readme_url": "https://github.com/SEU_USUARIO/myideas#readme",
+        "thumbnail": "img/projects/myticketflow/app-2.png",
         "stack": ["FastAPI", "Python", "PostgreSQL", "React"],
         "translations": {
             "en": {

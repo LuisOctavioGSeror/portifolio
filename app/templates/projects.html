@@ -16,10 +16,10 @@
           <span>{{ project.name }}</span>
         </div>
 
-        {% if slug == 'myideas' %}
+        {% if project.thumbnail %}
         <figure class="project-card-thumb">
           <img
-            src="{{ url_for('static', filename='img/code.jpg') }}"
+            src="{{ url_for('static', filename=project.thumbnail) }}"
             alt="{{ project.name }} thumbnail"
           />
         </figure>
