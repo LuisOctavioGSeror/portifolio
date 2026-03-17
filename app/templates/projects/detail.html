@@ -31,6 +31,30 @@
           ></iframe>
         </div>
       </div>
+      {% if project.backend_repo or project.frontend_repo %}
+      <div class="project-actions" style="margin-top: 1.25rem;">
+        {% if project.backend_repo %}
+        <a
+          href="{{ project.backend_repo }}"
+          class="btn-ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Backend repo
+        </a>
+        {% endif %}
+        {% if project.frontend_repo %}
+        <a
+          href="{{ project.frontend_repo }}"
+          class="btn-ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Frontend repo
+        </a>
+        {% endif %}
+      </div>
+      {% endif %}
     </section>
     {% endif %}
 
