@@ -10,7 +10,7 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "live_url": "https://frontend-production-ef14.up.railway.app",
         "youtube_id": "VIDEO_ID_MYTICKETFLOW",
         "readme_url": "https://github.com/SEU_USUARIO/myticketflow#readme",
-        "thumbnail": "img/projects/myticketflow/app-1.png",
+        "thumbnail": "img/ticket.png",
         "stack": ["FastAPI", "Python", "PostgreSQL", "React", "MCP", "LLM"],
         "translations": {
             "en": {
@@ -43,17 +43,17 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "translations": {
             "en": {
                 "card_title": "Idea management system with editing and images.",
-                "card_text": "Full‑stack app to capture, edit and organize ideas with images in one place.",
+                "card_text": "AI‑powered app to capture, edit and organize ideas with images in one place.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React",
             },
             "pt": {
                 "card_title": "Sistema de ideias com edição e imagens.",
-                "card_text": "Aplicação full‑stack para registrar, editar e organizar ideias com imagens em um só lugar.",
+                "card_text": "Aplicação com IA para registrar, editar e organizar ideias com imagens em um só lugar.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React",
             },
             "de": {
                 "card_title": "Ideen-System mit Bearbeitung und Bildern.",
-                "card_text": "Full‑Stack-App zum Erfassen, Bearbeiten und Organisieren von Ideen mit Bildern an einem Ort.",
+                "card_text": "KI‑gestützte App zum Erfassen, Bearbeiten und Organisieren von Ideen mit Bildern an einem Ort.",
                 "card_stack": "FastAPI • Python • PostgreSQL • React",
             },
         },
