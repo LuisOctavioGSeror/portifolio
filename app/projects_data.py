@@ -35,7 +35,7 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "name": "MyIdeas",
         "live_url": "https://myideasfrontend-production.up.railway.app/login",
         "youtube_id": "VIDEO_ID_MYIDEAS",
-        "readme_url": "https://github.com/SEU_USUARIO/myideas#readme",
+        "readme_url": "https://github.com/LuisOctavioGSeror/MyIdeasBackend/blob/main/README.md",
         "thumbnail": "img/projects/myticketflow/app-2.png",
         "stack": ["FastAPI", "Python", "PostgreSQL", "React"],
         "translations": {
