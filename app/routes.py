@@ -1,6 +1,7 @@
 from flask import render_template, abort
 
 from .projects_data import get_all_projects, get_project
+from .readme_preview import fetch_readme_html
 
 
 def register_routes(app):
@@ -26,7 +27,10 @@ def register_routes(app):
         project = get_project(slug)
         if not project:
             abort(404)
-        return render_template("projects/detail.html", project=project)
+        readme_html = None
+        if project.get("readme_url"):
+            readme_html = fetch_readme_html(project["readme_url"])
+        return render_template("projects/detail.html", project=project, readme_html=readme_html)
 
     @app.route("/about")
     def about():

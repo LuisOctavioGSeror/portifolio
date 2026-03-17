@@ -8,3 +8,5 @@ MarkupSafe==3.0.3
 packaging==26.0
 Werkzeug==3.1.6
 whitenoise==6.6.0
+requests==2.32.3
+Markdown==3.7
