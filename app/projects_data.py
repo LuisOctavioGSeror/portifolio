@@ -38,7 +38,7 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "readme_url": "https://github.com/LuisOctavioGSeror/MyIdeasBackend/blob/main/README.md",
         "backend_repo": "https://github.com/LuisOctavioGSeror/MyIdeasBackend",
         "frontend_repo": "https://github.com/LuisOctavioGSeror/MyIdeasFrontend",
-        "thumbnail": "img/projects/myticketflow/app-2.png",
+        "thumbnail": "img/idea.png",
         "stack": ["FastAPI", "Python", "PostgreSQL", "React"],
         "translations": {
             "en": {
