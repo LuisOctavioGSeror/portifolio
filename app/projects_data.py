@@ -58,6 +58,31 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
             },
         },
     },
+    "myassistant": {
+        "slug": "myassistant",
+        "name": "MyAssistant",
+        "readme_url": "https://github.com/LuisOctavioGSeror/MyAssistant/blob/main/README.md",
+        "backend_repo": "https://github.com/LuisOctavioGSeror/MyAssistant",
+        "thumbnail": "img/code.jpg",
+        "stack": ["Python", "PyQt5", "LlamaIndex", "LLM", "Speech"],
+        "translations": {
+            "en": {
+                "card_title": "Open-source AI voice assistant (desktop).",
+                "card_text": "Desktop app with mic, LLM agents (Groq/Ollama), and tools: TTS, notes, email, Spotify, crypto.",
+                "card_stack": "Python • PyQt5 • LlamaIndex • LLM • Speech",
+            },
+            "pt": {
+                "card_title": "Assistente de voz com IA (desktop), open source.",
+                "card_text": "App desktop com microfone, agentes LLM (Groq/Ollama) e ferramentas: TTS, notas, e-mail, Spotify, cripto.",
+                "card_stack": "Python • PyQt5 • LlamaIndex • LLM • Speech",
+            },
+            "de": {
+                "card_title": "Open-Source KI-Sprachassistent (Desktop).",
+                "card_text": "Desktop-App mit Mikrofon, LLM-Agenten (Groq/Ollama) und Tools: TTS, Notizen, E-Mail, Spotify, Krypto.",
+                "card_stack": "Python • PyQt5 • LlamaIndex • LLM • Speech",
+            },
+        },
+    },
 }
 
 

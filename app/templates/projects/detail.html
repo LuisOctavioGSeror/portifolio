@@ -85,6 +85,33 @@
       {% endif %}
     </section>
     {% endif %}
+
+    {% if (project.backend_repo or project.frontend_repo) and not project.youtube_id %}
+    <section class="project-section project-section--narrow">
+      <div class="project-actions">
+        {% if project.backend_repo %}
+        <a
+          href="{{ project.backend_repo }}"
+          class="btn-ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {% if project.frontend_repo %}Backend repo{% else %}Source code{% endif %}
+        </a>
+        {% endif %}
+        {% if project.frontend_repo %}
+        <a
+          href="{{ project.frontend_repo }}"
+          class="btn-ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Frontend repo
+        </a>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
   </div>
 </section>
 {% endblock %}
