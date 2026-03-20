@@ -63,7 +63,7 @@ PROJECTS: Dict[str, Dict[str, Any]] = {
         "name": "MyAssistant",
         "readme_url": "https://github.com/LuisOctavioGSeror/MyAssistant/blob/main/README.md",
         "backend_repo": "https://github.com/LuisOctavioGSeror/MyAssistant",
-        "thumbnail": "img/code.jpg",
+        "thumbnail": "img/MyAssistant.png",
         "stack": ["Python", "PyQt5", "LlamaIndex", "LLM", "Speech"],
         "translations": {
             "en": {
