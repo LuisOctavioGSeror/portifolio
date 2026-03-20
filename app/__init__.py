@@ -3,6 +3,13 @@ from whitenoise import WhiteNoise
 from .routes import register_routes
 from .i18n import SUPPORTED_LANGS, detect_locale, get_locale, translate
 
+# Footer isometric icons — replace "#" with your profile URLs when ready
+SOCIAL_URLS = {
+    "linkedin": "#",
+    "youtube": "#",
+    "github": "https://github.com/LuisOctavioGSeror",
+}
+
 
 def create_app():
     app = Flask(__name__)
@@ -32,6 +39,9 @@ def create_app():
             "_": translate,
             "current_lang": get_locale(),
             "supported_langs": SUPPORTED_LANGS,
+            "social_linkedin": SOCIAL_URLS["linkedin"],
+            "social_youtube": SOCIAL_URLS["youtube"],
+            "social_github": SOCIAL_URLS["github"],
         }
 
     return app
