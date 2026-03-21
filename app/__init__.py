@@ -5,7 +5,7 @@ from .i18n import SUPPORTED_LANGS, detect_locale, get_locale, translate
 
 # Footer isometric icons — replace "#" with your profile URLs when ready
 SOCIAL_URLS = {
-    "linkedin": "#",
+    "linkedin": "https://www.linkedin.com/in/luisoctaviogs/",
     "youtube": "#",
     "github": "https://github.com/LuisOctavioGSeror",
 }
