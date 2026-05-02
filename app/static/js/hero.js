@@ -19,109 +19,157 @@ type();
 
 const bgCanvas = document.getElementById("bg");
 if (bgCanvas) {
-  const scene = new THREE.Scene();
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  try {
+    const scene = new THREE.Scene();
 
-  camera.position.z = 60;
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      Math.max(window.innerWidth / window.innerHeight, 0.001),
+      0.1,
+      1000
+    );
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas: bgCanvas,
-    alpha: true,
-    antialias: true,
-  });
+    camera.position.z = 60;
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
+    const renderer = new THREE.WebGLRenderer({
+      canvas: bgCanvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance",
+    });
 
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableZoom = false;
-  controls.enablePan = false;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 0.5;
+    const maxDpr = reducedMotion ? 1 : 2;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-  const count = window.innerWidth < 768 ? 70 : 140;
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.autoRotate = !reducedMotion;
+    controls.autoRotateSpeed = 0.5;
 
-  const positions = new Float32Array(count * 3);
+    const count = window.innerWidth < 768 ? 55 : reducedMotion ? 40 : 110;
 
-  for (let idx = 0; idx < count; idx++) {
-    positions[idx * 3] = (Math.random() - 0.5) * 120;
-    positions[idx * 3 + 1] = (Math.random() - 0.5) * 120;
-    positions[idx * 3 + 2] = (Math.random() - 0.5) * 120;
-  }
+    const positions = new Float32Array(count * 3);
 
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    for (let idx = 0; idx < count; idx++) {
+      positions[idx * 3] = (Math.random() - 0.5) * 120;
+      positions[idx * 3 + 1] = (Math.random() - 0.5) * 120;
+      positions[idx * 3 + 2] = (Math.random() - 0.5) * 120;
+    }
 
-  const material = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: 1.5,
-    transparent: true,
-    opacity: 0.8,
-  });
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-  const points = new THREE.Points(geometry, material);
-  scene.add(points);
+    const material = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 1.5,
+      transparent: true,
+      opacity: 0.8,
+    });
 
-  const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0xffffff,
-    transparent: true,
-    opacity: 0.2,
-  });
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
 
-  const linePositions = [];
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.2,
+    });
 
-  for (let a = 0; a < count; a++) {
-    for (let b = a + 1; b < count; b++) {
-      const dx = positions[a * 3] - positions[b * 3];
-      const dy = positions[a * 3 + 1] - positions[b * 3 + 1];
-      const dz = positions[a * 3 + 2] - positions[b * 3 + 2];
+    const linePositions = [];
+    const maxSegments = 6000;
 
-      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    outer: for (let a = 0; a < count; a++) {
+      for (let b = a + 1; b < count; b++) {
+        if (linePositions.length >= maxSegments * 6) break outer;
 
-      if (dist < 25) {
-        linePositions.push(
-          positions[a * 3],
-          positions[a * 3 + 1],
-          positions[a * 3 + 2],
-          positions[b * 3],
-          positions[b * 3 + 1],
-          positions[b * 3 + 2]
-        );
+        const dx = positions[a * 3] - positions[b * 3];
+        const dy = positions[a * 3 + 1] - positions[b * 3 + 1];
+        const dz = positions[a * 3 + 2] - positions[b * 3 + 2];
+
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        if (dist < 25) {
+          linePositions.push(
+            positions[a * 3],
+            positions[a * 3 + 1],
+            positions[a * 3 + 2],
+            positions[b * 3],
+            positions[b * 3 + 1],
+            positions[b * 3 + 2]
+          );
+        }
       }
     }
+
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(linePositions, 3)
+    );
+
+    const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(lines);
+
+    let running = document.visibilityState === "visible";
+    let rafId = 0;
+
+    function loop() {
+      if (!running) {
+        rafId = 0;
+        return;
+      }
+
+      points.rotation.y += 0.0008;
+      points.rotation.x += 0.0003;
+
+      controls.update();
+
+      renderer.render(scene, camera);
+
+      rafId = requestAnimationFrame(loop);
+    }
+
+    bgCanvas.addEventListener(
+      "webglcontextlost",
+      (event) => {
+        event.preventDefault();
+        running = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+      },
+      false
+    );
+
+    document.addEventListener("visibilitychange", () => {
+      running = document.visibilityState === "visible";
+      if (running && !reducedMotion && !rafId) {
+        rafId = requestAnimationFrame(loop);
+      }
+      if (!running && rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    });
+
+    if (reducedMotion) {
+      renderer.render(scene, camera);
+      controls.dispose();
+    } else {
+      rafId = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener("resize", () => {
+      camera.aspect = Math.max(window.innerWidth / window.innerHeight, 0.001);
+      camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  } catch (err) {
+    console.warn("[hero] WebGL / Three.js não disponível — fundo desativado.", err);
+    bgCanvas.style.display = "none";
   }
-
-  const lineGeometry = new THREE.BufferGeometry();
-  lineGeometry.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(linePositions, 3)
-  );
-
-  const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-  scene.add(lines);
-
-  function animate() {
-    requestAnimationFrame(animate);
-
-    points.rotation.y += 0.0008;
-    points.rotation.x += 0.0003;
-
-    controls.update();
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
 }
