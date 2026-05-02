@@ -196,6 +196,19 @@ img {
 .hero-section {
   padding: 5rem 0 4rem;
   background: #0b0b0b;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Canvas do feixe — fica atrás de todo o conteúdo */
+#beam-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
 }
 
 .hero-grid {
@@ -203,6 +216,8 @@ img {
   grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
   gap: 3.5rem;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-grid > div:first-child {
@@ -442,9 +457,12 @@ img {
 .hero-card {
   border-radius: 1.5rem;
   padding: 1.4rem 1.5rem;
-  background: #05070a;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+  background: rgba(5, 7, 10, 0.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.50),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
   color: #e5e7eb;
 }
 
