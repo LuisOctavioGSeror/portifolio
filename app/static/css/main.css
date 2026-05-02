@@ -205,6 +205,11 @@ img {
   align-items: center;
 }
 
+.hero-grid > div:first-child {
+  min-width: 0;
+  overflow: visible;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -232,6 +237,83 @@ img {
   font-size: clamp(2.35rem, 5vw, 3.4rem);
   letter-spacing: -0.04em;
   color: #f9fafb;
+  overflow: visible;
+}
+
+.hero-title__line {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.hero-title__line--1 {
+  opacity: 0;
+  animation: heroTitleFromLeft 2.85s cubic-bezier(0.08, 0.78, 0.18, 1) forwards;
+}
+
+.hero-title__line--2 {
+  opacity: 0;
+  animation: heroTitleFromRight 2.15s cubic-bezier(0.06, 0.7, 0.15, 1) 1.5s forwards;
+}
+
+.hero-title__line--3 {
+  opacity: 0;
+  animation: heroTitleFromRight 2.15s cubic-bezier(0.06, 0.7, 0.15, 1) 1.5s forwards;
+}
+
+/* inline-block exigido: transform em "inline" costuma não mover o texto */
+@keyframes heroTitleFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-3.1em, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroTitleFromRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(3.1em, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title__line--1,
+  .hero-title__line--2,
+  .hero-title__line--3 {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+
+  .hero-deferred {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Visão geral: resto após o título (delay 4.1s); fade curto 0.35s */
+.hero-deferred {
+  opacity: 0;
+  animation: heroOverviewRestFade 0.35s ease-out 4.1s forwards;
+}
+
+@keyframes heroOverviewRestFade {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.5rem, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .hero-highlight {
@@ -1290,10 +1372,6 @@ img {
 @media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: minmax(0, 1.1fr);
-  }
-
-  .hero-card {
-    order: -1;
   }
 
   .section-grid,

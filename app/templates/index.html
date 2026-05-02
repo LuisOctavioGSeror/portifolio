@@ -14,10 +14,14 @@
         </div>
         {% endif %}
         <h1 class="hero-title">
-          {{ _('index.hero.title.1') }}
-          <span class="hero-highlight">{{ _('index.hero.title.2') }}</span>
-          {{ _('index.hero.title.3') }}
+          <span class="hero-title__line hero-title__line--1">{{ _('index.hero.title.1') }}</span>
+          <span class="hero-title__line hero-title__line--2 hero-highlight">{{ _('index.hero.title.2') }}</span>
+          {% set hero_t3 = _('index.hero.title.3') %}
+          {% if hero_t3 %}
+          <span class="hero-title__line hero-title__line--3">{{ hero_t3 }}</span>
+          {% endif %}
         </h1>
+        <div class="hero-deferred">
         {% set hero_sub = _('index.hero.subtitle') %}
         {% if hero_sub %}
         <p class="hero-subtitle">
@@ -38,9 +42,10 @@
             {{ _('index.hero.cta.solutions') }}
           </a>
         </div>
+        </div>
       </div>
 
-      <aside class="hero-card">
+      <aside class="hero-card hero-deferred">
         <div class="hero-card-header">
           <span>{{ _('index.map.title') }}</span>
           <span class="hero-card-tag">{{ _('index.map.subtitle') }}</span>
