@@ -187,6 +187,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "contact.title": "Contact",
         "contact.heading": "Let's talk.",
         "contact.lead": "Quick form to tell me who you are and what you need.",
+        "contact.pitch": "You buy outcomes—not slides. Scoped work your team can run. Say what you need; I'll reply straight. First message free.",
     },
     "pt": {
         "nav.home": "Início",
@@ -368,6 +369,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "contact.title": "Contato",
         "contact.heading": "Vamos conversar.",
         "contact.lead": "Formulário rápido para contar quem você é e do que precisa.",
+        "contact.pitch": "Você compra resultado—não slide. Entregas com escopo que seu time opera. Diga o que precisa; eu respondo direto. Primeira mensagem gratuita.",
     },
     "de": {
         "nav.home": "Start",
@@ -549,6 +551,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "contact.title": "Kontakt",
         "contact.heading": "Lass uns reden.",
         "contact.lead": "Kurzes Formular, um mir zu sagen, wer du bist und was du brauchst.",
+        "contact.pitch": "Du kaufst Ergebnisse—nicht Folien. Umsetzung mit klarem Scope, den dein Team trägt. Schreib kurz, was du brauchst; ich antworte klar. Erste Nachricht gratis.",
     },
 }
 

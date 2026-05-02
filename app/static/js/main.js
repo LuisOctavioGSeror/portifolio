@@ -121,6 +121,50 @@ if (contactForm) {
   }, WORD_DONE);
 })();
 
+/* ── Contact page — header fade → pitch palavra a palavra → formulário ── */
+(function () {
+  const pitchEl = document.getElementById("contact-pitch-text");
+  const formPanel = document.getElementById("contact-form-panel");
+  if (!pitchEl || !formPanel) return;
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function wrapWords(el, klass) {
+    const text = el.textContent.trim();
+    const words = text.split(/\s+/);
+    el.textContent = "";
+    words.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = klass;
+      span.textContent = w;
+      el.appendChild(span);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+    return [...el.querySelectorAll("." + klass)];
+  }
+
+  if (reduced) {
+    formPanel.classList.remove("contact-form-panel--hold");
+    formPanel.classList.add("contact-form-panel--visible");
+    return;
+  }
+
+  const wordSpans = wrapWords(pitchEl, "contact-word");
+  const HEADER_END = 1000;
+  const WORD_STEP = 130;
+  const TAIL_MS = 520;
+  const WORD_DONE = HEADER_END + wordSpans.length * WORD_STEP + TAIL_MS;
+
+  wordSpans.forEach((span, i) => {
+    span.style.animationDelay = `${HEADER_END + i * WORD_STEP}ms`;
+  });
+
+  window.setTimeout(() => {
+    formPanel.classList.remove("contact-form-panel--hold");
+    formPanel.classList.add("contact-form-panel--visible");
+  }, WORD_DONE);
+})();
+
 /* ── Card stagger animation — fade in da esquerda, ordem leitura ── */
 (function () {
   const cards = document.querySelectorAll('.section-wrapper .card');
