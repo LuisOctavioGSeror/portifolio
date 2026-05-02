@@ -69,6 +69,35 @@ if (contactForm) {
   });
 }
 
+/* ── Card stagger animation — fade in da esquerda, ordem leitura ── */
+(function () {
+  const cards = document.querySelectorAll('.section-wrapper .card');
+  if (!cards.length || !window.IntersectionObserver) return;
+
+  /* Oculta os cards via JS (quem não tem JS vê normalmente) */
+  cards.forEach(c => c.classList.add('card--anim'));
+
+  const observer = new IntersectionObserver((entries) => {
+    /* Ordena por posição: cima→baixo, esquerda→direita */
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => {
+        const dy = a.boundingClientRect.top - b.boundingClientRect.top;
+        return dy !== 0 ? dy : a.boundingClientRect.left - b.boundingClientRect.left;
+      });
+
+    visible.forEach((entry, i) => {
+      setTimeout(() => {
+        entry.target.classList.remove('card--anim');
+        entry.target.classList.add('card--visible');
+      }, i * 360);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+
+  cards.forEach(c => observer.observe(c));
+})();
+
 const toastEl = document.getElementById("footer-copy-toast");
 let toastTimer = null;
 
