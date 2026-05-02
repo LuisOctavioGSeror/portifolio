@@ -11,28 +11,27 @@
   const section = canvas.closest('.hero-section');
   if (!section) return;
 
-  /* Opacidade global do feixe — reduzida para ser ambientação,
-     não protagonista. Partículas mantêm opacidade própria. */
+  /* Opacidade global do feixe */
   const BEAM_OPACITY = 0.68;
 
   let W, H, time = 0;
   let sparks = [], embers = [];
   let tA = 0, tB = 0, tC = 0, tD = 0;
 
-  /* ──────────────────────────────────────────
-     Detecção de dispositivo + config adaptativa
-  ────────────────────────────────────────── */
+  /* ── Gradientes cacheados — recriados só no resize ── */
+  let gradBg = null, gradMg = null, gradFt = null, gradFb = null;
+
+  /* ── Detecção de dispositivo ── */
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
                     .test(navigator.userAgent) || window.innerWidth < 768;
 
-  /* Posição horizontal do feixe — declarado após isMobile */
   const BX = isMobile ? 0.55 : 0.525;
 
   const CFG = isMobile ? {
     STEPS      : 45,
     MAX_SPARKS : 80,
     MAX_EMBERS : 60,
-    LAYER_START: 3,    // pula as 3 camadas mais largas no mobile
+    LAYER_START: 3,
     FPS_LIMIT  : 30,
   } : {
     STEPS      : 75,
@@ -45,24 +44,39 @@
   const FRAME_MIN_MS = 1000 / CFG.FPS_LIMIT;
   let   lastFrameTs  = 0;
 
-  /* ──────────────────────────────────────────
-     Resize — observa a seção, não a janela
-  ────────────────────────────────────────── */
-  function resize() {
-    W = canvas.width  = section.offsetWidth;
-    H = canvas.height = section.offsetHeight;
-    initSparks();
-    initEmbers();
-  }
-
-  /* Arrays pré-alocados — sem GC por frame */
+  /* Arrays pré-alocados */
   const STEPS = CFG.STEPS;
   const pathX = new Float32Array(STEPS + 1);
   const pathY = new Float32Array(STEPS + 1);
 
-  /* ──────────────────────────────────────────
-     Beam path — ondulação turbulenta de baixo p/ cima
-  ────────────────────────────────────────── */
+  /* ── Resize ── */
+  function resize() {
+    W = canvas.width  = section.offsetWidth;
+    H = canvas.height = section.offsetHeight;
+
+    /* Recria gradientes apenas quando as dimensões mudam */
+    gradBg = ctx.createRadialGradient(W * BX, H, 0, W * BX, H, W * 0.60);
+    gradBg.addColorStop(0.00, 'rgba(200,200,210,0.38)');
+    gradBg.addColorStop(0.40, 'rgba(110,110,120,0.06)');
+    gradBg.addColorStop(1.00, 'rgba(0,0,0,0)');
+
+    gradMg = ctx.createRadialGradient(W * BX, H * 0.6, 0, W * BX, H * 0.6, W * 0.35);
+    gradMg.addColorStop(0.00, 'rgba(170,170,180,0.09)');
+    gradMg.addColorStop(1.00, 'rgba(0,0,0,0)');
+
+    gradFt = ctx.createLinearGradient(0, 0, 0, H * 0.30);
+    gradFt.addColorStop(0.0, 'rgba(11,11,11,0.96)');
+    gradFt.addColorStop(1.0, 'rgba(11,11,11,0)');
+
+    gradFb = ctx.createLinearGradient(0, H * 0.78, 0, H);
+    gradFb.addColorStop(0.0, 'rgba(11,11,11,0)');
+    gradFb.addColorStop(1.0, 'rgba(11,11,11,0.88)');
+
+    initSparks();
+    initEmbers();
+  }
+
+  /* ── Beam path ── */
   function beamX(y) {
     const t   = y / H;
     const amp = W * 0.022 * (t ** 0.55);
@@ -74,9 +88,14 @@
     );
   }
 
-  /* ──────────────────────────────────────────
-     Sparks — streaks rápidos subindo
-  ────────────────────────────────────────── */
+  /* drawPath fora do loop — sem closure por frame */
+  function drawPath() {
+    ctx.beginPath();
+    ctx.moveTo(pathX[0], pathY[0]);
+    for (let i = 1; i <= STEPS; i++) ctx.lineTo(pathX[i], pathY[i]);
+  }
+
+  /* ── Sparks ── */
   function makeSpark() {
     return {
       y      : H * (0.35 + Math.random() * 0.65),
@@ -122,9 +141,7 @@
     }
   }
 
-  /* ──────────────────────────────────────────
-     Embers — pontinhos flutuantes
-  ────────────────────────────────────────── */
+  /* ── Embers ── */
   function makeEmber() {
     const t = Math.random();
     return {
@@ -173,9 +190,7 @@
     }
   }
 
-  /* ──────────────────────────────────────────
-     Beam principal
-  ────────────────────────────────────────── */
+  /* ── Beam principal ── */
   function drawBeam() {
     const pulse = 0.88 + 0.12 * Math.sin(time * 1.15);
 
@@ -184,69 +199,50 @@
       pathX[i] = beamX(pathY[i]);
     }
 
-    const drawPath = () => {
-      ctx.beginPath();
-      ctx.moveTo(pathX[0], pathY[0]);
-      for (let i = 1; i <= STEPS; i++) ctx.lineTo(pathX[i], pathY[i]);
-    };
-
-    /* --- Glow base (centrado no BX) --- */
-    const bg = ctx.createRadialGradient(W * BX, H, 0, W * BX, H, W * 0.60);
-    bg.addColorStop(0.00, `rgba(200,200,210,${(0.40 * pulse).toFixed(3)})`);
-    bg.addColorStop(0.40, `rgba(110,110,120,${(0.06 * pulse).toFixed(3)})`);
-    bg.addColorStop(1.00, 'rgba(0,0,0,0)');
-    ctx.fillStyle = bg;
+    /* Glows — gradientes cacheados, sem criação por frame */
+    ctx.fillStyle = gradBg;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = gradMg;
     ctx.fillRect(0, 0, W, H);
 
-    /* --- Glow médio --- */
-    const mg = ctx.createRadialGradient(W * BX, H * 0.6, 0, W * BX, H * 0.6, W * 0.35);
-    mg.addColorStop(0.00, `rgba(170,170,180,${(0.10 * pulse).toFixed(3)})`);
-    mg.addColorStop(1.00, 'rgba(0,0,0,0)');
-    ctx.fillStyle = mg;
-    ctx.fillRect(0, 0, W, H);
-
-    /* --- Camadas do feixe (sem shadowBlur) --- */
+    /* Camadas do feixe */
     ctx.lineCap    = 'round';
     ctx.lineJoin   = 'round';
     ctx.shadowBlur = 0;
     const p = pulse;
     const layers = [
-      [W*0.220, `rgba(130,130,140,${(0.030*p).toFixed(3)})`],
-      [W*0.130, `rgba(160,160,170,${(0.050*p).toFixed(3)})`],
-      [W*0.075, `rgba(190,190,200,${(0.085*p).toFixed(3)})`],
-      [W*0.040, `rgba(215,215,220,${(0.130*p).toFixed(3)})`],
-      [W*0.026, `rgba(228,228,235,${(0.170*p).toFixed(3)})`],
-      [W*0.016, `rgba(238,238,244,${(0.250*p).toFixed(3)})`],
-      [W*0.009, `rgba(245,245,248,${(0.370*p).toFixed(3)})`],
-      [W*0.004, `rgba(255,255,255,${(0.600*p).toFixed(3)})`],
-      [3.5,     `rgba(255,255,255,${(0.860*p).toFixed(3)})`],
-      [1.5,     'rgba(255,255,255,1)'],
+      [W*0.220, 0.030*p],
+      [W*0.130, 0.050*p],
+      [W*0.075, 0.085*p],
+      [W*0.040, 0.130*p],
+      [W*0.026, 0.170*p],
+      [W*0.016, 0.250*p],
+      [W*0.009, 0.370*p],
+      [W*0.004, 0.600*p],
+      [3.5,     0.860*p],
+      [1.5,     1.000  ],
+    ];
+    /* Paleta de cinzas por camada (sem criar strings de cor por frame) */
+    const colors = [
+      '130,130,140', '160,160,170', '190,190,200', '215,215,220',
+      '228,228,235', '238,238,244', '245,245,248', '255,255,255',
+      '255,255,255',  '255,255,255',
     ];
     for (let i = CFG.LAYER_START; i < layers.length; i++) {
       ctx.lineWidth   = layers[i][0];
-      ctx.strokeStyle = layers[i][1];
+      ctx.strokeStyle = `rgba(${colors[i]},${layers[i][1].toFixed(3)})`;
       drawPath();
       ctx.stroke();
     }
 
-    /* --- Fade no topo — usa a cor exata de fundo do site (#0b0b0b) --- */
-    const ft = ctx.createLinearGradient(0, 0, 0, H * 0.30);
-    ft.addColorStop(0.0, 'rgba(11,11,11,0.96)');
-    ft.addColorStop(1.0, 'rgba(11,11,11,0)');
-    ctx.fillStyle = ft;
+    /* Fades — cacheados */
+    ctx.fillStyle = gradFt;
     ctx.fillRect(0, 0, W, H * 0.30);
-
-    /* --- Fade na base --- */
-    const fb = ctx.createLinearGradient(0, H * 0.78, 0, H);
-    fb.addColorStop(0.0, 'rgba(11,11,11,0)');
-    fb.addColorStop(1.0, 'rgba(11,11,11,0.88)');
-    ctx.fillStyle = fb;
+    ctx.fillStyle = gradFb;
     ctx.fillRect(0, H * 0.78, W, H * 0.22);
   }
 
-  /* ──────────────────────────────────────────
-     Loop principal
-  ────────────────────────────────────────── */
+  /* ── Loop principal ── */
   function frame(timestamp) {
     requestAnimationFrame(frame);
 
@@ -259,19 +255,15 @@
 
     ctx.clearRect(0, 0, W, H);
 
-    /* Beam com opacidade reduzida — ambientação, não protagonista */
     ctx.globalAlpha = BEAM_OPACITY;
     drawBeam();
     ctx.globalAlpha = 1.0;
 
-    /* Partículas com opacidade própria (não afetadas pelo BEAM_OPACITY) */
     updateSparks(); drawSparks();
     updateEmbers(); drawEmbers();
   }
 
-  /* ──────────────────────────────────────────
-     Init
-  ────────────────────────────────────────── */
+  /* ── Init ── */
   if (window.ResizeObserver) {
     new ResizeObserver(resize).observe(section);
   } else {
