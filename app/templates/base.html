@@ -76,6 +76,7 @@
         </button>
         <nav class="navbar">
           <ul>
+            <li><a href="{{ url_for('index') }}"{% if request.endpoint == 'index' %} class="is-active"{% endif %}>{{ _('nav.overview') }}</a></li>
             <li><a href="{{ url_for('solutions') }}">{{ _('nav.solutions') }}</a></li>
             <li><a href="{{ url_for('projects') }}">{{ _('nav.projects') }}</a></li>
             <li><a href="{{ url_for('about') }}">{{ _('nav.about') }}</a></li>
