@@ -69,13 +69,69 @@ if (contactForm) {
   });
 }
 
+/* ── About page — sequência: header → bio palavra a palavra → cards ── */
+(function () {
+  const bioSection = document.getElementById('about-bio');
+  const cardsGrid  = document.getElementById('about-cards');
+  if (!bioSection || !cardsGrid) return;
+
+  /* Bloqueia os cards até a sequência terminar */
+  cardsGrid.querySelectorAll('.card').forEach(c => c.classList.add('card--hold'));
+
+  /* Quebra um elemento em spans por palavra */
+  function wrapWords(el) {
+    const text  = el.textContent.trim();
+    const words = text.split(/\s+/);
+    el.textContent = '';
+    words.forEach((w, i) => {
+      const span = document.createElement('span');
+      span.className   = 'about-word';
+      span.textContent = w;
+      el.appendChild(span);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(' '));
+    });
+    return el.querySelectorAll('.about-word');
+  }
+
+  const title  = bioSection.querySelector('.project-section-title');
+  const body   = bioSection.querySelector('.project-section-text');
+  const titleWords = title ? wrapWords(title) : [];
+  const bodyWords  = body  ? wrapWords(body)  : [];
+  const allWords   = [...titleWords, ...bodyWords];
+
+  /* Header termina em ~1s (0.1s delay + 0.9s duration) */
+  const HEADER_END = 1000;
+  const WORD_STEP  = 130;
+  const WORD_DONE  = HEADER_END + allWords.length * WORD_STEP + 600;
+
+  /* Anima as palavras após o header */
+  allWords.forEach((span, i) => {
+    span.style.animationDelay = `${HEADER_END + i * WORD_STEP}ms`;
+  });
+
+  /* Após as palavras, anima os cards em sequência */
+  setTimeout(() => {
+    const cards = [...cardsGrid.querySelectorAll('.card')];
+    cards.forEach((c, i) => {
+      setTimeout(() => {
+        c.classList.remove('card--hold');
+        c.classList.add('card--visible');
+      }, i * 360);
+    });
+  }, WORD_DONE);
+})();
+
 /* ── Card stagger animation — fade in da esquerda, ordem leitura ── */
 (function () {
   const cards = document.querySelectorAll('.section-wrapper .card');
   if (!cards.length || !window.IntersectionObserver) return;
 
-  /* Oculta os cards via JS (quem não tem JS vê normalmente) */
-  cards.forEach(c => c.classList.add('card--anim'));
+  /* Oculta os cards via JS (quem não tem JS vê normalmente)
+     card--hold é adicionado pela lógica da about e remove o observer até a hora certa */
+  /* Oculta os cards via JS — pula os gerenciados pela about page */
+  cards.forEach(c => {
+    if (!c.classList.contains('card--hold')) c.classList.add('card--anim');
+  });
 
   const observer = new IntersectionObserver((entries) => {
     /* Ordena por posição: cima→baixo, esquerda→direita */
@@ -95,7 +151,10 @@ if (contactForm) {
     });
   }, { threshold: 0.08 });
 
-  cards.forEach(c => observer.observe(c));
+  /* Pula cards gerenciados pela about page */
+  cards.forEach(c => {
+    if (!c.classList.contains('card--hold')) observer.observe(c);
+  });
 })();
 
 const toastEl = document.getElementById("footer-copy-toast");

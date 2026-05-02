@@ -5,7 +5,8 @@
 {% block content %}
 <section class="section-wrapper">
   <div class="container">
-    <header class="section-header">
+
+    <header class="section-header" id="about-header">
       <p class="section-kicker">{{ _('about.title') }}</p>
       <h1 class="section-title">{{ _('about.heading') }}</h1>
       <p class="section-description">
@@ -13,52 +14,59 @@
       </p>
     </header>
 
-    <section class="project-section">
-      <h2 class="project-section-title">{{ _('about.who_i_am') }}</h2>
-      <p class="project-section-text">
-        {{ _('about.bio') }}
-      </p>
-    </section>
+    <div class="about-stats" id="about-stats">
+      <div class="about-stat">
+        <span class="about-stat__value">{{ _('about.stat1.value') }}</span>
+        <span class="about-stat__label">{{ _('about.stat1.label') }}</span>
+      </div>
+      <div class="about-stat">
+        <span class="about-stat__value">{{ _('about.stat2.value') }}</span>
+        <span class="about-stat__label">{{ _('about.stat2.label') }}</span>
+      </div>
+      <div class="about-stat">
+        <span class="about-stat__value">{{ _('about.stat3.value') }}</span>
+        <span class="about-stat__label">{{ _('about.stat3.label') }}</span>
+      </div>
+      <div class="about-stat">
+        <span class="about-stat__value about-stat__value--mono">{{ _('about.stat4.value') }}</span>
+        <span class="about-stat__label">{{ _('about.stat4.label') }}</span>
+      </div>
+    </div>
 
-    <div class="section-grid">
-      <article class="card">
-        <div class="card-label">
-          <span>{{ _('about.what_i_do.label') }}</span>
-        </div>
-        <h2 class="card-title">{{ _('about.what_i_do.title') }}</h2>
-        <p class="card-text">
-          {{ _('about.what_i_do.text') }}
-        </p>
-        <p class="card-meta">
-          {{ _('about.what_i_do.meta') }}
-        </p>
-      </article>
+    <!-- Two-column: bio left, cards right -->
+    <div class="about-split">
 
-      <article class="card">
-        <div class="card-label">
-          <span>{{ _('about.ai.label') }}</span>
-        </div>
-        <h2 class="card-title">{{ _('about.ai.title') }}</h2>
-        <p class="card-text">
-          {{ _('about.ai.text') }}
+      <section id="about-bio">
+        <h2 class="project-section-title">{{ _('about.who_i_am') }}</h2>
+        <p class="project-section-text">
+          {{ _('about.bio') }}
         </p>
-        <p class="card-meta">
-          {{ _('about.ai.meta') }}
-        </p>
-      </article>
+      </section>
 
-      <article class="card">
-        <div class="card-label">
-          <span>{{ _('about.how_i_work.label') }}</span>
-        </div>
-        <h2 class="card-title">{{ _('about.how_i_work.title') }}</h2>
-        <p class="card-text">
-          {{ _('about.how_i_work.text') }}
-        </p>
-        <p class="card-meta">
-          {{ _('about.how_i_work.meta') }}
-        </p>
-      </article>
+      <!-- Cards em disposição artística: centro → esquerda → direita -->
+      <div class="about-cards-artistic" id="about-cards">
+        <article class="card about-card--center">
+          <div class="card-label"><span>{{ _('about.what_i_do.label') }}</span></div>
+          <h2 class="card-title">{{ _('about.what_i_do.title') }}</h2>
+          <p class="card-text">{{ _('about.what_i_do.text') }}</p>
+          <p class="card-meta">{{ _('about.what_i_do.meta') }}</p>
+        </article>
+
+        <article class="card about-card--left">
+          <div class="card-label"><span>{{ _('about.ai.label') }}</span></div>
+          <h2 class="card-title">{{ _('about.ai.title') }}</h2>
+          <p class="card-text">{{ _('about.ai.text') }}</p>
+          <p class="card-meta">{{ _('about.ai.meta') }}</p>
+        </article>
+
+        <article class="card about-card--right">
+          <div class="card-label"><span>{{ _('about.how_i_work.label') }}</span></div>
+          <h2 class="card-title">{{ _('about.how_i_work.title') }}</h2>
+          <p class="card-text">{{ _('about.how_i_work.text') }}</p>
+          <p class="card-meta">{{ _('about.how_i_work.meta') }}</p>
+        </article>
+      </div>
+
     </div>
   </div>
 </section>

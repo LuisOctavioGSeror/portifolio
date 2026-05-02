@@ -568,6 +568,209 @@ img {
   gap: 0.75rem;
 }
 
+/* ── About page animations ── */
+@keyframes aboutHeaderFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wordReveal {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#about-header {
+  opacity: 0;
+  animation: aboutHeaderFade 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+#about-stats {
+  opacity: 0;
+  animation: aboutHeaderFade 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+}
+
+.about-word {
+  display: inline-block;
+  opacity: 0;
+  animation: wordReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Cards bloqueados até JS liberar */
+#about-cards .card--anim,
+#about-cards .card--hold {
+  opacity: 0;
+  transform: translateX(-28px);
+}
+
+/* ── About page — stats row ── */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.4rem 1.6rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.about-stat:last-child {
+  border-right: none;
+}
+
+.about-stat__value {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #f9fafb;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.about-stat__value--mono {
+  font-size: 0.82rem;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+}
+
+.about-stat__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: rgba(255, 255, 255, 0.38);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .about-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .about-stat:nth-child(2) {
+    border-right: none;
+  }
+  .about-stat:nth-child(1),
+  .about-stat:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .about-stat {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  .about-stat:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ── About page — split layout ── */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 4rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+/* Coluna bio */
+#about-bio {
+  max-height: 50vh;
+  padding: 1.8rem 0 1.8rem 1.6rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  position: sticky;
+  top: 5rem;
+}
+
+#about-bio .project-section-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+#about-bio .project-section-text {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: #d1d5db;
+  max-width: 42ch;
+}
+
+/* Coluna cards — disposição artística */
+.about-cards-artistic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.2rem;
+  padding-bottom: 2rem;
+}
+
+/* Card do meio — no topo, centralizado */
+.about-card--center {
+  grid-column: 1 / 3;
+  justify-self: center;
+  width: 72%;
+  margin-bottom: 0.5rem;
+}
+
+/* Card da esquerda — abaixo do centro */
+.about-card--left {
+  grid-column: 1;
+  margin-top: 0.8rem;
+}
+
+/* Card da direita — ainda mais abaixo */
+.about-card--right {
+  grid-column: 2;
+  margin-top: 2.4rem;
+}
+
+@media (max-width: 900px) {
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  #about-bio {
+    position: static;
+    max-height: none;
+    padding-left: 1.1rem;
+  }
+
+  .about-card--center {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .about-cards-artistic {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card--center,
+  .about-card--left,
+  .about-card--right {
+    grid-column: 1;
+    width: 100%;
+    margin-top: 0;
+    justify-self: stretch;
+  }
+}
+
 @keyframes cardFadeIn {
   from {
     opacity: 0;
