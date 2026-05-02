@@ -1,48 +1,169 @@
-{# Isometric social icons — included from base.html inside site-footer #}
-<div class="footer-isometric-wrap">
-  <ul
-    class="footer-isometric-icons"
-    role="list"
-    aria-label="{{ _('footer.social_aria') }}"
-  >
-    <li>
-      <a
-        href="{{ social_linkedin }}"
-        {% if social_linkedin != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
-        aria-label="LinkedIn"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span>
-      </a>
-    </li>
-    <li>
-      <a
-        href="{{ social_youtube }}"
-        {% if social_youtube != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
-        aria-label="YouTube"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span><i class="fa-brands fa-youtube" aria-hidden="true"></i></span>
-      </a>
-    </li>
-    <li>
-      <a
-        href="{{ social_github }}"
-        {% if social_github != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
-        aria-label="GitHub"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span><i class="fa-brands fa-github" aria-hidden="true"></i></span>
-      </a>
-    </li>
-  </ul>
+{# Single footer band: grid, social, legal #}
+<div class="footer-unified">
+  <div class="container footer-unified__inner">
+    <div class="footer-premium__inner">
+      <div class="footer-premium__brand">
+        <a href="{{ url_for('hero') }}" class="footer-premium__logo">
+          <span class="footer-premium__logo-mark">&lt;/&gt;</span>
+          <span class="footer-premium__logo-name">Luis&nbsp;Seror</span>
+        </a>
+        <p class="footer-premium__tagline">{{ _('footer.tagline') }}</p>
+      </div>
+
+      <nav class="footer-premium__sitemap" aria-labelledby="footer-sitemap-heading">
+        <h2 id="footer-sitemap-heading" class="footer-premium__col-title">{{ _('footer.col.navigate') }}</h2>
+        <div class="footer-premium__sitemap-cols">
+        <ul class="footer-premium__links footer-premium__links--a">
+          <li>
+            <a href="{{ url_for('hero') }}" class="footer-premium__link{% if request.endpoint == 'hero' %} is-active{% endif %}">
+              <span class="footer-premium__link-dot" aria-hidden="true"></span>
+              {{ _('nav.home') }}
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index') }}" class="footer-premium__link{% if request.endpoint == 'index' %} is-active{% endif %}">
+              <span class="footer-premium__link-dot" aria-hidden="true"></span>
+              {{ _('nav.overview') }}
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('solutions') }}" class="footer-premium__link{% if request.endpoint == 'solutions' %} is-active{% endif %}">
+              <span class="footer-premium__link-dot" aria-hidden="true"></span>
+              {{ _('nav.solutions') }}
+            </a>
+          </li>
+        </ul>
+
+        <ul class="footer-premium__links footer-premium__links--b">
+          <li>
+            <a href="{{ url_for('projects') }}" class="footer-premium__link{% if request.endpoint in ('projects', 'project_detail') %} is-active{% endif %}">
+              <span class="footer-premium__link-dot" aria-hidden="true"></span>
+              {{ _('nav.projects') }}
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('about') }}" class="footer-premium__link{% if request.endpoint == 'about' %} is-active{% endif %}">
+              <span class="footer-premium__link-dot" aria-hidden="true"></span>
+              {{ _('nav.about') }}
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('contact') }}" class="footer-premium__link{% if request.endpoint == 'contact' %} is-active{% endif %}">
+              <span class="footer-premium__link-dot" aria-hidden="true"></span>
+              {{ _('nav.contact') }}
+            </a>
+          </li>
+        </ul>
+        </div>
+      </nav>
+
+      <div class="footer-premium__direct">
+        <h2 class="footer-premium__col-title">{{ _('footer.col.direct') }}</h2>
+        <div class="footer-premium__cards">
+          <div class="footer-premium__card">
+            <a
+              class="footer-premium__card-link"
+              href="mailto:{{ contact_email }}"
+              aria-label="{{ _('footer.mail_aria') }}"
+            >
+              <span class="footer-premium__card-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span>
+              <span class="footer-premium__card-body">
+                <span class="footer-premium__card-label">{{ _('footer.direct.email_label') }}</span>
+                <span class="footer-premium__card-value">{{ contact_email }}</span>
+              </span>
+            </a>
+            <button
+              type="button"
+              class="footer-premium__card-copy"
+              data-copy="{{ contact_email }}"
+              data-copy-message="{{ _('footer.copy_email_done') }}"
+              aria-label="{{ _('footer.copy_email_aria') }}"
+            >
+              <span class="footer-premium__card-copy-icon" aria-hidden="true"><i class="fa-solid fa-copy"></i></span>
+            </button>
+          </div>
+          <div class="footer-premium__card">
+            <a
+              class="footer-premium__card-link"
+              href="tel:{{ contact_phone_tel }}"
+              aria-label="{{ _('footer.phone_aria') }}"
+            >
+              <span class="footer-premium__card-icon" aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
+              <span class="footer-premium__card-body">
+                <span class="footer-premium__card-label">{{ _('footer.direct.phone_label') }}</span>
+                <span class="footer-premium__card-value">{{ contact_phone_display }}</span>
+              </span>
+            </a>
+            <button
+              type="button"
+              class="footer-premium__card-copy"
+              data-copy="{{ contact_phone_tel }}"
+              data-copy-message="{{ _('footer.copy_phone_done') }}"
+              aria-label="{{ _('footer.copy_phone_aria') }}"
+            >
+              <span class="footer-premium__card-copy-icon" aria-hidden="true"><i class="fa-solid fa-copy"></i></span>
+            </button>
+          </div>
+        </div>
+        <p id="footer-copy-toast" class="footer-copy-toast" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="footer-unified__trail">
+      <div class="footer-unified__social">
+        <ul
+          class="footer-isometric-icons"
+          role="list"
+          aria-label="{{ _('footer.social_aria') }}"
+        >
+          <li>
+            <a
+              href="{{ social_linkedin }}"
+              {% if social_linkedin != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
+              aria-label="LinkedIn"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ social_youtube }}"
+              {% if social_youtube != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
+              aria-label="YouTube"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span><i class="fa-brands fa-youtube" aria-hidden="true"></i></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ social_github }}"
+              {% if social_github != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
+              aria-label="GitHub"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span><i class="fa-brands fa-github" aria-hidden="true"></i></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <p class="footer-unified__legal">
+        <script>
+          document.write("© " + new Date().getFullYear() + " ");
+        </script>
+        {{ _('footer.copyright') }}
+      </p>
+    </div>
+  </div>
 </div>

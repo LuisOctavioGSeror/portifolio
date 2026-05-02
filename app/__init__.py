@@ -10,6 +10,10 @@ SOCIAL_URLS = {
     "github": "https://github.com/LuisOctavioGSeror",
 }
 
+CONTACT_EMAIL = "luisoctaviogalessoseror@protonmail.com"
+CONTACT_PHONE_TEL = "+5565992284932"
+CONTACT_PHONE_DISPLAY = "+55 65 992284932"
+
 
 def create_app():
     app = Flask(__name__)
@@ -42,6 +46,9 @@ def create_app():
             "social_linkedin": SOCIAL_URLS["linkedin"],
             "social_youtube": SOCIAL_URLS["youtube"],
             "social_github": SOCIAL_URLS["github"],
+            "contact_email": CONTACT_EMAIL,
+            "contact_phone_tel": CONTACT_PHONE_TEL,
+            "contact_phone_display": CONTACT_PHONE_DISPLAY,
         }
 
     return app

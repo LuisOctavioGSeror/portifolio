@@ -69,3 +69,49 @@ if (contactForm) {
   });
 }
 
+const toastEl = document.getElementById("footer-copy-toast");
+let toastTimer = null;
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "fixed";
+  ta.style.left = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand("copy");
+  document.body.removeChild(ta);
+}
+
+function showCopyToast(message) {
+  if (!toastEl || !message) return;
+  toastEl.textContent = message;
+  toastEl.classList.add("is-visible");
+  if (toastTimer) window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    toastEl.classList.remove("is-visible");
+    toastEl.textContent = "";
+  }, 2800);
+}
+
+document.querySelectorAll(".footer-premium__card-copy[data-copy]").forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const text = (btn.getAttribute("data-copy") || "").trim();
+    const msg = (btn.getAttribute("data-copy-message") || "").trim();
+    if (!text) return;
+    try {
+      await copyToClipboard(text);
+      showCopyToast(msg);
+    } catch (_) {
+      /* ignore */
+    }
+  });
+});
+
