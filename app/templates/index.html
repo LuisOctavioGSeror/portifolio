@@ -6,18 +6,24 @@
 <section class="hero-section">
     <div class="container hero-grid">
       <div>
+        {% set eyebrow = _('index.eyebrow') %}
+        {% if eyebrow %}
         <div class="eyebrow">
           <span class="eyebrow-dot"></span>
-          {{ _('index.eyebrow') }}
+          {{ eyebrow }}
         </div>
+        {% endif %}
         <h1 class="hero-title">
           {{ _('index.hero.title.1') }}
           <span class="hero-highlight">{{ _('index.hero.title.2') }}</span>
           {{ _('index.hero.title.3') }}
         </h1>
+        {% set hero_sub = _('index.hero.subtitle') %}
+        {% if hero_sub %}
         <p class="hero-subtitle">
-          {{ _('index.hero.subtitle') }}
+          {{ hero_sub }}
         </p>
+        {% endif %}
         <div class="hero-meta">
           <span>
             <span class="hero-meta-dot"></span>

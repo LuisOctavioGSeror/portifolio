@@ -3,7 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 /* TYPING EFFECT */
 
-const text = "Backend developer • AI integrator";
+const text = "Software engineer • AI integrator";
 let i = 0;
 
 function type(){

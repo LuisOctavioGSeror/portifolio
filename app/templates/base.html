@@ -94,7 +94,8 @@
       {% block content %}{% endblock %}
     </main>
 
-    <footer class="site-footer" id="contact">
+    <footer class="site-footer"{% if request.endpoint == 'contact' %} id="contact"{% endif %}>
+      {% if request.endpoint == 'contact' %}
       <div class="container footer-content">
         <div>
           <h2 class="footer-title">{{ _('footer.title') }}</h2>
@@ -171,6 +172,7 @@
           </div>
         </form>
       </div>
+      {% endif %}
       {% include "footer.html" %}
       <div class="footer-bottom">
         ©
