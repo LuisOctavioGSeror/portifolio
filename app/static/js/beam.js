@@ -8,7 +8,7 @@
   const canvas  = document.getElementById('beam-canvas');
   if (!canvas) return;
   const ctx     = canvas.getContext('2d');
-  const section = canvas.closest('.hero-section');
+  const section = canvas.closest('.hero-section, .beam-container');
   if (!section) return;
 
   /* Opacidade global do feixe */
@@ -25,7 +25,8 @@
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
                     .test(navigator.userAgent) || window.innerWidth < 768;
 
-  const BX = isMobile ? 0.55 : 0.525;
+  const isContact = section.classList.contains('contact-beam-bg');
+  const BX = isMobile ? 0.55 : (isContact ? 0.35 : 0.525);
 
   const CFG = isMobile ? {
     STEPS      : 45,

@@ -157,6 +157,27 @@ if (contactForm) {
   });
 })();
 
+/* ── WhatsApp button ── */
+const waBtn = document.getElementById('btn-whatsapp');
+if (waBtn) {
+  waBtn.addEventListener('click', () => {
+    const name    = (document.getElementById('name')?.value    || '').trim();
+    const email   = (document.getElementById('email')?.value   || '').trim();
+    const phone   = (document.getElementById('phone')?.value   || '').trim();
+    const context = (document.getElementById('context')?.value || '').trim();
+    const message = (document.getElementById('message')?.value || '').trim();
+
+    let text = 'Olá Luis, vim pelo seu portfólio!';
+    if (name)    text += `\n\nNome: ${name}`;
+    if (email)   text += `\nEmail: ${email}`;
+    if (phone)   text += `\nTelefone: ${phone}`;
+    if (context) text += `\nContexto: ${context}`;
+    if (message) text += `\n\nMensagem: ${message}`;
+
+    window.open(`https://wa.me/5565992284932?text=${encodeURIComponent(text)}`, '_blank');
+  });
+}
+
 const toastEl = document.getElementById("footer-copy-toast");
 let toastTimer = null;
 
