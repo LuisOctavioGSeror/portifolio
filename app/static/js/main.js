@@ -18,6 +18,12 @@ navLinks.forEach((link) => {
   });
 });
 
+(function () {
+  if (document.querySelector(".index-value-bridge")) {
+    document.documentElement.classList.add("js-bridge-animate");
+  }
+})();
+
 // Contact form handling (same footer reused across pages) — submit to Formspree
 const contactForm = document.querySelector("#contact-form");
 const statusEl = document.querySelector("#form-status");
@@ -218,7 +224,18 @@ if (contactForm) {
       return;
     }
 
-    const wordSpans = wrapWords(heading);
+    const mainEl = heading.querySelector(".overview-featured-headline__main");
+    const subEl = heading.querySelector(".overview-featured-headline__sub");
+    let wordSpans = [];
+    if (mainEl && mainEl.textContent.trim()) {
+      wordSpans = wordSpans.concat(wrapWords(mainEl));
+    }
+    if (subEl && subEl.textContent.trim()) {
+      wordSpans = wordSpans.concat(wrapWords(subEl));
+    }
+    if (!wordSpans.length) {
+      wordSpans = wrapWords(heading);
+    }
     const HEADER_END = 400;
     const WORD_STEP = 130;
     const WORD_DONE = HEADER_END + wordSpans.length * WORD_STEP + 600;
@@ -360,4 +377,60 @@ document.querySelectorAll(".footer-premium__card-copy[data-copy]").forEach((btn)
     }
   });
 });
+
+/* ── Overview: frase entre marquee e projetos — só depois do marquee + scroll ── */
+(function () {
+  const bridge = document.querySelector(".index-value-bridge");
+  if (!bridge || !window.IntersectionObserver) {
+    bridge?.classList.add("index-value-bridge--visible");
+    return;
+  }
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /** Marquee strip CSS: animation-delay 4s + fade ~0.45s */
+  const MARQUEE_REVEAL_DONE_MS = 4600;
+
+  if (reduced) {
+    bridge.classList.add("index-value-bridge--visible");
+    return;
+  }
+
+  let observer = null;
+
+  function reveal() {
+    bridge.classList.add("index-value-bridge--visible");
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+  }
+
+  window.setTimeout(() => {
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (
+          entries.some(
+            (e) => e.isIntersecting && e.intersectionRatio >= 0.055
+          )
+        ) {
+          reveal();
+        }
+      },
+      {
+        threshold: [0, 0.055, 0.1, 0.18],
+        rootMargin: "0px 0px -14% 0px",
+      }
+    );
+    observer.observe(bridge);
+
+    requestAnimationFrame(() => {
+      const rect = bridge.getBoundingClientRect();
+      const vh =
+        window.innerHeight || document.documentElement.clientHeight || 0;
+      if (rect.top < vh * 0.76 && rect.bottom > 56) {
+        reveal();
+      }
+    });
+  }, MARQUEE_REVEAL_DONE_MS);
+})();
 
