@@ -1,7 +1,13 @@
-from typing import Dict, Any
+from typing import Any, Dict, List, Tuple
 
 from .i18n import get_locale
 
+# Ordem dos destaques na visão geral (centro → esquerda → direita, como em /about).
+FEATURED_PROJECT_SLUGS: Tuple[str, ...] = (
+    "myticketflow",
+    "myideas",
+    "myassistant",
+)
 
 PROJECTS: Dict[str, Dict[str, Any]] = {
     "myticketflow": {
@@ -101,4 +107,14 @@ def get_all_projects() -> Dict[str, Dict[str, Any]]:
 def get_project(slug: str) -> Dict[str, Any] | None:
     projects = get_all_projects()
     return projects.get(slug)
+
+
+def get_featured_projects(limit: int = 3) -> List[Tuple[str, Dict[str, Any]]]:
+    """Últimos / principais projetos na ordem definida em FEATURED_PROJECT_SLUGS."""
+    all_p = get_all_projects()
+    out: List[Tuple[str, Dict[str, Any]]] = []
+    for slug in FEATURED_PROJECT_SLUGS[:limit]:
+        if slug in all_p:
+            out.append((slug, all_p[slug]))
+    return out
 

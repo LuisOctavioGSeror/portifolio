@@ -165,6 +165,99 @@ if (contactForm) {
   }, WORD_DONE);
 })();
 
+(function () {
+  const wrapSection = document.getElementById("overview-featured-section");
+  const intro = document.getElementById("overview-featured-intro");
+  const heading = document.getElementById("overview-featured-heading");
+  const grid = document.getElementById("index-featured-projects");
+  if (!wrapSection || !intro || !heading || !grid || !window.IntersectionObserver) return;
+
+  grid.querySelectorAll(".card").forEach((c) => {
+    c.classList.remove("card--anim");
+    c.classList.add("card--hold");
+  });
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* Depois do fade do subtítulo/map (~3.73s) + reveal do marquee (~4–4.45s) */
+  const HERO_INTRO_MS = 4750;
+
+  let heroIntroDone = false;
+  let inView = false;
+  let sequenceStarted = false;
+  let observer = null;
+
+  function wrapWords(el) {
+    const text = el.textContent.trim();
+    const words = text.split(/\s+/);
+    el.textContent = "";
+    words.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = "about-word";
+      span.textContent = w;
+      el.appendChild(span);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+    return [...el.querySelectorAll(".about-word")];
+  }
+
+  function runSequence() {
+    if (sequenceStarted) return;
+    sequenceStarted = true;
+    if (observer) observer.disconnect();
+
+    intro.classList.add("overview-featured-intro--started");
+
+    if (reduced) {
+      const cards = [...grid.querySelectorAll(".card")];
+      cards.forEach((c, i) => {
+        window.setTimeout(() => {
+          c.classList.remove("card--hold");
+          c.classList.add("card--visible");
+        }, i * 360);
+      });
+      return;
+    }
+
+    const wordSpans = wrapWords(heading);
+    const HEADER_END = 400;
+    const WORD_STEP = 130;
+    const WORD_DONE = HEADER_END + wordSpans.length * WORD_STEP + 600;
+
+    wordSpans.forEach((span, i) => {
+      span.style.animationDelay = `${HEADER_END + i * WORD_STEP}ms`;
+    });
+
+    window.setTimeout(() => {
+      const cards = [...grid.querySelectorAll(".card")];
+      cards.forEach((c, i) => {
+        window.setTimeout(() => {
+          c.classList.remove("card--hold");
+          c.classList.add("card--visible");
+        }, i * 360);
+      });
+    }, WORD_DONE);
+  }
+
+  function tryStart() {
+    if (sequenceStarted || !heroIntroDone || !inView) return;
+    runSequence();
+  }
+
+  window.setTimeout(() => {
+    heroIntroDone = true;
+    tryStart();
+  }, HERO_INTRO_MS);
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      inView = entries.some((e) => e.isIntersecting);
+      tryStart();
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -5% 0px" }
+  );
+  observer.observe(wrapSection);
+})();
+
 /* ── Card stagger animation — fade in da esquerda, ordem leitura ── */
 (function () {
   const cards = document.querySelectorAll('.section-wrapper .card');

@@ -1,6 +1,6 @@
 from flask import render_template, abort
 
-from .projects_data import get_all_projects, get_project
+from .projects_data import get_all_projects, get_featured_projects, get_project
 from .readme_preview import fetch_readme_html
 
 
@@ -11,7 +11,8 @@ def register_routes(app):
 
     @app.route("/overview")
     def index():
-        return render_template("index.html")
+        featured_projects = get_featured_projects(3)
+        return render_template("index.html", featured_projects=featured_projects)
 
     @app.route("/solutions")
     def solutions():

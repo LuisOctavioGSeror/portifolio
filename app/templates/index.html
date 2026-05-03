@@ -2,9 +2,47 @@
 
 {% block title %}{{ _('index.title') }}{% endblock %}
 
+{% macro index_marquee_list(hidden=false) %}
+<ul class="index-marquee__list"{% if hidden %} aria-hidden="true"{% endif %}>
+  <li class="index-marquee__cell">
+    <div class="index-marquee-stat">
+      <span class="about-stat__value">{{ _('about.stat1.value') }}</span>
+      <span class="about-stat__label">{{ _('about.stat1.label') }}</span>
+    </div>
+  </li>
+  <li class="index-marquee__cell">
+    <div class="index-marquee-stat">
+      <span class="about-stat__value">{{ _('about.stat2.value') }}</span>
+      <span class="about-stat__label">{{ _('about.stat2.label') }}</span>
+    </div>
+  </li>
+  <li class="index-marquee__cell">
+    <div class="index-marquee-stat">
+      <span class="about-stat__value">{{ _('about.stat3.value') }}</span>
+      <span class="about-stat__label">{{ _('about.stat3.label') }}</span>
+    </div>
+  </li>
+  <li class="index-marquee__cell">
+    <div class="index-marquee-stat">
+      <span class="about-stat__value about-stat__value--mono">{{ _('about.stat4.value') }}</span>
+      <span class="about-stat__label">{{ _('about.stat4.label') }}</span>
+    </div>
+  </li>
+  {% for mx in ["x1", "x2", "x3", "x4"] %}
+  <li class="index-marquee__cell">
+    <div class="index-marquee-stat">
+      <span class="about-stat__value">{{ _('index.marquee.' ~ mx ~ '.value') }}</span>
+      <span class="about-stat__label">{{ _('index.marquee.' ~ mx ~ '.label') }}</span>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+
 {% block content %}
 <section class="hero-section">
     <canvas id="beam-canvas" aria-hidden="true"></canvas>
+    <div class="hero-fold">
     <div class="container hero-grid">
       <div>
         {% set eyebrow = _('index.eyebrow') %}
@@ -98,6 +136,83 @@
         </div>
       </aside>
     </div>
+    </div>
+
+    <section class="index-marquee-strip" aria-label="{{ _('index.marquee.aria') }}">
+      <div class="index-marquee">
+        <div class="index-marquee__track">
+          {{ index_marquee_list() }}
+          {{ index_marquee_list(true) }}
+        </div>
+      </div>
+    </section>
+
+    {% if featured_projects %}
+    <div
+      id="overview-featured-section"
+      class="overview-featured"
+      aria-labelledby="overview-featured-heading"
+    >
+      <div class="container">
+        <div class="about-split overview-featured-split">
+          <section id="overview-featured-intro">
+            <h2 class="project-section-title" id="overview-featured-heading">
+              {{ _('index.featured.teaser') }}
+            </h2>
+          </section>
+
+          <div class="overview-featured-right">
+            <div class="about-cards-artistic overview-featured__cards" id="index-featured-projects">
+          {% set layout_positions = ['about-card--center', 'about-card--left', 'about-card--right'] %}
+          {% for slug, project in featured_projects %}
+          <article
+            class="card overview-featured-project-card {{ layout_positions[loop.index0] }}"
+          >
+            <div class="card-label">
+              <span>{{ project.name }}</span>
+            </div>
+
+            {% if project.thumbnail %}
+            <figure class="project-card-thumb">
+              <img
+                src="{{ url_for('static', filename=project.thumbnail) }}"
+                alt="{{ project.name }}"
+              />
+            </figure>
+            {% endif %}
+
+            <h3 class="card-title">{{ project.card_title }}</h3>
+            <p class="card-text">{{ project.card_text }}</p>
+            <p class="card-meta">{{ project.card_stack }}</p>
+
+            <div class="project-actions overview-featured-project-card__actions">
+              <a href="{{ url_for('project_detail', slug=slug) }}" class="btn-primary">{{
+                _('projects.card.learn_more')
+              }}</a>
+              {% if project.live_url %}
+              <a
+                href="{{ project.live_url }}"
+                class="btn-ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ _('projects.card.see_live') }}
+              </a>
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+            </div>
+
+            <p class="overview-featured__footer">
+              <a href="{{ url_for('projects') }}" class="btn-ghost">{{ _('index.featured.all_projects') }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
 </section>
+
 <script src="{{ url_for('static', filename='js/beam.js') }}"></script>
 {% endblock %}
