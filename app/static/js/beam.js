@@ -85,8 +85,8 @@
       canvas.height = H;
 
       gradBg = ctx.createRadialGradient(W * BX, H, 0, W * BX, H, W * 0.6);
-      gradBg.addColorStop(0.0, "rgba(200,200,210,0.38)");
-      gradBg.addColorStop(0.4, "rgba(110,110,120,0.06)");
+      gradBg.addColorStop(0.0, "rgba(220,175,90,0.55)");
+      gradBg.addColorStop(0.4, "rgba(150,110,45,0.12)");
       gradBg.addColorStop(1.0, "rgba(0,0,0,0)");
 
       gradMg = ctx.createRadialGradient(
@@ -97,7 +97,7 @@
         H * 0.6,
         W * 0.35
       );
-      gradMg.addColorStop(0.0, "rgba(170,170,180,0.09)");
+      gradMg.addColorStop(0.0, "rgba(230,185,80,0.18)");
       gradMg.addColorStop(1.0, "rgba(0,0,0,0)");
 
       gradFt = ctx.createLinearGradient(0, 0, 0, H * 0.3);
@@ -175,7 +175,7 @@
       const px = beamX(s.y) + s.spread;
       const a = s.alpha * pulse;
       ctx.lineWidth = s.width;
-      ctx.strokeStyle = `rgba(255,255,255,${a.toFixed(2)})`;
+      ctx.strokeStyle = `rgba(255,230,140,${a.toFixed(2)})`;
       ctx.beginPath();
       ctx.moveTo(px, s.y + s.length * 0.5);
       ctx.lineTo(px, s.y - s.length * 0.5);
@@ -228,7 +228,7 @@
       if (a < 0.02) continue;
       ctx.beginPath();
       ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(220,220,230,${a.toFixed(2)})`;
+      ctx.fillStyle = `rgba(240,200,100,${a.toFixed(2)})`;
       ctx.fill();
     }
   }
@@ -251,28 +251,28 @@
     ctx.shadowBlur = 0;
     const p = pulse;
     const layers = [
-      [W * 0.22, 0.03 * p],
-      [W * 0.13, 0.05 * p],
-      [W * 0.075, 0.085 * p],
-      [W * 0.04, 0.13 * p],
-      [W * 0.026, 0.17 * p],
-      [W * 0.016, 0.25 * p],
-      [W * 0.009, 0.37 * p],
-      [W * 0.004, 0.6 * p],
-      [3.5, 0.86 * p],
+      [W * 0.22, 0.06 * p],
+      [W * 0.13, 0.10 * p],
+      [W * 0.075, 0.15 * p],
+      [W * 0.04, 0.22 * p],
+      [W * 0.026, 0.30 * p],
+      [W * 0.016, 0.42 * p],
+      [W * 0.009, 0.58 * p],
+      [W * 0.004, 0.78 * p],
+      [3.5, 0.92 * p],
       [1.5, 1.0],
     ];
     const colors = [
-      "130,130,140",
-      "160,160,170",
-      "190,190,200",
-      "215,215,220",
-      "228,228,235",
-      "238,238,244",
-      "245,245,248",
-      "255,255,255",
-      "255,255,255",
-      "255,255,255",
+      "140,105,45",
+      "170,130,55",
+      "195,155,70",
+      "215,175,90",
+      "228,190,105",
+      "238,205,120",
+      "245,215,140",
+      "252,230,160",
+      "255,240,180",
+      "255,248,210",
     ];
     for (let i = CFG.LAYER_START; i < layers.length; i++) {
       ctx.lineWidth = layers[i][0];
