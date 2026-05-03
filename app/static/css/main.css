@@ -1859,9 +1859,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   gap: 0.5rem;
   padding: 0.65rem 1.4rem;
   border-radius: 999px;
-  border: none;
-  background: #25d366;
-  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #ffffff;
+  color: #05070a;
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
@@ -1870,9 +1870,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .btn-whatsapp:hover {
-  background: #20bd5a;
+  background: #f0f0f0;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 /* Tablet e abaixo: uma coluna (evita duas metades estreitas) */
