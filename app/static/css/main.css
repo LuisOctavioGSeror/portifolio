@@ -5,42 +5,63 @@
   box-sizing: border-box;
 }
 
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  /* Corpo — ~15–16.5px (Inter lê maior que Space Grotesk no mesmo rem) */
+  --text-body: clamp(0.9375rem, 0.16vw + 0.9rem, 1.0625rem);
+  --header-offset: 78px;
+}
+
+html {
+  font-size: 100%;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 400;
   color: #ffffff;
   background: #0b0b0b;
 }
 
-/* ── Tipografia premium: Playfair Display nos títulos grandes ── */
+body {
+  font-size: var(--text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hierarquia: hero / grandes (800); seções (700); subtítulos (600) ── */
 .hero-title,
 .contact-beam-title,
 .index-value-bridge__text,
-.overview-featured-headline,
-.overview-featured-headline__main,
-.overview-featured-headline__sub,
+.overview-featured-headline__main {
+  font-family: var(--font-sans);
+  font-weight: 800;
+}
+
 .section-title,
 .project-section-title,
 .contact-card__title {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: var(--font-sans);
+  font-weight: 700;
 }
 
-:root {
-  --header-offset: 78px;
+.overview-featured-headline__sub,
+.hero-subtitle,
+.contact-header-lead {
+  font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
   :root {
     --header-offset: 70px;
   }
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .container {
@@ -89,12 +110,14 @@ img {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   color: #ffffff;
 }
 
 .logo span {
   color: #ffffff;
+  font-family: var(--font-mono);
+  font-weight: 500;
 }
 
 .navbar ul {
@@ -107,7 +130,7 @@ img {
 }
 
 .navbar a {
-  font-size: 1.02rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.92);
   opacity: 1;
   position: relative;
@@ -152,7 +175,9 @@ img {
 }
 
 .lang-pill {
+  font-family: var(--font-mono);
   font-size: 0.82rem;
+  font-weight: 500;
   padding: 0.22rem 0.62rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.32);
@@ -296,8 +321,8 @@ img {
 
 .index-value-bridge__text {
   margin: 0;
-  font-size: clamp(2rem, 5.85vw, 3.65rem);
-  font-weight: 600;
+  font-size: clamp(1.85rem, 5.35vw, 3.35rem);
+  font-weight: 800;
   letter-spacing: -0.038em;
   line-height: 1.12;
   color: #f9fafb;
@@ -395,11 +420,11 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .index-marquee-stat .about-stat__value {
-  font-size: 1.22rem;
+  font-size: 1.12rem;
 }
 
 .index-marquee-stat .about-stat__value--mono {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   line-height: 1.45;
 }
 
@@ -493,7 +518,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 .hero-title {
   margin: 1.15rem 0 1.05rem;
-  font-size: clamp(2.85rem, 8vw, 5.35rem);
+  font-size: clamp(2.55rem, 7.25vw, 4.85rem);
   line-height: 1.06;
   letter-spacing: -0.045em;
   color: #f9fafb;
@@ -637,7 +662,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   margin: 0 0 1.75rem;
   max-width: 34rem;
   color: #e5e7eb;
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   line-height: 1.7;
 }
 
@@ -749,7 +774,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   border: 1px solid rgba(201, 168, 76, 0.35);
   background: linear-gradient(152deg, #3a3218 0%, #252010 36%, #110e06 70%, #060502 100%);
   color: rgba(230, 200, 120, 0.95);
+  font-family: var(--font-mono);
   font-size: 0.88rem;
+  font-weight: 500;
   box-shadow:
     inset 0 1px 0 0 rgba(201, 168, 76, 0.14),
     0 6px 18px rgba(0, 0, 0, 0.4);
@@ -764,6 +791,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   border-radius: 999px;
   background: linear-gradient(135deg, #e8c76a 0%, #c9a84c 100%);
   color: #1a1200;
+  font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -795,7 +823,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
   font-size: 0.92rem;
+  font-weight: 500;
 }
 
 .hero-card-body {
@@ -918,7 +948,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 .overview-featured-project-card__lead {
   margin: 0;
-  font-size: clamp(0.97rem, 1.45vw, 1.11rem);
+  font-size: clamp(0.9rem, 1.35vw, 1.03rem);
   line-height: 1.52;
   font-weight: 400;
   color: rgba(229, 231, 235, 0.94);
@@ -945,7 +975,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .section-title {
-  font-size: clamp(1.7rem, 3.3vw, 2.3rem);
+  font-size: clamp(1.55rem, 3vw, 2.08rem);
   letter-spacing: -0.03em;
   color: #f9fafb;
   margin: 0 0 0.9rem;
@@ -954,7 +984,8 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 .section-description {
   margin: 0;
   color: #e5e7eb;
-  font-size: 0.97rem;
+  font-size: 0.9rem;
+  font-weight: 400;
   line-height: 1.8;
 }
 
@@ -1036,8 +1067,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .about-stat__value {
-  font-size: 1.45rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 500;
   color: #f9fafb;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -1045,7 +1077,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 .about-stat__value--mono {
   font-size: 0.82rem;
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-family: var(--font-mono);
   font-weight: 400;
   letter-spacing: 0;
   color: rgba(255, 255, 255, 0.75);
@@ -1141,7 +1173,6 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 .overview-featured-headline {
   margin: 0;
-  font-weight: 600;
   letter-spacing: -0.045em;
   color: #f9fafb;
   line-height: 1.06;
@@ -1149,15 +1180,15 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 .overview-featured-headline__main {
   display: block;
-  font-size: clamp(2.35rem, 6.2vw, 4.35rem);
+  font-size: clamp(2.15rem, 5.65vw, 3.95rem);
 }
 
 .overview-featured-headline__sub {
   display: block;
   margin-top: 0.85rem;
   max-width: 18ch;
-  font-size: clamp(0.94rem, 1.55vw, 1.05rem);
-  font-weight: 500;
+  font-size: clamp(0.88rem, 1.45vw, 0.98rem);
+  font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.52);
@@ -1345,7 +1376,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   padding: 0.28rem 0.65rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.32);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0.85rem;
 }
@@ -1353,6 +1386,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 .card-title {
   margin: 0 0 0.5rem;
   font-size: 1.02rem;
+  font-weight: 600;
   color: #f9fafb;
 }
 
@@ -1400,13 +1434,13 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .project-section-title {
-  font-size: 1.25rem;
+  font-size: 1.12rem;
   color: #f9fafb;
   margin: 0 0 0.75rem;
 }
 
 .project-section-text {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   line-height: 1.7;
   color: #e5e7eb;
   margin: 0 0 1rem;
@@ -1500,8 +1534,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .project-readme code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: var(--font-mono);
   font-size: 0.86rem;
+  font-weight: 500;
 }
 
 .project-readme pre {
@@ -1509,6 +1544,8 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   border-radius: 0.6rem;
   background: #020617;
   overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
 }
 
 .pill-row {
@@ -1522,7 +1559,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.32);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 500;
   color: rgba(255, 255, 255, 0.88);
 }
 
@@ -1546,7 +1585,9 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .case-tag {
+  font-family: var(--font-mono);
   font-size: 0.76rem;
+  font-weight: 500;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.32);
@@ -1722,7 +1763,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .contact-header-lead {
-  font-size: 0.93rem;
+  font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.52);
   margin: 0;
   max-width: 38ch;
@@ -1731,8 +1772,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .contact-beam-title {
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 300;
+  font-size: clamp(1.85rem, 3.15vw, 2.72rem);
   letter-spacing: -0.03em;
   color: #f9fafb;
   margin: 0.4rem 0 0.65rem;
@@ -1747,7 +1787,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .contact-pitch__text {
-  font-size: 1rem;
+  font-size: 0.94rem;
   line-height: 1.65;
   color: rgba(229, 231, 235, 0.88);
   margin: 0;
@@ -1812,8 +1852,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 }
 
 .contact-card__title {
-  font-size: 1.35rem;
-  font-weight: 600;
+  font-size: 1.22rem;
   color: #f9fafb;
   margin: 0 0 0.5rem;
   letter-spacing: -0.02em;
@@ -2648,7 +2687,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 2.1rem;
+    font-size: 1.92rem;
   }
 
   .footer-content {
