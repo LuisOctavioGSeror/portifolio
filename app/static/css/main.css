@@ -937,6 +937,64 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   height: clamp(70px, 11vw, 88px);
 }
 
+/* Desktop: “Veja meus projetos” — cards maiores e coluna encostada à direita */
+@media (min-width: 901px) {
+  .about-split.overview-featured-split {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.32fr);
+    gap: clamp(2.5rem, 5vw, 4.75rem);
+  }
+
+  .overview-featured-right {
+    align-items: flex-end;
+  }
+
+  .overview-featured__cards.about-cards-artistic {
+    width: 100%;
+    max-width: 33rem;
+    column-gap: clamp(0.65rem, 2vw, 1.2rem);
+  }
+
+  .overview-featured__cards .about-card--center {
+    width: min(58%, 17rem);
+    margin-bottom: 0.45rem;
+  }
+
+  .overview-featured-row2 {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
+    column-gap: clamp(0.65rem, 2vw, 1.2rem);
+    width: 100%;
+  }
+
+  .overview-featured-row2 .about-card--left {
+    max-width: 14.75rem;
+  }
+
+  .overview-featured-row2-shift {
+    justify-self: end;
+    max-width: 15.25rem;
+  }
+
+  .overview-featured-row2-shift .overview-featured-project-card--link.about-card--right {
+    max-width: 15.25rem;
+  }
+
+  .overview-featured .overview-featured-project-card__thumb img {
+    height: clamp(88px, 12.5vw, 112px);
+  }
+
+  .overview-featured-project-card--link {
+    padding: 0.62rem 0.72rem 0.85rem;
+  }
+
+  .overview-featured .overview-featured-project-card__title {
+    font-size: 0.82rem;
+  }
+
+  .overview-featured .overview-featured-project-card__lead {
+    font-size: clamp(0.93rem, 1.38vw, 1.06rem);
+  }
+}
+
 .overview-featured-project-card__title {
   margin: 0 0 0.38rem;
   font-size: 0.78rem;

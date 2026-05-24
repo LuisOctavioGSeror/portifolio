@@ -4,30 +4,14 @@
 
 {% macro index_marquee_list(hidden=false) %}
 <ul class="index-marquee__list"{% if hidden %} aria-hidden="true"{% endif %}>
+  {% for mc in ["c1", "c2", "c3", "c4"] %}
   <li class="index-marquee__cell">
     <div class="index-marquee-stat">
-      <span class="about-stat__value">{{ _('about.stat1.value') }}</span>
-      <span class="about-stat__label">{{ _('about.stat1.label') }}</span>
+      <span class="about-stat__value{% if mc == 'c4' %} about-stat__value--mono{% endif %}">{{ _('index.marquee.' ~ mc ~ '.value') }}</span>
+      <span class="about-stat__label">{{ _('index.marquee.' ~ mc ~ '.label') }}</span>
     </div>
   </li>
-  <li class="index-marquee__cell">
-    <div class="index-marquee-stat">
-      <span class="about-stat__value">{{ _('about.stat2.value') }}</span>
-      <span class="about-stat__label">{{ _('about.stat2.label') }}</span>
-    </div>
-  </li>
-  <li class="index-marquee__cell">
-    <div class="index-marquee-stat">
-      <span class="about-stat__value">{{ _('about.stat3.value') }}</span>
-      <span class="about-stat__label">{{ _('about.stat3.label') }}</span>
-    </div>
-  </li>
-  <li class="index-marquee__cell">
-    <div class="index-marquee-stat">
-      <span class="about-stat__value about-stat__value--mono">{{ _('about.stat4.value') }}</span>
-      <span class="about-stat__label">{{ _('about.stat4.label') }}</span>
-    </div>
-  </li>
+  {% endfor %}
   {% for mx in ["x1", "x2", "x3", "x4"] %}
   <li class="index-marquee__cell">
     <div class="index-marquee-stat">
