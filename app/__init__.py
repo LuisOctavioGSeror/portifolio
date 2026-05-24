@@ -4,6 +4,7 @@ import os
 
 from .routes import register_routes
 from .i18n import SUPPORTED_LANGS, detect_locale, get_locale, translate
+from .seo import canonical_url, hreflang_alternates, og_locale_for
 
 # Footer isometric icons — replace "#" with your profile URLs when ready
 SOCIAL_URLS = {
@@ -57,6 +58,9 @@ def create_app():
             "_": translate,
             "current_lang": get_locale(),
             "supported_langs": SUPPORTED_LANGS,
+            "canonical_url": canonical_url(request),
+            "hreflang_links": hreflang_alternates(request),
+            "og_locale": og_locale_for(get_locale()),
             "social_linkedin": SOCIAL_URLS["linkedin"],
             "social_youtube": SOCIAL_URLS["youtube"],
             "social_github": SOCIAL_URLS["github"],

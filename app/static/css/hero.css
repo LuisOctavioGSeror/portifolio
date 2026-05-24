@@ -1,62 +1,71 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    }
-    
-    body{
-    background:#0b0b0b;
-    color:white;
-    overflow-x:hidden;
-    font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    font-weight:400;
-    }
-    
-    canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
-    }
-    
-    /* HERO */
-    
-    .hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-    }
-    
-    h1{
-    font-size:clamp(2.5rem,5.4vw,4.35rem);
-    font-weight:800;
-    letter-spacing:-1px;
-    margin-bottom:12px;
-    }
-    
-    .subtitle{
-    font-size:clamp(0.94rem,2.1vw,1.05rem);
-    font-weight:600;
-    opacity:0.85;
-    margin-bottom:36px;
-    }
-    
-    .btn{
-    padding:14px 32px;
-    border-radius:30px;
-    background:white;
-    color:black;
-    text-decoration:none;
-    font-weight:600;
-    border:none;
-    transition:all .3s;
-    }
-    
-    .btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(255,255,255,0.2);
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: #0b0b0b;
+}
+
+body {
+  background: transparent;
+  color: white;
+  overflow-x: hidden;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
+}
+
+#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5.4vw, 4.35rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: clamp(0.94rem, 2.1vw, 1.05rem);
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 36px;
+}
+
+.btn {
+  padding: 14px 32px;
+  border-radius: 30px;
+  background: white;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+}

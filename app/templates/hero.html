@@ -3,24 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luis Seror – Software engineer &amp; AI</title>
-    <meta name="description" content="Luis Seror – Software engineer &amp; AI freelance. APIs, data flows and AI systems that are simple to operate. FastAPI, Python, LLMs, MCP." />
-    <meta name="keywords" content="Luis Seror, software engineer, AI developer, freelance, APIs, Python, FastAPI, LLM, MCP, data engineering, software architect" />
-    <meta name="author" content="Luis Seror" />
-    <link rel="canonical" href="{{ request.url }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Luis Seror – Software engineer &amp; AI" />
-    <meta property="og:description" content="Software engineer &amp; AI freelance. APIs, data flows and AI systems." />
-    <meta property="og:url" content="{{ request.url }}" />
-    <!-- Coloque aqui a URL absoluta da imagem do preview (ex: https://seusite.com/static/img/og-image.jpg). Recomendado: 1200x630 px. -->
-    <meta property="og:image" content="{{ url_for('static', filename='img/code.jpg', _external=True) }}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="{{ url_for('static', filename='img/code.jpg', _external=True) }}" />
-    <meta name="twitter:title" content="Luis Seror – Software engineer &amp; AI" />
-    <meta name="twitter:description" content="Software engineer &amp; AI freelance. APIs, data flows and AI systems." />
+    <title>{{ seo_title }}</title>
+    {% include "includes/seo_head.html" %}
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,7 +27,7 @@
       <h1>Luis Seror</h1>
 
       <p class="subtitle">
-        <span id="typing"></span>
+        <span id="typing" data-text="{{ _('hero.typing') }}"></span>
       </p>
 
       <a href="{{ url_for('index', lang=current_lang) }}" class="btn">View overview</a>
@@ -55,4 +39,3 @@
     ></script>
   </body>
 </html>
-

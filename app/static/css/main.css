@@ -1899,6 +1899,8 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 .contact-card {
   width: 100%;
   max-width: 460px;
+  min-width: 0;
+  box-sizing: border-box;
   background: rgba(11, 11, 15, 0.18);
   backdrop-filter: blur(20px) saturate(1.5);
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
@@ -1927,13 +1929,21 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Name + Email lado a lado */
 .contact-form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0.9rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.contact-form-row > .form-field {
+  min-width: 0;
 }
 
 /* Botões */
@@ -2121,7 +2131,7 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .contact-form-row {
     grid-template-columns: 1fr;
   }
@@ -2596,6 +2606,8 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
 }
 
 .form-label span {
@@ -2605,6 +2617,8 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
 .form-input,
 .form-textarea {
+  width: 100%;
+  max-width: 100%;
   border-radius: 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(20, 20, 24, 0.55);
