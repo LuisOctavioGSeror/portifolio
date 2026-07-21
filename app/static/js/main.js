@@ -321,7 +321,7 @@ if (waBtn) {
     const context = (document.getElementById('context')?.value || '').trim();
     const message = (document.getElementById('message')?.value || '').trim();
 
-    let text = 'Olá Luis, vim pelo seu portfólio!';
+    let text = 'Olá, vim pelo site da Nexaries!';
     if (name)    text += `\n\nNome: ${name}`;
     if (email)   text += `\nEmail: ${email}`;
     if (phone)   text += `\nTelefone: ${phone}`;

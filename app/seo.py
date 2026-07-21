@@ -6,7 +6,7 @@ from flask import Request
 
 from .i18n import DEFAULT_LANG, SUPPORTED_LANGS, translate
 
-SITE_URL = os.environ.get("SITE_URL", "https://www.luisseror.com").rstrip("/")
+SITE_URL = os.environ.get("SITE_URL", "https://www.nexaries.com").rstrip("/")
 
 SITEMAP_PATHS = [
     "/",
