@@ -64,15 +64,30 @@ async function initNeuralBackground(canvas) {
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
+  const circleTexture = (() => {
+    const size = 64;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    return new THREE.CanvasTexture(canvas);
+  })();
+
   const material = new THREE.PointsMaterial({
     color: 0xffffff,
     size: 1.5,
+    map: circleTexture,
     transparent: true,
     opacity: 0.8,
+    alphaTest: 0.01,
+    depthWrite: false,
   });
 
   const points = new THREE.Points(geometry, material);
-  scene.add(points);
 
   const lineMaterial = new THREE.LineBasicMaterial({
     color: 0xffffff,
@@ -113,7 +128,12 @@ async function initNeuralBackground(canvas) {
   );
 
   const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-  scene.add(lines);
+
+  // Pontos e linhas no mesmo grupo: os nós ficam travados nas conexões
+  const network = new THREE.Group();
+  network.add(points);
+  network.add(lines);
+  scene.add(network);
 
   let running = document.visibilityState === "visible";
   let rafId = 0;
@@ -124,8 +144,8 @@ async function initNeuralBackground(canvas) {
       return;
     }
 
-    points.rotation.y += 0.0008;
-    points.rotation.x += 0.0003;
+    network.rotation.y += 0.0008;
+    network.rotation.x += 0.0003;
 
     controls.update();
 
