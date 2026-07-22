@@ -16,7 +16,68 @@
   const section = canvas.closest(".hero-section, .beam-container");
   if (!section) return;
 
-  const BEAM_OPACITY = 0.68;
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) || window.innerWidth < 768;
+
+  const isOverview = section.classList.contains("hero-section");
+  const isContact = section.classList.contains("contact-beam-bg");
+
+  const BX = isMobile
+    ? isOverview
+      ? 0.5
+      : 0.55
+    : isContact
+      ? 0.45
+      : 0.525;
+
+  const CFG = isMobile
+    ? isOverview
+      ? {
+          STEPS: 50,
+          MAX_SPARKS: 52,
+          MAX_EMBERS: 40,
+          LAYER_START: 0,
+          FPS_LIMIT: 30,
+          BEAM_WIDTH_SCALE: 1.5,
+          LAYER_MINS: [62, 40, 26, 16, 10, 7, 5, 3, 4.5, 3],
+          BEAM_OPACITY: 0.78,
+          GLOW_RADIUS: 0.78,
+          WAVE_AMP: 0.016,
+          CORE_WIDTH: 5.5,
+          CORE_INNER: 3.5,
+        }
+      : {
+          STEPS: 45,
+          MAX_SPARKS: 64,
+          MAX_EMBERS: 48,
+          LAYER_START: 0,
+          FPS_LIMIT: 30,
+          BEAM_WIDTH_SCALE: 1.2,
+          LAYER_MINS: [48, 30, 18, 10, 6, 4, 3, 2, 3.5, 2],
+          BEAM_OPACITY: 0.72,
+          GLOW_RADIUS: 0.65,
+          WAVE_AMP: 0.022,
+          CORE_WIDTH: 4,
+          CORE_INNER: 2.5,
+        }
+    : {
+        STEPS: 70,
+        MAX_SPARKS: 140,
+        MAX_EMBERS: 96,
+        LAYER_START: 0,
+        FPS_LIMIT: 60,
+        BEAM_WIDTH_SCALE: 1,
+        LAYER_MINS: null,
+        BEAM_OPACITY: 0.68,
+        GLOW_RADIUS: 0.6,
+        WAVE_AMP: 0.022,
+        CORE_WIDTH: 3.5,
+        CORE_INNER: 1.5,
+      };
+
+  const BEAM_OPACITY = CFG.BEAM_OPACITY;
 
   let W = 8;
   let H = 8;
@@ -32,30 +93,6 @@
   let gradMg = null;
   let gradFt = null;
   let gradFb = null;
-
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) || window.innerWidth < 768;
-
-  const isContact = section.classList.contains("contact-beam-bg");
-  const BX = isMobile ? 0.55 : isContact ? 0.45 : 0.525;
-
-  const CFG = isMobile
-    ? {
-        STEPS: 45,
-        MAX_SPARKS: 64,
-        MAX_EMBERS: 48,
-        LAYER_START: 3,
-        FPS_LIMIT: 30,
-      }
-    : {
-        STEPS: 70,
-        MAX_SPARKS: 140,
-        MAX_EMBERS: 96,
-        LAYER_START: 0,
-        FPS_LIMIT: 60,
-      };
 
   const FRAME_MIN_MS = 1000 / CFG.FPS_LIMIT;
   let lastFrameTs = 0;
@@ -84,9 +121,12 @@
       canvas.width = W;
       canvas.height = H;
 
-      gradBg = ctx.createRadialGradient(W * BX, H, 0, W * BX, H, W * 0.6);
-      gradBg.addColorStop(0.0, "rgba(220,175,90,0.55)");
-      gradBg.addColorStop(0.4, "rgba(150,110,45,0.12)");
+      gradBg = ctx.createRadialGradient(W * BX, H, 0, W * BX, H, W * CFG.GLOW_RADIUS);
+      gradBg.addColorStop(
+        0.0,
+        isMobile && isOverview ? "rgba(220,175,90,0.68)" : "rgba(220,175,90,0.55)"
+      );
+      gradBg.addColorStop(0.4, isMobile && isOverview ? "rgba(150,110,45,0.18)" : "rgba(150,110,45,0.12)");
       gradBg.addColorStop(1.0, "rgba(0,0,0,0)");
 
       gradMg = ctx.createRadialGradient(
@@ -95,13 +135,16 @@
         0,
         W * BX,
         H * 0.6,
-        W * 0.35
+        W * (isMobile && isOverview ? 0.48 : 0.35)
       );
-      gradMg.addColorStop(0.0, "rgba(230,185,80,0.18)");
+      gradMg.addColorStop(
+        0.0,
+        isMobile && isOverview ? "rgba(230,185,80,0.28)" : "rgba(230,185,80,0.18)"
+      );
       gradMg.addColorStop(1.0, "rgba(0,0,0,0)");
 
       gradFt = ctx.createLinearGradient(0, 0, 0, H * 0.3);
-      gradFt.addColorStop(0.0, "rgba(11,11,11,0.96)");
+      gradFt.addColorStop(0.0, isMobile && isOverview ? "rgba(11,11,11,0.82)" : "rgba(11,11,11,0.96)");
       gradFt.addColorStop(1.0, "rgba(11,11,11,0)");
 
       gradFb = ctx.createLinearGradient(0, H * 0.78, 0, H);
@@ -121,7 +164,7 @@
 
   function beamX(y) {
     const t = y / H;
-    const amp = W * 0.022 * t ** 0.55;
+    const amp = W * CFG.WAVE_AMP * t ** 0.55;
     return (
       W * BX +
       amp *
@@ -250,17 +293,17 @@
     ctx.lineJoin = "round";
     ctx.shadowBlur = 0;
     const p = pulse;
-    const layers = [
-      [W * 0.22, 0.06 * p],
-      [W * 0.13, 0.10 * p],
-      [W * 0.075, 0.15 * p],
-      [W * 0.04, 0.22 * p],
-      [W * 0.026, 0.30 * p],
-      [W * 0.016, 0.42 * p],
-      [W * 0.009, 0.58 * p],
-      [W * 0.004, 0.78 * p],
-      [3.5, 0.92 * p],
-      [1.5, 1.0],
+    const layerDefs = [
+      [0.22, 0.06 * p, false],
+      [0.13, 0.10 * p, false],
+      [0.075, 0.15 * p, false],
+      [0.04, 0.22 * p, false],
+      [0.026, 0.30 * p, false],
+      [0.016, 0.42 * p, false],
+      [0.009, 0.58 * p, false],
+      [0.004, 0.78 * p, false],
+      [CFG.CORE_WIDTH, 0.92 * p, true],
+      [CFG.CORE_INNER, 1.0, true],
     ];
     const colors = [
       "140,105,45",
@@ -274,9 +317,13 @@
       "255,240,180",
       "255,248,210",
     ];
-    for (let i = CFG.LAYER_START; i < layers.length; i++) {
-      ctx.lineWidth = layers[i][0];
-      ctx.strokeStyle = `rgba(${colors[i]},${layers[i][1].toFixed(3)})`;
+    for (let i = CFG.LAYER_START; i < layerDefs.length; i++) {
+      const [size, alpha, fixed] = layerDefs[i];
+      let lineWidth = fixed
+        ? size
+        : Math.max(W * size * CFG.BEAM_WIDTH_SCALE, CFG.LAYER_MINS?.[i] || 0);
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = `rgba(${colors[i]},${alpha.toFixed(3)})`;
       drawPath();
       ctx.stroke();
     }
