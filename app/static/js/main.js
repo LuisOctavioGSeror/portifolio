@@ -467,3 +467,23 @@ document.querySelectorAll(".footer-premium__card-copy[data-copy]").forEach((btn)
   }, MARQUEE_REVEAL_DONE_MS);
 })();
 
+/* Footer de vidro cobre uma faixa do feixe ou da grade, sem esconder o conteúdo */
+(function () {
+  const footer = document.querySelector(".site-footer");
+  const page = document.querySelector(".page-content");
+  if (!footer || !page) return;
+  if (!page.querySelector(".hero-section, .section-wrapper--mesh, .contact-layout")) return;
+
+  function syncFooterHeight() {
+    document.documentElement.style.setProperty("--footer-h", footer.offsetHeight + "px");
+  }
+
+  syncFooterHeight();
+  if (window.ResizeObserver) {
+    const observer = new ResizeObserver(syncFooterHeight);
+    observer.observe(footer);
+  } else {
+    window.addEventListener("resize", syncFooterHeight);
+  }
+})();
+

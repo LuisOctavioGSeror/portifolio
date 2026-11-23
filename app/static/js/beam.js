@@ -147,9 +147,10 @@
       gradFt.addColorStop(0.0, isMobile && isOverview ? "rgba(11,11,11,0.82)" : "rgba(11,11,11,0.96)");
       gradFt.addColorStop(1.0, "rgba(11,11,11,0)");
 
-      gradFb = ctx.createLinearGradient(0, H * 0.78, 0, H);
+      const bottomFade = 0.04;
+      gradFb = ctx.createLinearGradient(0, H * (1 - bottomFade), 0, H);
       gradFb.addColorStop(0.0, "rgba(11,11,11,0)");
-      gradFb.addColorStop(1.0, "rgba(11,11,11,0.88)");
+      gradFb.addColorStop(1.0, "rgba(11,11,11,0.45)");
 
       initSparks();
       initEmbers();
@@ -276,8 +277,53 @@
     }
   }
 
+  const haloSprite = createSoftGlow([
+    [0, "rgba(255, 176, 48, 0.7)"],
+    [0.28, "rgba(214, 132, 28, 0.34)"],
+    [0.58, "rgba(168, 96, 18, 0.1)"],
+    [1, "rgba(120, 64, 8, 0)"],
+  ]);
+  const bodySprite = createSoftGlow([
+    [0, "rgba(255, 252, 242, 1)"],
+    [0.1, "rgba(255, 228, 150, 0.96)"],
+    [0.24, "rgba(255, 188, 62, 0.78)"],
+    [0.46, "rgba(232, 146, 32, 0.36)"],
+    [0.72, "rgba(186, 108, 18, 0.08)"],
+    [1, "rgba(140, 76, 10, 0)"],
+  ]);
+
+  function createSoftGlow(stops) {
+    const size = 128;
+    const sprite = document.createElement("canvas");
+    sprite.width = size;
+    sprite.height = size;
+    const g = sprite.getContext("2d");
+    if (!g) return sprite;
+    const radius = size / 2;
+    const grad = g.createRadialGradient(radius, radius, 0, radius, radius, radius);
+    for (let i = 0; i < stops.length; i++) grad.addColorStop(stops[i][0], stops[i][1]);
+    g.fillStyle = grad;
+    g.fillRect(0, 0, size, size);
+    return sprite;
+  }
+
+  function stampGlow(sprite, diameter, spacing, alpha) {
+    const stamps = Math.max(2, Math.ceil(H / spacing));
+    const half = diameter / 2;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.globalAlpha = alpha;
+    for (let i = 0; i <= stamps; i++) {
+      const y = (H * i) / stamps;
+      const x = beamX(y);
+      ctx.drawImage(sprite, x - half, y - half, diameter, diameter);
+    }
+    ctx.restore();
+  }
+
   function drawBeam() {
     const pulse = 0.88 + 0.12 * Math.sin(time * 1.15);
+    const scale = CFG.BEAM_WIDTH_SCALE;
 
     for (let i = 0; i <= STEPS; i++) {
       pathY[i] = (H * i) / STEPS;
@@ -289,49 +335,35 @@
     ctx.fillStyle = gradMg;
     ctx.fillRect(0, 0, W, H);
 
+    stampGlow(
+      haloSprite,
+      Math.max(isMobile ? 128 : 150, W * 0.16 * scale),
+      isMobile ? 20 : 16,
+      0.11 * pulse
+    );
+    stampGlow(
+      bodySprite,
+      Math.max(isMobile ? 54 : 64, W * 0.072 * scale),
+      isMobile ? 12 : 9,
+      0.2 * pulse
+    );
+
+    ctx.save();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.shadowBlur = 0;
-    const p = pulse;
-    const layerDefs = [
-      [0.22, 0.06 * p, false],
-      [0.13, 0.10 * p, false],
-      [0.075, 0.15 * p, false],
-      [0.04, 0.22 * p, false],
-      [0.026, 0.30 * p, false],
-      [0.016, 0.42 * p, false],
-      [0.009, 0.58 * p, false],
-      [0.004, 0.78 * p, false],
-      [CFG.CORE_WIDTH, 0.92 * p, true],
-      [CFG.CORE_INNER, 1.0, true],
-    ];
-    const colors = [
-      "140,105,45",
-      "170,130,55",
-      "195,155,70",
-      "215,175,90",
-      "228,190,105",
-      "238,205,120",
-      "245,215,140",
-      "252,230,160",
-      "255,240,180",
-      "255,248,210",
-    ];
-    for (let i = CFG.LAYER_START; i < layerDefs.length; i++) {
-      const [size, alpha, fixed] = layerDefs[i];
-      let lineWidth = fixed
-        ? size
-        : Math.max(W * size * CFG.BEAM_WIDTH_SCALE, CFG.LAYER_MINS?.[i] || 0);
-      ctx.lineWidth = lineWidth;
-      ctx.strokeStyle = `rgba(${colors[i]},${alpha.toFixed(3)})`;
-      drawPath();
-      ctx.stroke();
-    }
+    ctx.shadowColor = `rgba(255, 196, 72, ${(0.95 * pulse).toFixed(3)})`;
+    ctx.shadowBlur = isMobile ? 16 : 20;
+    ctx.lineWidth = Math.max(CFG.CORE_WIDTH, 4.5);
+    ctx.strokeStyle = `rgba(255, 248, 220, ${pulse.toFixed(3)})`;
+    ctx.globalAlpha = 1;
+    drawPath();
+    ctx.stroke();
+    ctx.restore();
 
     ctx.fillStyle = gradFt;
     ctx.fillRect(0, 0, W, H * 0.3);
     ctx.fillStyle = gradFb;
-    ctx.fillRect(0, H * 0.78, W, H * 0.22);
+    ctx.fillRect(0, H * 0.96, W, H * 0.04);
   }
 
   function frame(timestamp) {
