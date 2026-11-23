@@ -187,7 +187,7 @@ function createSyncedBrightness(THREE, network, points, lines, neighbors, edges,
       node = next;
     }
 
-    const gap = 0.16;
+    const gap = 0.32;
     pulse.steps = steps;
     pulse.gap = gap;
     pulse.tailSteps = tailSteps;

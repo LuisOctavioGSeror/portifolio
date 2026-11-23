@@ -23,14 +23,15 @@
 
   const isOverview = section.classList.contains("hero-section");
   const isContact = section.classList.contains("contact-beam-bg");
-  const horizontal = isMobile && isOverview;
+  let horizontal = false;
   let host = section;
 
-  if (horizontal) {
-    const slot = document.querySelector(".hero-title__beam");
+  if (isMobile && (isOverview || isContact)) {
+    const slot = document.querySelector(isContact ? ".contact-title__beam" : ".hero-title__beam");
     if (slot) {
       slot.appendChild(canvas);
       host = slot;
+      horizontal = true;
     }
   }
 
@@ -42,9 +43,8 @@
       ? 0.45
       : 0.525;
 
-  const CFG = isMobile
-    ? isOverview
-      ? {
+  const CFG = horizontal
+    ? {
           STEPS: 50,
           MAX_SPARKS: 52,
           MAX_EMBERS: 40,
@@ -58,7 +58,8 @@
           CORE_WIDTH: 5.5,
           CORE_INNER: 3.5,
         }
-      : {
+      : isMobile
+      ? {
           STEPS: 45,
           MAX_SPARKS: 64,
           MAX_EMBERS: 48,

@@ -2100,6 +2100,10 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
 }
 
+.contact-title__beam {
+  display: none;
+}
+
 .contact-beam-title {
   font-size: clamp(1.85rem, 3.15vw, 2.72rem);
   letter-spacing: -0.03em;
@@ -2333,6 +2337,32 @@ html.js-bridge-animate .index-value-bridge--visible .index-value-bridge__text {
 
   .contact-pitch__text {
     text-align: center;
+  }
+}
+
+/* Mobile: feixe vivo na horizontal, entre o título e o texto */
+@media (max-width: 768px) {
+  #contact-header {
+    max-width: none;
+  }
+
+  .contact-title__beam {
+    display: block;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 4.6rem;
+    margin: 0.15rem 0 0.2rem;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .contact-title__beam #beam-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
 }
 
