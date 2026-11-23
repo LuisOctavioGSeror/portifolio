@@ -71,6 +71,11 @@
         <a href="{{ url_for('hero') }}" class="logo">
           <span>&lt;/&gt;</span> Nexaries
         </a>
+        <div class="lang-switch lang-switch--bar" aria-label="Language selector">
+          <a href="{{ request.path }}?lang=en" class="lang-pill{% if current_lang == 'en' %} is-active{% endif %}">{{ _('nav.lang.en') }}</a>
+          <a href="{{ request.path }}?lang=pt" class="lang-pill{% if current_lang == 'pt' %} is-active{% endif %}">{{ _('nav.lang.pt') }}</a>
+          <a href="{{ request.path }}?lang=de" class="lang-pill{% if current_lang == 'de' %} is-active{% endif %}">{{ _('nav.lang.de') }}</a>
+        </div>
         <button class="nav-toggle" aria-label="Toggle navigation">
           <svg
             width="18"
@@ -115,12 +120,12 @@
             <li><a href="{{ url_for('about') }}">{{ _('nav.about') }}</a></li>
             <li><a href="{{ url_for('contact') }}">{{ _('nav.contact') }}</a></li>
           </ul>
+          <div class="lang-switch" aria-label="Language selector">
+            <a href="{{ request.path }}?lang=en" class="lang-pill{% if current_lang == 'en' %} is-active{% endif %}">{{ _('nav.lang.en') }}</a>
+            <a href="{{ request.path }}?lang=pt" class="lang-pill{% if current_lang == 'pt' %} is-active{% endif %}">{{ _('nav.lang.pt') }}</a>
+            <a href="{{ request.path }}?lang=de" class="lang-pill{% if current_lang == 'de' %} is-active{% endif %}">{{ _('nav.lang.de') }}</a>
+          </div>
         </nav>
-        <div class="lang-switch" aria-label="Language selector">
-          <a href="{{ request.path }}?lang=en" class="lang-pill{% if current_lang == 'en' %} is-active{% endif %}">{{ _('nav.lang.en') }}</a>
-          <a href="{{ request.path }}?lang=pt" class="lang-pill{% if current_lang == 'pt' %} is-active{% endif %}">{{ _('nav.lang.pt') }}</a>
-          <a href="{{ request.path }}?lang=de" class="lang-pill{% if current_lang == 'de' %} is-active{% endif %}">{{ _('nav.lang.de') }}</a>
-        </div>
       </div>
     </header>
 

@@ -23,10 +23,20 @@
 
   const isOverview = section.classList.contains("hero-section");
   const isContact = section.classList.contains("contact-beam-bg");
+  const horizontal = isMobile && isOverview;
+  let host = section;
+
+  if (horizontal) {
+    const slot = document.querySelector(".hero-title__beam");
+    if (slot) {
+      slot.appendChild(canvas);
+      host = slot;
+    }
+  }
 
   const BX = isMobile
     ? isOverview
-      ? 0.5
+      ? 0.92
       : 0.55
     : isContact
       ? 0.45
@@ -40,9 +50,9 @@
           MAX_EMBERS: 40,
           LAYER_START: 0,
           FPS_LIMIT: 30,
-          BEAM_WIDTH_SCALE: 1.5,
+          BEAM_WIDTH_SCALE: 1,
           LAYER_MINS: [62, 40, 26, 16, 10, 7, 5, 3, 4.5, 3],
-          BEAM_OPACITY: 0.78,
+          BEAM_OPACITY: 0.9,
           GLOW_RADIUS: 0.78,
           WAVE_AMP: 0.016,
           CORE_WIDTH: 5.5,
@@ -105,8 +115,8 @@
   let rafId = 0;
 
   function readSize() {
-    const rw = section.offsetWidth || section.clientWidth || 0;
-    const rh = section.offsetHeight || section.clientHeight || 0;
+    const rw = host.offsetWidth || host.clientWidth || 0;
+    const rh = host.offsetHeight || host.clientHeight || 0;
     return {
       w: Math.max(8, Math.floor(rw)),
       h: Math.max(8, Math.floor(rh)),
@@ -129,17 +139,12 @@
       gradBg.addColorStop(0.4, isMobile && isOverview ? "rgba(150,110,45,0.18)" : "rgba(150,110,45,0.12)");
       gradBg.addColorStop(1.0, "rgba(0,0,0,0)");
 
-      gradMg = ctx.createRadialGradient(
-        W * BX,
-        H * 0.6,
-        0,
-        W * BX,
-        H * 0.6,
-        W * (isMobile && isOverview ? 0.48 : 0.35)
-      );
+      const midRadius = isOverview ? (isMobile ? 0.62 : 0.52) : 0.35;
+      const midY = isOverview ? 0.48 : 0.6;
+      gradMg = ctx.createRadialGradient(W * BX, H * midY, 0, W * BX, H * midY, W * midRadius);
       gradMg.addColorStop(
         0.0,
-        isMobile && isOverview ? "rgba(230,185,80,0.28)" : "rgba(230,185,80,0.18)"
+        isOverview ? "rgba(120, 86, 36, 0.16)" : "rgba(230,185,80,0.18)"
       );
       gradMg.addColorStop(1.0, "rgba(0,0,0,0)");
 
@@ -163,17 +168,25 @@
     }
   }
 
+  function wave(t) {
+    const amp = (horizontal ? H * 0.16 : W * CFG.WAVE_AMP * t ** 0.55);
+    return (
+      amp *
+      (Math.sin(t * 5.2 + tA) * 0.4 +
+        Math.sin(t * 2.4 - tB) * 0.28 +
+        Math.sin(t * 10.1 + tC) * 0.18 +
+        Math.sin(t * 1.7 - tD) * 0.14)
+    );
+  }
+
   function beamX(y) {
     const t = y / H;
-    const amp = W * CFG.WAVE_AMP * t ** 0.55;
-    return (
-      W * BX +
-      amp *
-        (Math.sin(t * 5.2 + tA) * 0.4 +
-          Math.sin(t * 2.4 - tB) * 0.28 +
-          Math.sin(t * 10.1 + tC) * 0.18 +
-          Math.sin(t * 1.7 - tD) * 0.14)
-    );
+    return W * BX + wave(t);
+  }
+
+  function beamY(x) {
+    const t = x / W;
+    return H * 0.5 + wave(t);
   }
 
   function drawPath() {
@@ -183,6 +196,16 @@
   }
 
   function makeSpark() {
+    if (horizontal) {
+      return {
+        x: Math.random() * W,
+        speed: 0.55 + Math.random() * 1.35,
+        length: 8 + Math.random() * 26,
+        spread: (Math.random() - 0.5) * H * 0.42,
+        alpha: 0.65 + Math.random() * 0.35,
+        width: 0.6 + Math.random() * 1.1,
+      };
+    }
     return {
       y: H * (0.35 + Math.random() * 0.65),
       speed: 0.5 + Math.random() * 1.1,
@@ -195,18 +218,26 @@
 
   function initSparks() {
     sparks = [];
-    const n = Math.min(CFG.MAX_SPARKS, Math.floor((W * H) / 6500));
+    const n = horizontal
+      ? 24
+      : Math.min(CFG.MAX_SPARKS, Math.floor((W * H) / 6500));
     for (let i = 0; i < n; i++) {
       const s = makeSpark();
-      s.y = Math.random() * H;
+      if (horizontal) s.x = Math.random() * W;
+      else s.y = Math.random() * H;
       sparks.push(s);
     }
   }
 
   function updateSparks() {
     for (let i = 0; i < sparks.length; i++) {
-      sparks[i].y -= sparks[i].speed;
-      if (sparks[i].y + sparks[i].length < 0) sparks[i] = makeSpark();
+      if (horizontal) {
+        sparks[i].x += sparks[i].speed;
+        if (sparks[i].x - sparks[i].length > W) sparks[i] = makeSpark();
+      } else {
+        sparks[i].y -= sparks[i].speed;
+        if (sparks[i].y + sparks[i].length < 0) sparks[i] = makeSpark();
+      }
     }
   }
 
@@ -216,19 +247,37 @@
     ctx.shadowBlur = 0;
     for (let i = 0; i < sparks.length; i++) {
       const s = sparks[i];
-      const px = beamX(s.y) + s.spread;
       const a = s.alpha * pulse;
       ctx.lineWidth = s.width;
       ctx.strokeStyle = `rgba(255,230,140,${a.toFixed(2)})`;
       ctx.beginPath();
-      ctx.moveTo(px, s.y + s.length * 0.5);
-      ctx.lineTo(px, s.y - s.length * 0.5);
+      if (horizontal) {
+        const py = beamY(s.x) + s.spread;
+        ctx.moveTo(s.x - s.length * 0.5, py);
+        ctx.lineTo(s.x + s.length * 0.5, py);
+      } else {
+        const px = beamX(s.y) + s.spread;
+        ctx.moveTo(px, s.y + s.length * 0.5);
+        ctx.lineTo(px, s.y - s.length * 0.5);
+      }
       ctx.stroke();
     }
   }
 
   function makeEmber() {
     const t = Math.random();
+    if (horizontal) {
+      return {
+        x: W * t,
+        y: H * 0.5 + (Math.random() - 0.5) * H * 0.55,
+        vx: 0.08 + Math.random() * 0.22,
+        vy: (Math.random() - 0.5) * 0.06,
+        size: 0.5 + Math.random() * 1.6,
+        life: Math.random(),
+        maxL: 0.4 + Math.random() * 0.6,
+        alpha: 0,
+      };
+    }
     return {
       x: W * BX + (Math.random() - 0.5) * W * 0.85 * t,
       y: H * t,
@@ -243,7 +292,9 @@
 
   function initEmbers() {
     embers = [];
-    const n = Math.min(CFG.MAX_EMBERS, Math.floor((W * H) / 8500));
+    const n = horizontal
+      ? 16
+      : Math.min(CFG.MAX_EMBERS, Math.floor((W * H) / 8500));
     for (let i = 0; i < n; i++) {
       const e = makeEmber();
       e.life = Math.random() * e.maxL;
@@ -259,7 +310,11 @@
       e.life += 0.003;
       const r = e.life / e.maxL;
       e.alpha = r < 0.2 ? r / 0.2 : r > 0.75 ? (1 - r) / 0.25 : 1;
-      if (e.life >= e.maxL || e.y < 0) embers[i] = makeEmber();
+      if (horizontal) {
+        if (e.x > W || e.life >= e.maxL) embers[i] = makeEmber();
+      } else if (e.life >= e.maxL || e.y < 0) {
+        embers[i] = makeEmber();
+      }
     }
   }
 
@@ -307,18 +362,27 @@
     return sprite;
   }
 
-  function stampGlow(sprite, diameter, spacing, alpha) {
-    const stamps = Math.max(2, Math.ceil(H / spacing));
-    const half = diameter / 2;
+  function stampGlow(sprite, diameter, spacing, alpha, breath) {
+    const length = horizontal ? W : H;
+    const stamps = Math.max(2, Math.ceil(length / spacing));
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     ctx.globalAlpha = alpha;
     for (let i = 0; i <= stamps; i++) {
-      const y = (H * i) / stamps;
-      const x = beamX(y);
-      ctx.drawImage(sprite, x - half, y - half, diameter, diameter);
+      const along = (length * i) / stamps;
+      const width = breath ? diameter * breath(along) : diameter;
+      const half = width / 2;
+      const x = horizontal ? along : beamX(along);
+      const y = horizontal ? beamY(along) : along;
+      ctx.drawImage(sprite, x - half, y - half, width, width);
     }
     ctx.restore();
+  }
+
+  function overviewBreath(y) {
+    const t = y / H;
+    const open = Math.exp(-((t - 0.4) * (t - 0.4)) / 0.02);
+    return 1 + open * 0.7;
   }
 
   function drawBeam() {
@@ -326,44 +390,68 @@
     const scale = CFG.BEAM_WIDTH_SCALE;
 
     for (let i = 0; i <= STEPS; i++) {
-      pathY[i] = (H * i) / STEPS;
-      pathX[i] = beamX(pathY[i]);
+      if (horizontal) {
+        pathX[i] = (W * i) / STEPS;
+        pathY[i] = beamY(pathX[i]);
+      } else {
+        pathY[i] = (H * i) / STEPS;
+        pathX[i] = beamX(pathY[i]);
+      }
     }
 
-    ctx.fillStyle = gradBg;
-    ctx.fillRect(0, 0, W, H);
-    ctx.fillStyle = gradMg;
-    ctx.fillRect(0, 0, W, H);
+    if (!horizontal) {
+      ctx.fillStyle = gradBg;
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = gradMg;
+      ctx.fillRect(0, 0, W, H);
+    }
 
+    const haloSize = horizontal
+      ? H * 0.96
+      : Math.max(isMobile ? 128 : 150, W * 0.16 * scale);
+    const bodySize = horizontal
+      ? H * 0.46
+      : Math.max(isMobile ? 54 : 64, W * 0.072 * scale);
     stampGlow(
       haloSprite,
-      Math.max(isMobile ? 128 : 150, W * 0.16 * scale),
-      isMobile ? 20 : 16,
-      0.11 * pulse
+      haloSize,
+      horizontal ? 10 : isMobile ? 20 : 16,
+      0.11 * pulse,
+      !horizontal && isOverview ? overviewBreath : null
     );
     stampGlow(
       bodySprite,
-      Math.max(isMobile ? 54 : 64, W * 0.072 * scale),
-      isMobile ? 12 : 9,
-      0.2 * pulse
+      bodySize,
+      horizontal ? 7 : isMobile ? 12 : 9,
+      (horizontal ? 0.28 : 0.2) * pulse
     );
 
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.shadowColor = `rgba(255, 196, 72, ${(0.95 * pulse).toFixed(3)})`;
-    ctx.shadowBlur = isMobile ? 16 : 20;
-    ctx.lineWidth = Math.max(CFG.CORE_WIDTH, 4.5);
+    ctx.shadowBlur = horizontal ? 12 : isMobile ? 16 : 20;
+    ctx.lineWidth = horizontal ? Math.max(2.4, H * 0.045) : Math.max(CFG.CORE_WIDTH, 4.5);
     ctx.strokeStyle = `rgba(255, 248, 220, ${pulse.toFixed(3)})`;
     ctx.globalAlpha = 1;
     drawPath();
     ctx.stroke();
     ctx.restore();
 
-    ctx.fillStyle = gradFt;
-    ctx.fillRect(0, 0, W, H * 0.3);
-    ctx.fillStyle = gradFb;
-    ctx.fillRect(0, H * 0.96, W, H * 0.04);
+    if (horizontal) {
+      const edge = ctx.createLinearGradient(0, 0, W, 0);
+      edge.addColorStop(0, "rgba(11,11,11,0.96)");
+      edge.addColorStop(0.14, "rgba(11,11,11,0)");
+      edge.addColorStop(0.86, "rgba(11,11,11,0)");
+      edge.addColorStop(1, "rgba(11,11,11,0.96)");
+      ctx.fillStyle = edge;
+      ctx.fillRect(0, 0, W, H);
+    } else {
+      ctx.fillStyle = gradFt;
+      ctx.fillRect(0, 0, W, H * 0.3);
+      ctx.fillStyle = gradFb;
+      ctx.fillRect(0, H * 0.96, W, H * 0.04);
+    }
   }
 
   function frame(timestamp) {
@@ -427,7 +515,7 @@
     const ro = new ResizeObserver(() => {
       resize();
     });
-    ro.observe(section);
+    ro.observe(host);
   } else {
     window.addEventListener("resize", resize);
   }

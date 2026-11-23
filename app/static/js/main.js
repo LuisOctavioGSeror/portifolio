@@ -8,12 +8,37 @@ const header = document.querySelector(".site-header");
   try {
     sessionStorage.removeItem("nexaries-arrive");
   } catch (e) {}
-  requestAnimationFrame(function () {
+
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
+
+  function aimArrivalBeam() {
+    if (!mobileQuery.matches) return;
+    const slot = document.querySelector(".hero-title__beam");
+    if (!slot) return;
+    const rect = slot.getBoundingClientRect();
+    if (rect.height < 1) return;
+    root.style.setProperty("--handoff-beam-y", rect.top + rect.height / 2 + "px");
+  }
+
+  let revealed = false;
+  function reveal() {
+    if (revealed) return;
+    revealed = true;
+    aimArrivalBeam();
     requestAnimationFrame(function () {
-      document.documentElement.classList.add("is-present");
-      document.body.classList.add("is-present");
+      requestAnimationFrame(function () {
+        root.classList.add("is-present");
+        document.body.classList.add("is-present");
+      });
     });
-  });
+  }
+
+  if (mobileQuery.matches && document.fonts && document.fonts.status !== "loaded") {
+    document.fonts.ready.then(reveal);
+    window.setTimeout(reveal, 220);
+  } else {
+    reveal();
+  }
 })();
 
 (function () {

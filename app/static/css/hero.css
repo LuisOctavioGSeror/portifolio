@@ -182,9 +182,81 @@ h1 {
   filter: blur(1.5px);
 }
 
+.handoff-probe {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  :root {
+    --handoff-beam-y: calc(
+      2.3rem + 2.55rem + 1px
+      + clamp(1.85rem, 5vh, 2.95rem)
+      + 0.85rem
+      + 2 * 0.98 * clamp(2.35rem, 10.4vw, 2.85rem)
+      + 0.1rem
+      + 2.3rem
+    );
+  }
+
   .hero-veil__beam {
-    left: 50%;
+    left: 0;
+    top: var(--handoff-beam-y, 252px);
+    width: 100%;
+    height: 18px;
+    transform: translateY(-50%);
+    background: linear-gradient(
+      180deg,
+      rgba(214, 168, 78, 0) 0%,
+      rgba(214, 168, 78, 0.45) 36%,
+      rgba(255, 236, 196, 0.95) 50%,
+      rgba(214, 168, 78, 0.45) 64%,
+      rgba(214, 168, 78, 0) 100%
+    );
+  }
+
+  .handoff-probe {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .handoff-probe__bar {
+    height: calc(2.3rem + 2.55rem + 1px);
+  }
+
+  .handoff-probe__fold {
+    padding: clamp(1.85rem, 5vh, 2.95rem) 1.5rem 0;
+  }
+
+  .handoff-probe__line {
+    margin-top: 0.85rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.35rem, 10.4vw, 2.85rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .handoff-probe__beam {
+    height: 4.6rem;
+    margin-top: 0.1rem;
+  }
+}
+
+@media (min-width: 530px) and (max-width: 768px) {
+  :root {
+    --handoff-beam-y: calc(
+      2.3rem + 2.55rem + 1px
+      + clamp(1.85rem, 5vh, 2.95rem)
+      + 0.85rem
+      + 0.98 * clamp(2.35rem, 10.4vw, 2.85rem)
+      + 0.1rem
+      + 2.3rem
+    );
   }
 }
 

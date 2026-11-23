@@ -51,6 +51,7 @@
         {% endif %}
         <h1 class="hero-title">
           <span class="hero-title__line hero-title__line--1">{{ _('index.hero.title.1') }}</span>
+          <span class="hero-title__beam" aria-hidden="true"></span>
           <span class="hero-title__line hero-title__line--2 hero-highlight">{{ _('index.hero.title.2') }}</span>
           {% set hero_t3 = _('index.hero.title.3') %}
           {% if hero_t3 %}
@@ -77,6 +78,38 @@
           <a class="btn-ghost" href="{{ url_for('solutions') }}">
             {{ _('index.hero.cta.solutions') }}
           </a>
+        </div>
+        <div class="overview-mobile">
+          <div class="overview-mobile__stats">
+            {% for key in ["c3", "x4", "c1", "c2"] %}
+            <div class="overview-mobile__stat">
+              <span class="overview-mobile__value">{{ _('index.marquee.' ~ key ~ '.value') }}</span>
+              <span class="overview-mobile__label">{{ _('index.marquee.' ~ key ~ '.label') }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <p class="overview-mobile__kicker">{{ _('index.map.title') }}</p>
+          <nav class="overview-mobile__index" aria-label="{{ _('index.map.title') }}">
+            {% set rows = [
+              ("01", "solutions", url_for("solutions")),
+              ("02", "projects", url_for("projects")),
+              ("03", "about", url_for("about")),
+              ("04", "contact", url_for("contact"))
+            ] %}
+            {% for num, key, href in rows %}
+            <a class="overview-mobile__row" href="{{ href }}">
+              <span class="overview-mobile__num">{{ num }}</span>
+              <span class="overview-mobile__copy">
+                <strong>{{ _('index.map.' ~ key ~ '.title') }}</strong>
+                <span>{{ _('index.map.' ~ key ~ '.text') }}</span>
+              </span>
+              <span class="overview-mobile__arrow" aria-hidden="true">→</span>
+            </a>
+            {% endfor %}
+          </nav>
+          <p class="overview-mobile__note">
+            <span>AI</span> · {{ _('index.hero.pill') }}
+          </p>
         </div>
         </div>
       </div>

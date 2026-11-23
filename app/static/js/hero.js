@@ -13,6 +13,23 @@ function type() {
 
 type();
 
+function aimHandoffBeam() {
+  const probe = document.querySelector(".handoff-probe__beam");
+  if (!probe || window.innerWidth > 768) return;
+  const rect = probe.getBoundingClientRect();
+  if (rect.height < 1) return;
+  document.documentElement.style.setProperty(
+    "--handoff-beam-y",
+    rect.top + rect.height / 2 + "px"
+  );
+}
+
+aimHandoffBeam();
+window.addEventListener("resize", aimHandoffBeam);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(aimHandoffBeam);
+}
+
 /* THREE BACKGROUND — só se o canvas da landing existir */
 
 const bgCanvas = document.getElementById("bg");
@@ -437,7 +454,10 @@ async function initNeuralBackground(canvas) {
       lineMaterial.opacity = 0.2 * (1 - fade);
       const turning = progress < travelStart ? progress / travelStart : 1 - travel * 0.4;
       spin = 0.009 * turning;
-      if (fade >= 1) document.body.classList.add("is-clear");
+      if (fade >= 1) {
+        if (!document.body.classList.contains("is-clear")) aimHandoffBeam();
+        document.body.classList.add("is-clear");
+      }
       if (progress >= 1) {
         try {
           sessionStorage.setItem("nexaries-arrive", "1");
