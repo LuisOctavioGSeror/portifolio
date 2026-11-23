@@ -94,7 +94,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 1;
-  pointer-events: none;
+  pointer-events: auto;
   display: block;
 }
 
@@ -110,6 +110,13 @@ body {
   align-items: center;
   text-align: center;
   padding: 20px;
+  pointer-events: none;
+}
+
+.hero-mark,
+.subtitle,
+.btn {
+  pointer-events: auto;
 }
 
 h1 {
@@ -148,4 +155,83 @@ h1 {
 .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(201, 222, 206, 0.35);
+}
+
+.neuron-preview {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  width: 132px;
+  pointer-events: none;
+  transform: translate3d(var(--x, -999px), var(--y, -999px), 0);
+}
+
+.neuron-preview__card {
+  position: relative;
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transform-origin: center bottom;
+  transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 3px;
+  border-radius: 12px;
+  background: rgba(10, 12, 11, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(12px);
+}
+
+.neuron-preview.is-visible .neuron-preview__card {
+  opacity: 0.82;
+  transform: none;
+}
+
+.neuron-preview__image {
+  width: 100%;
+  height: 78px;
+  object-fit: cover;
+  border-radius: 9px;
+  display: block;
+  background: #121412;
+}
+
+.neuron-preview__meta {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px 7px 5px;
+  border-radius: 0 0 9px 9px;
+  background: linear-gradient(to top, rgba(6, 8, 7, 0.88) 0%, rgba(6, 8, 7, 0) 100%);
+}
+
+.neuron-preview__kicker {
+  display: none;
+}
+
+.neuron-preview__name {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: #f4f4f2;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 640px) {
+  .neuron-preview {
+    width: 112px;
+  }
+
+  .neuron-preview__image {
+    height: 66px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neuron-preview__card {
+    transition: none;
+  }
 }

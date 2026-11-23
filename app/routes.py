@@ -1,4 +1,4 @@
-from flask import Response, abort, render_template
+from flask import Response, abort, render_template, url_for
 
 from .i18n import translate
 from .projects_data import PROJECTS, get_all_projects, get_featured_projects, get_project
@@ -9,7 +9,20 @@ from .seo import SITE_URL, SITEMAP_PATHS, page_seo
 def register_routes(app):
     @app.route("/")
     def hero():
-        return render_template("hero.html", **page_seo("hero"))
+        neuron_projects = []
+        for project in get_all_projects().values():
+            thumb = project.get("thumbnail")
+            if not thumb:
+                continue
+            neuron_projects.append({
+                "name": project["name"],
+                "image": url_for("static", filename=thumb),
+            })
+        return render_template(
+            "hero.html",
+            neuron_projects=neuron_projects,
+            **page_seo("hero"),
+        )
 
     @app.route("/overview")
     def index():

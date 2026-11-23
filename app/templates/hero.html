@@ -39,6 +39,18 @@
       <a href="{{ url_for('index', lang=current_lang) }}" class="btn">View overview</a>
     </section>
 
+    <div class="neuron-preview" id="neuron-preview" aria-hidden="true">
+      <div class="neuron-preview__card">
+        <img class="neuron-preview__image" alt="" />
+        <div class="neuron-preview__meta">
+          <span class="neuron-preview__kicker">{{ _('project.detail.section_label') }}</span>
+          <span class="neuron-preview__name"></span>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/json" id="neuron-projects">{{ neuron_projects|tojson }}</script>
+
     <script
       type="module"
       src="{{ url_for('static', filename='js/hero.js') }}?v={{ asset_v.hero_js }}"

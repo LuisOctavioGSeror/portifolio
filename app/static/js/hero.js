@@ -237,6 +237,146 @@ function createSyncedBrightness(THREE, network, points, lines, neighbors, edges,
   };
 }
 
+function createNeuronHover(THREE, canvas, points, camera) {
+  const preview = document.getElementById("neuron-preview");
+  const dataEl = document.getElementById("neuron-projects");
+  let projects = [];
+  try {
+    projects = JSON.parse(dataEl?.textContent || "[]");
+  } catch (_) {
+    projects = [];
+  }
+  if (!preview || !projects.length) return { update() {} };
+
+  const image = preview.querySelector(".neuron-preview__image");
+  const nameEl = preview.querySelector(".neuron-preview__name");
+  const position = points.geometry.getAttribute("position");
+  const count = position.count;
+  const assigned = new Uint8Array(count);
+  const share = 0.5;
+  for (let i = 0; i < count; i++) {
+    assigned[i] = Math.random() < share ? (Math.random() * projects.length) | 0 : 255;
+  }
+  projects.forEach((project) => {
+    const preload = new Image();
+    preload.src = project.image;
+  });
+
+  const pointer = { x: 0, y: 0, over: false };
+  const world = new THREE.Vector3();
+  let current = -1;
+
+  function projectPoint(index) {
+    world.fromBufferAttribute(position, index);
+    points.localToWorld(world);
+    const distance = Math.max(world.distanceTo(camera.position), 0.001);
+    world.project(camera);
+    const rect = canvas.getBoundingClientRect();
+    const x = (world.x * 0.5 + 0.5) * rect.width + rect.left;
+    const y = (-world.y * 0.5 + 0.5) * rect.height + rect.top;
+    const fov = (camera.fov * Math.PI) / 180;
+    const pixel = (1.5 * rect.height) / (2 * Math.tan(fov / 2) * distance);
+    return {
+      x,
+      y,
+      behind: world.z < -1 || world.z > 1,
+      hit: Math.max(18, pixel * 2.4),
+    };
+  }
+
+  function hide() {
+    current = -1;
+    preview.classList.remove("is-visible");
+    preview.setAttribute("aria-hidden", "true");
+    canvas.style.cursor = "";
+  }
+
+  function show(index, x, y) {
+    const project = assigned[index] === 255 ? null : projects[assigned[index]];
+    if (!project) {
+      hide();
+      return;
+    }
+    if (image.getAttribute("src") !== project.image) {
+      image.src = project.image;
+      image.alt = project.name;
+      nameEl.textContent = project.name;
+    }
+    const width = preview.offsetWidth || 132;
+    const height = preview.offsetHeight || 84;
+    let left = x - width / 2;
+    let top = y - height - 18;
+    if (top < 12) top = y + 20;
+    left = Math.min(Math.max(12, left), window.innerWidth - width - 12);
+    if (top + height > window.innerHeight - 12) {
+      top = Math.max(12, window.innerHeight - height - 12);
+    }
+    preview.style.setProperty("--x", `${left}px`);
+    preview.style.setProperty("--y", `${top}px`);
+    preview.classList.add("is-visible");
+    preview.setAttribute("aria-hidden", "false");
+    canvas.style.cursor = "pointer";
+    current = index;
+  }
+
+  function update() {
+    if (!pointer.over) return;
+    let closest = -1;
+    let closestDist = Infinity;
+    let closestPoint = null;
+    let currentDist = Infinity;
+    let currentHit = 0;
+    let currentPoint = null;
+
+    for (let i = 0; i < count; i++) {
+      if (assigned[i] === 255) continue;
+      const point = projectPoint(i);
+      if (point.behind) continue;
+      const dist = Math.hypot(point.x - pointer.x, point.y - pointer.y);
+      if (i === current) {
+        currentDist = dist;
+        currentHit = point.hit;
+        currentPoint = point;
+      }
+      if (dist <= point.hit && dist < closestDist) {
+        closest = i;
+        closestDist = dist;
+        closestPoint = point;
+      }
+    }
+
+    let chosen = closest;
+    let chosenPoint = closestPoint;
+    if (
+      current >= 0 &&
+      currentPoint &&
+      currentDist <= currentHit * 1.65 &&
+      (closest < 0 || currentDist <= closestDist + 12)
+    ) {
+      chosen = current;
+      chosenPoint = currentPoint;
+    }
+    if (chosen < 0 || !chosenPoint) {
+      if (current >= 0) hide();
+      return;
+    }
+    show(chosen, chosenPoint.x, chosenPoint.y);
+  }
+
+  canvas.addEventListener("pointermove", (event) => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+    pointer.over = true;
+    update();
+  });
+  canvas.addEventListener("pointerleave", () => {
+    pointer.over = false;
+    hide();
+  });
+
+  return { update };
+}
+
 async function initNeuralBackground(canvas) {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -269,6 +409,7 @@ async function initNeuralBackground(canvas) {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableZoom = false;
   controls.enablePan = false;
+  controls.enableRotate = false;
   controls.autoRotate = !reducedMotion;
   controls.autoRotateSpeed = 0.5;
 
@@ -366,6 +507,7 @@ async function initNeuralBackground(canvas) {
     mobile: window.innerWidth < 768,
     enabled: !reducedMotion,
   });
+  const neuronHover = createNeuronHover(THREE, canvas, points, camera);
 
   let running = document.visibilityState === "visible";
   let rafId = 0;
@@ -384,6 +526,7 @@ async function initNeuralBackground(canvas) {
     network.rotation.x += 0.0003;
 
     controls.update();
+    neuronHover.update();
 
     renderer.render(scene, camera);
 
