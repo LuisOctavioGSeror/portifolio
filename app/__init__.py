@@ -27,6 +27,8 @@ def create_app():
         root="app/static/",
         prefix="static/",
         max_age=static_max_age,
+        # Local dev (max-age 0) must see CSS/JS edits without a restart.
+        autorefresh=static_max_age == 0,
     )
 
     register_routes(app)
