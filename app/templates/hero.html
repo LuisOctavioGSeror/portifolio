@@ -10,6 +10,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}?v={{ asset_v.hero_css }}" />
+    <style>
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #070706;
+      }
+    </style>
 
     <script type="importmap">
       {
@@ -21,6 +32,16 @@
     </script>
   </head>
   <body>
+    <div id="preloader" class="preloader" role="status" aria-live="polite" aria-label="Nexaries">
+      <div class="preloader__inner">
+        <div class="preloader__emblem" aria-hidden="true">
+          <span class="preloader__ring"></span>
+          <span class="preloader__mark">&lt;/&gt;</span>
+        </div>
+        <p class="preloader__name">Nexaries</p>
+        <div class="preloader__track" aria-hidden="true"><span></span></div>
+      </div>
+    </div>
     <div class="hero-atmosphere" aria-hidden="true">
       <div class="hero-atmosphere__smoke hero-atmosphere__smoke--warm"></div>
       <div class="hero-atmosphere__smoke hero-atmosphere__smoke--cool"></div>
@@ -39,17 +60,10 @@
       <a href="{{ url_for('index', lang=current_lang) }}" class="btn">View overview</a>
     </section>
 
-    <div class="neuron-preview" id="neuron-preview" aria-hidden="true">
-      <div class="neuron-preview__card">
-        <img class="neuron-preview__image" alt="" />
-        <div class="neuron-preview__meta">
-          <span class="neuron-preview__kicker">{{ _('project.detail.section_label') }}</span>
-          <span class="neuron-preview__name"></span>
-        </div>
-      </div>
+    <div class="hero-veil" aria-hidden="true">
+      <div class="hero-veil__beam"></div>
+      <div class="hero-veil__shade"></div>
     </div>
-
-    <script type="application/json" id="neuron-projects">{{ neuron_projects|tojson }}</script>
 
     <script
       type="module"

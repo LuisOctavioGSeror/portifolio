@@ -2,6 +2,39 @@
 const navToggle = document.querySelector(".nav-toggle");
 const header = document.querySelector(".site-header");
 
+(function () {
+  const root = document.documentElement;
+  if (!root.classList.contains("is-arriving")) return;
+  try {
+    sessionStorage.removeItem("nexaries-arrive");
+  } catch (e) {}
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      document.documentElement.classList.add("is-present");
+      document.body.classList.add("is-present");
+    });
+  });
+})();
+
+(function () {
+  const preloader = document.getElementById("preloader");
+  if (!preloader || document.documentElement.classList.contains("is-arriving")) return;
+  const shownAt = performance.now();
+  function dismissPreloader() {
+    if (preloader.classList.contains("is-done")) return;
+    const wait = Math.max(0, 800 - (performance.now() - shownAt));
+    window.setTimeout(function () {
+      preloader.classList.add("is-done");
+      window.setTimeout(function () {
+        preloader.remove();
+      }, 750);
+    }, wait);
+  }
+  if (document.readyState === "complete") dismissPreloader();
+  else window.addEventListener("load", dismissPreloader);
+  window.setTimeout(dismissPreloader, 8000);
+})();
+
 if (navToggle && header) {
   navToggle.addEventListener("click", () => {
     header.classList.toggle("nav-open");

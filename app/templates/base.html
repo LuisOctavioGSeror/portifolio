@@ -2,6 +2,13 @@
 <html lang="{{ current_lang or 'en' }}">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      try {
+        if (sessionStorage.getItem("nexaries-arrive") === "1") {
+          document.documentElement.classList.add("is-arriving");
+        }
+      } catch (e) {}
+    </script>
     <title>{{ seo_title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% include "includes/seo_head.html" %}
@@ -12,6 +19,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v={{ asset_v.main_css }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}?v={{ asset_v.hero_css }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footericons.css') }}?v={{ asset_v.footericons_css }}" />
+    <style>
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #070a08;
+      }
+      html.is-arriving #preloader {
+        display: none;
+      }
+    </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -20,6 +41,31 @@
     />
   </head>
   <body>
+    {% if request.endpoint == 'project_detail' and project is defined %}
+      {% set preloader_name = project.name %}
+    {% elif request.endpoint == 'solutions' %}
+      {% set preloader_name = _('nav.solutions') %}
+    {% elif request.endpoint == 'projects' %}
+      {% set preloader_name = _('nav.projects') %}
+    {% elif request.endpoint == 'about' %}
+      {% set preloader_name = _('nav.about') %}
+    {% elif request.endpoint == 'contact' %}
+      {% set preloader_name = _('nav.contact') %}
+    {% elif request.endpoint == 'index' %}
+      {% set preloader_name = _('nav.overview') %}
+    {% else %}
+      {% set preloader_name = _('seo.site_name') %}
+    {% endif %}
+    <div id="preloader" class="preloader" role="status" aria-live="polite" aria-label="{{ preloader_name }}">
+      <div class="preloader__inner">
+        <div class="preloader__emblem" aria-hidden="true">
+          <span class="preloader__ring"></span>
+          <span class="preloader__mark">&lt;/&gt;</span>
+        </div>
+        <p class="preloader__name preloader__name--page">{{ preloader_name }}</p>
+        <div class="preloader__track" aria-hidden="true"><span></span></div>
+      </div>
+    </div>
     <header class="site-header">
       <div class="container nav-container">
         <a href="{{ url_for('hero') }}" class="logo">

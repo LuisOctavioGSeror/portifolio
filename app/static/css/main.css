@@ -27,6 +27,57 @@ body {
   background: #0b0b0b;
 }
 
+html.is-arriving body {
+  opacity: 0;
+}
+
+html.is-arriving::before,
+html.is-arriving::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: 80;
+}
+
+html.is-arriving::before {
+  inset: 0;
+  background: #070a08;
+}
+
+html.is-arriving::after {
+  left: 53%;
+  top: -24%;
+  width: 18px;
+  height: 148%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    rgba(214, 168, 78, 0) 0%,
+    rgba(214, 168, 78, 0.45) 36%,
+    rgba(255, 232, 186, 0.92) 50%,
+    rgba(214, 168, 78, 0.45) 64%,
+    rgba(214, 168, 78, 0) 100%
+  );
+  filter: blur(1.5px);
+}
+
+@media (max-width: 768px) {
+  html.is-arriving::after {
+    left: 50%;
+  }
+}
+
+html.is-arriving.is-present::before,
+html.is-arriving.is-present::after {
+  opacity: 0;
+  transition: opacity 1.25s ease;
+}
+
+html.is-arriving body.is-present {
+  opacity: 1;
+  transition: opacity 1.05s ease 0.18s;
+}
+
 body {
   font-size: var(--text-body);
   line-height: 1.6;

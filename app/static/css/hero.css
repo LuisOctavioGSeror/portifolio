@@ -5,7 +5,7 @@
 }
 
 html {
-  background: #070a08;
+  background: #070706;
 }
 
 body {
@@ -24,7 +24,7 @@ body {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 42%, #141a16 0%, #0c100e 46%, #070a08 100%);
+    radial-gradient(120% 90% at 50% 42%, #100e0b 0%, #0a0908 48%, #070706 100%);
 }
 
 .hero-atmosphere__smoke {
@@ -39,7 +39,7 @@ body {
   height: 78vmax;
   left: -22%;
   top: -28%;
-  background: radial-gradient(circle, rgba(92, 78, 58, 0.42) 0%, rgba(92, 78, 58, 0) 68%);
+  background: radial-gradient(circle, rgba(72, 58, 40, 0.28) 0%, rgba(72, 58, 40, 0) 68%);
   animation: heroSmokeWarm 38s ease-in-out infinite alternate;
 }
 
@@ -48,7 +48,7 @@ body {
   height: 84vmax;
   right: -28%;
   bottom: -32%;
-  background: radial-gradient(circle, rgba(38, 82, 60, 0.52) 0%, rgba(38, 82, 60, 0) 70%);
+  background: radial-gradient(circle, rgba(120, 92, 48, 0.22) 0%, rgba(120, 92, 48, 0) 70%);
   animation: heroSmokeCool 46s ease-in-out infinite alternate;
 }
 
@@ -57,14 +57,14 @@ body {
   height: 52vmax;
   left: 28%;
   top: 18%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0) 66%);
+  background: radial-gradient(circle, rgba(255, 220, 170, 0.035) 0%, rgba(255, 220, 170, 0) 66%);
   animation: heroSmokeLift 52s ease-in-out infinite alternate;
 }
 
 .hero-atmosphere__vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 18%, rgba(0, 0, 0, 0.42) 100%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 12%, rgba(0, 0, 0, 0.55) 100%);
 }
 
 @keyframes heroSmokeWarm {
@@ -94,7 +94,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 1;
-  pointer-events: auto;
+  pointer-events: none;
   display: block;
 }
 
@@ -110,13 +110,6 @@ body {
   align-items: center;
   text-align: center;
   padding: 20px;
-  pointer-events: none;
-}
-
-.hero-mark,
-.subtitle,
-.btn {
-  pointer-events: auto;
 }
 
 h1 {
@@ -126,8 +119,10 @@ h1 {
   margin-bottom: 12px;
 }
 
-.hero-mark {
-  background-image: linear-gradient(102deg, #f0d7b0 0%, #ffffff 46%, #c9dece 100%);
+.hero-mark,
+.subtitle,
+#typing {
+  background-image: linear-gradient(102deg, #d9d0c0 0%, #f4f1ea 52%, #c9b896 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -137,15 +132,14 @@ h1 {
 .subtitle {
   font-size: clamp(0.94rem, 2.1vw, 1.05rem);
   font-weight: 600;
-  opacity: 0.85;
   margin-bottom: 36px;
 }
 
 .btn {
   padding: 14px 32px;
   border-radius: 30px;
-  background-image: linear-gradient(102deg, #f0d7b0 0%, #ffffff 46%, #c9dece 100%);
-  color: #141614;
+  background-image: linear-gradient(102deg, #d9d0c0 0%, #f4f1ea 52%, #c9b896 100%);
+  color: #1a1610;
   text-decoration: none;
   font-weight: 600;
   border: none;
@@ -154,84 +148,208 @@ h1 {
 
 .btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(201, 222, 206, 0.35);
+  box-shadow: 0 10px 25px rgba(201, 184, 150, 0.22);
 }
 
-.neuron-preview {
+.hero-veil {
   position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 4;
-  width: 132px;
+  inset: 0;
+  z-index: 6;
   pointer-events: none;
-  transform: translate3d(var(--x, -999px), var(--y, -999px), 0);
+  overflow: hidden;
 }
 
-.neuron-preview__card {
-  position: relative;
-  opacity: 0;
-  transform: translateY(6px) scale(0.96);
-  transform-origin: center bottom;
-  transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
-  padding: 3px;
-  border-radius: 12px;
-  background: rgba(10, 12, 11, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
-  backdrop-filter: blur(12px);
-}
-
-.neuron-preview.is-visible .neuron-preview__card {
-  opacity: 0.82;
-  transform: none;
-}
-
-.neuron-preview__image {
-  width: 100%;
-  height: 78px;
-  object-fit: cover;
-  border-radius: 9px;
-  display: block;
-  background: #121412;
-}
-
-.neuron-preview__meta {
+.hero-veil__beam,
+.hero-veil__shade {
   position: absolute;
-  left: 3px;
-  right: 3px;
-  bottom: 3px;
-  display: flex;
-  align-items: flex-end;
-  padding: 18px 7px 5px;
-  border-radius: 0 0 9px 9px;
-  background: linear-gradient(to top, rgba(6, 8, 7, 0.88) 0%, rgba(6, 8, 7, 0) 100%);
+  opacity: 0;
 }
 
-.neuron-preview__kicker {
-  display: none;
+.hero-veil__beam {
+  left: 53%;
+  top: -24%;
+  width: 18px;
+  height: 148%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    rgba(214, 168, 78, 0) 0%,
+    rgba(214, 168, 78, 0.45) 36%,
+    rgba(255, 236, 196, 0.95) 50%,
+    rgba(214, 168, 78, 0.45) 64%,
+    rgba(214, 168, 78, 0) 100%
+  );
+  filter: blur(1.5px);
 }
 
-.neuron-preview__name {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  color: #f4f4f2;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
-}
-
-@media (max-width: 640px) {
-  .neuron-preview {
-    width: 112px;
+@media (max-width: 768px) {
+  .hero-veil__beam {
+    left: 50%;
   }
+}
 
-  .neuron-preview__image {
-    height: 66px;
+.hero-veil__shade {
+  inset: 0;
+  background: #070a08;
+}
+
+body.is-departing {
+  cursor: progress;
+}
+
+body.is-departing .hero {
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.5s ease, transform 0.9s ease;
+}
+
+body.is-clear .hero-veil__beam {
+  animation: heroBeamIn 1s ease forwards;
+}
+
+body.is-clear .hero-veil__shade {
+  animation: heroShade 1s ease forwards;
+}
+
+@keyframes heroBeamIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroShade {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.88;
+  }
+}
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 80% at 50% 42%, #100e0b 0%, #070706 62%);
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preloader__emblem {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+}
+
+.preloader__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(203, 184, 146, 0) 0%,
+    rgba(203, 184, 146, 0.95) 28%,
+    rgba(168, 132, 62, 0.95) 70%,
+    rgba(168, 132, 62, 0) 100%
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  animation: preloaderSpin 1.7s linear infinite;
+}
+
+.preloader__mark,
+.preloader__name {
+  background-image: linear-gradient(102deg, #cbb892 0%, #efe6d2 46%, #a8843e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.preloader__mark {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.preloader__name {
+  margin: 1.15rem 0 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+}
+
+.preloader__name--page {
+  font-size: clamp(1.15rem, 3.2vw, 1.5rem);
+  letter-spacing: 0.14em;
+  text-align: center;
+  max-width: 18rem;
+}
+
+.preloader__track {
+  position: relative;
+  width: 88px;
+  height: 1px;
+  margin-top: 1.35rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.preloader__track span {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(203, 184, 146, 0), #cbb892, #a8843e, rgba(168, 132, 62, 0));
+  animation: preloaderSlide 1.5s ease-in-out infinite;
+}
+
+@keyframes preloaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes preloaderSlide {
+  from {
+    left: -40%;
+  }
+  to {
+    left: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .neuron-preview__card {
-    transition: none;
+  .preloader__ring,
+  .preloader__track span {
+    animation: none;
+  }
+
+  .preloader__track span {
+    left: 30%;
   }
 }
